@@ -121,14 +121,14 @@ let isNative = false;
 const audioFiles = [
   { id: "trial01", audio: "assets/audio/alpha1.mp3" },
   { id: "trial02", audio: "assets/audio/beta2.mp3" },
-  { id: "trial03", audio: "assets/audio/gamma3.mp3" },
-  { id: "trial04", audio: "assets/audio/delta4.mp3" },
-  { id: "trial05", audio: "assets/audio/epsilon5.mp3" },
-  { id: "trial06", audio: "assets/audio/zeta6.mp3" },
-  { id: "trial07", audio: "assets/audio/eta7.mp3" },
-  { id: "trial08", audio: "assets/audio/theta8.mp3" },
-  { id: "trial09", audio: "assets/audio/iota9.mp3" },
-  { id: "trial10", audio: "assets/audio/kappa10.mp3" },
+  // { id: "trial03", audio: "assets/audio/gamma3.mp3" },
+  // { id: "trial04", audio: "assets/audio/delta4.mp3" },
+  // { id: "trial05", audio: "assets/audio/epsilon5.mp3" },
+  // { id: "trial06", audio: "assets/audio/zeta6.mp3" },
+  // { id: "trial07", audio: "assets/audio/eta7.mp3" },
+  // { id: "trial08", audio: "assets/audio/theta8.mp3" },
+  // { id: "trial09", audio: "assets/audio/iota9.mp3" },
+  // { id: "trial10", audio: "assets/audio/kappa10.mp3" },
 ];
 
 // Multi-language content
@@ -286,7 +286,7 @@ const translations = {
     "温暖的／暖和的",
     "亲切的",
     "负责任的／有责任感的",
-    "有良心的",
+    "有原则的",
     "平静的",
     "稳定的",
     "知性的／有智慧的",
@@ -338,7 +338,7 @@ const translations = {
     "溫暖的／暖和的 ",
     "親切的",
     "負責任的／有責任感的",
-    "有良心的",
+    "有原則的",
     "平靜的",
     "穩定的",
     "知性的／有智慧的",
@@ -430,12 +430,14 @@ const translations = {
 };
 
 function makeImpressionTrial() {
-  const adjectiveList = translations[lang].adjectives || translations.en.adjectives;
-  const shuffled = jsPsych.randomization.shuffle([...adjectiveList]);
+  let shuffled = [];
 
   return {
     type: jsPsychHtmlButtonResponse,
     stimulus: () => {
+      const adjectiveList = translations[lang].adjectives || translations.en.adjectives;
+      shuffled = jsPsych.randomization.shuffle([...adjectiveList]);
+
       const checkboxes = shuffled.map(adj => `
         <label style="display:inline-block; width:48%; margin-bottom:.5em;">
           <input type="checkbox" name="impressions" value="${adj}"> ${adj}
@@ -685,12 +687,10 @@ const musicExperienceOptions = [
   "5年以上"
 ];
 
-
-
 const usageTrial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: function() { return `<p>${translations[lang].usageQ}</p>`; },
-  choices: function() { return translations[lang].usage_options; },
+  choices: function() { return translations[lang].languageFreq_options; },
   data: { question: 'japanese_usage' }
 };
 
