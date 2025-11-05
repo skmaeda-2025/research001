@@ -1,0 +1,71 @@
+/* ensure the page uses the full viewport */
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+/* make the jsPsych display area fill the viewport and center content */
+#jspsych-target,
+.jspsych-display-element,
+.jspsych-content-wrapper {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column; /* worked ok for video vertical position */
+  align-items: flex-start; /* Change from center to flex-start */
+  justify-content: center; /* worked ok for text & video vertical position */
+  box-sizing: border-box;
+  background: #ffffff;
+  padding-bottom: 30vh; /* Must be max 40vh */
+}
+
+/* make any <video> element scale to fit the viewport while preserving aspect ratio */
+#jspsych-target video,
+.jspsych-display-element video,
+.jspsych-content-wrapper video,
+video {
+  width: 100vw;
+  height: 100vh;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain; /* use cover if you want to crop and fully fill */
+  display: block;
+  background: #ffffff;
+}
+
+/* if plugin wraps video in a container, ensure container also allows scaling */
+.jspsych-video-player,
+.jspsych-video {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Consent page specific styles */
+.consent-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  line-height: 1.6;
+}
+
+.consent-container h2 {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.consent-container p {
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+#jspsych-target video,
+.jspsych-display-element video,
+.jspsych-content-wrapper video,
+video {
+  /* height: 100vh; */  /* ← comment this out */
+  max-height: 70vh;     /* ← optional limit */
+}

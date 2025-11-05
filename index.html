@@ -1,36 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>jsPsych Experiment</title>
+  <meta charset="UTF-8">
+  <title>Experiment</title>
+  <script src="https://unpkg.com/jspsych@8.2.2"></script>
+  <link href="https://unpkg.com/jspsych@8.2.2/css/jspsych.css" rel="stylesheet" type="text/css" />
+  <link href="style.css" rel="stylesheet" type="text/css" />
 
-  <!-- jsPsych core + CSS -->
-  <script src="https://unpkg.com/jspsych@8.0.0"></script>
-  <link href="https://unpkg.com/jspsych@8.0.0/css/jspsych.css" rel="stylesheet" />
-
-  <!-- jsPsych Plugins -->
-  <script src="https://unpkg.com/@jspsych/plugin-html-button-response"></script>
-  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response"></script>
-  <script src="https://unpkg.com/@jspsych/plugin-survey-text"></script>
-  <script src="https://unpkg.com/@jspsych/plugin-survey-multi-select"></script>
-  <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice"></script>
-  <script src="https://unpkg.com/@jspsych/plugin-survey-likert"></script>
-  <script src="https://unpkg.com/@jspsych/plugin-preload"></script>
-  <script src="https://unpkg.com/@jspsych/plugin-audio-keyboard-response"></script>
-  <script src="https://unpkg.com/@jspsych/plugin-fullscreen"></script>
-
-  <!-- Optional: Bootstrap for responsive UI -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
-
-  <!-- Your Custom Style (optional) -->
-  <link rel="stylesheet" href="./style.css" />
+  <script src="https://unpkg.com/@jspsych/plugin-preload@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-fullscreen@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-button-response@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-video-button-response@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-audio-button-response@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-survey-multi-select@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-survey-text@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-audio-keyboard-response@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-keyboard-response@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-call-function@2.1.0"></script>
 </head>
 <body>
-  <!-- jsPsych will render content here -->
   <div id="jspsych-target"></div>
-
-  <!-- Your experiment logic -->
-  <script src="./main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>
