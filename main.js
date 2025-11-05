@@ -217,7 +217,7 @@ const translations = {
     musicQ: "Do you have any musical training or experience?",
     music_options: ["No", "Yes (1-5 years)", "Yes (more than 5 years)"],
     final_thanks: "Thank you for your participation! Should you need to reach out to me, click here.",
-    finish: "Finish"
+    finish: "Continue"
   },
   ja: {
   consent: consentText_ja,
@@ -269,7 +269,7 @@ const translations = {
   musicQ: "音楽の訓練や経験はありますか？",
   music_options: ["いいえ", "はい（1〜5年）", "はい（5年以上）"],
   final_thanks: "ご参加いただき、ありがとうございました。ご質問がある場合はこちらをクリックしてください。",
-  finish: "終了"
+  finish: "次へ"
   },
   sc: {
   consent: consentText_sc,
@@ -321,7 +321,7 @@ const translations = {
   musicQ: "您是否接受过音乐训练或有相关经验？",
   music_options: ["没有", "有（1–5年）", "有（超过5年）"],
   final_thanks: "感谢您的参与。如有需要，请点击此处与我们联系。",
-  finish: "完成"
+  finish: "继续"
   },
   tc: {
   consent: consentText_tc,
@@ -373,7 +373,7 @@ const translations = {
   musicQ: "您是否有音樂訓練或經驗？",
   music_options: ["沒有", "有（1–5年）", "有（超過5年）"],
   final_thanks: "感謝您的參與。如有需要，請點此聯繫我們。",
-  finish: "結束"
+  finish: "繼續"
   },
   ko: {
   consent: consentText_ko,
@@ -425,7 +425,7 @@ const translations = {
   musicQ: "음악 훈련이나 경험이 있으십니까?",
   music_options: ["없음", "있음 (1–5년)", "있음 (5년 이상)"],
   final_thanks: "참여해 주셔서 감사합니다. 문의사항이 있으시면 여기를 클릭해 주세요.",
-  finish: "종료"
+  finish: "계속"
   }
 };
 
@@ -443,14 +443,16 @@ function makeImpressionTrial() {
       `).join('');
 
       return `
-        <div>
+        <div class="impression-container">
           <p style="font-size:1.2em;"><strong>${translations[lang].adjectives_prompt}</strong></p>
           ${checkboxes}
           <br><br>
           <label>${translations[lang].optional_comment || "Optional comment:"}</label><br>
           <textarea id="impression_comment" rows="3" cols="50" placeholder="..."></textarea>
-          <p id="error-msg" style="color:red; display:none;">⚠️ Please select 1–3 adjectives to continue.</p>
-          <button id="continue-btn" disabled style="margin-top:1em;">${translations[lang].finish || "Next"}</button>
+          <p id="error-msg" class="impression-error" style="display:none;">⚠️ Please select 1–3 adjectives to continue.</p>
+          <div class="impression-button-row">
+            <button id="continue-btn" class="impression-continue-btn" disabled>${translations[lang].finish || "Next"}</button>
+          </div>
         </div>
       `;
     },
@@ -643,28 +645,28 @@ const genderTrial = {
   data: { question: 'gender' }
 };
 
-const ageGroups = [
-  "18-24", "25-34", "35-44", "45-54", "55-64", "65以上", "回答しない"
-];
+// const ageGroups = [
+//   "18-24", "25-34", "35-44", "45-54", "55-64", "65以上", "回答しない"
+// ];
 
-// const ageTrial = {
-//   type: jsPsychSurveyHtmlForm,
-//   preamble: () => `<p>${translations[lang].ageQ}</p>`,
-//   html: () => {
-//     const options = Array.from({ length: 82 }, (_, i) => 18 + i)
-//       .map(age => `<option value="${age}">${age}</option>`)
-//       .join('');
-//     return `
-//       <label>
-//         <select name="age" required style="font-size: 1em; padding: .5em; width: 100%;">
-//           <option value="" disabled selected>Select your age</option>
-//           ${options}
-//         </select>
-//       </label>
-//     `;
-//   },
-//   data: { question: 'age' }
-// };
+const ageTrial = {
+  type: jsPsychSurveyHtmlForm,
+  preamble: () => `<p>${translations[lang].ageQ}</p>`,
+  html: () => {
+    const options = Array.from({ length: 82 }, (_, i) => 18 + i)
+      .map(age => `<option value="${age}">${age}</option>`)
+      .join('');
+    return `
+      <label>
+        <select name="age" required style="font-size: 1em; padding: .5em; width: 100%;">
+          <option value="" disabled selected>Select your age</option>
+          ${options}
+        </select>
+      </label>
+    `;
+  },
+  data: { question: 'age' }
+};
 
 const frequencyOptions = [
   "ほぼ毎日",

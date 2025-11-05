@@ -69,3 +69,48 @@ video {
   /* height: 100vh; */  /* ← comment this out */
   max-height: 70vh;     /* ← optional limit */
 }
+
+/* Impression trial layout */
+.impression-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.impression-container textarea#impression_comment {
+  width: 100%;
+  box-sizing: border-box;
+  font-size: 1rem;
+  padding: .5rem;
+  margin-top: .5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Error message styling */
+.impression-error {
+  color: #c00;
+  margin-top: .5rem;
+}
+
+/* Center the button below the textarea */
+.impression-button-row {
+  width: 100%;
+  display: flex;
+  justify-content: center; /* centers the button horizontally */
+  margin-top: 1rem;
+}
+
+.impression-continue-btn {
+  padding: .6rem 1rem;
+  font-size: 1rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  background: #fff;
+  cursor: pointer;
+}
+
+.impression-continue-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
