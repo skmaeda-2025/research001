@@ -110,8 +110,7 @@ function generateUUID() {
 }
 
 const jsPsych = initJsPsych({});
-// const participantID = crypto.randomUUID();
-const participantID = generateUUID(); // replaced by the above
+const participantID = generateUUID();
 // Tag all data with participant ID
 jsPsych.data.addProperties({ participant_id: participantID });
 
@@ -182,121 +181,200 @@ const translations = {
     optional_comment: "Any additional comment about the speaker? (Optional)",
     nativeQ: "Are you a native speaker of Japanese?",
     genderQ: "What is your gender?",
-    gender_options: ["Male", "Female", "Other"],
-    ageQ: "What is your age? (in years)",
-    motherTongueQ: "What is your first language (mother tongue)?",
+    gender_options: ["Male", "Female", "Other", "Prefer not to say"],
+    ageGroupQ: "What is your age group?",
+    age_group_options: ["18–24", "25–34", "35–44", "45–54", "55–64", "65+", "Prefer not to say"],
+    currentCountryQ: "What country do you currently live in?",
+    countriesLivedQ: "Which countries have you lived in for more than 3 months?",
+    motherTongueQ: "What is your first language?",
+    familyLanguageQ: "What languages are spoken by your family?",
+    languageOtherQ: "Do you use any other language(s) besides your first language and Japanese?",
+    languageOther_options: ["Yes", "No"],
+    languageOtherSelectQ: "If yes, which language(s)?",
+    languageOtherFreqQ: "How often do you use those other language(s)?",
+    languageFreq_options: [
+      "Almost every day",
+      "2–3 times per week",
+      "Once per week",
+      "2–3 times per month",
+      "Once per month",
+      "Every few months",
+      "Rarely or never"
+    ],
     usageQ: "How often do you use Japanese?",
-    usage_options: ["Daily", "Weekly", "Monthly", "Rarely"],
-    proficiencyQ: "How would you rate your Japanese proficiency?",
-    proficiency_options: ["JLPT N1", "JLPT N2", "JLPT N3", "JLPT N4", "JLPT N5", "Basic", "Conversational", "Fluent", "Near-native"],
+    proficiencyQ: "How would you describe your Japanese proficiency?",
+    proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "Basic", "Conversational", "Fluent"],
     musicQ: "Do you have any musical training or experience?",
     music_options: ["No", "Yes (1-5 years)", "Yes (more than 5 years)"],
     final_thanks: "Thank you for your participation! Should you need to reach out to me, click here.",
     finish: "Finish"
   },
   ja: {
-    consent: consentText_ja,
-    consent_accept: "同意する",
-    video_prompt: "次のページで、本実験の回答方法をx秒程度のビデオでご説明します。",
-    video_continue: "次へ",
-    accent_question: "この日本語の音声に外国語訛りを感じましたか？",
-    yes: "はい",
-    no: "いいえ",
-    adjectives_prompt: "印象を表す言葉を3つまで選んでください：",
-    adjectives: ["親しみやすい", "自信がある", "丁寧", "流暢", "分かりやすい", "自然な", "冷たい", "無礼", "聞き取りにくい", "不自然"],
-    optional_comment: "話し手に関するコメントがあれば自由にご記入ください（任意）",
-    nativeQ: "あなたは日本語を母語としていますか？",
-    genderQ: "性別を教えてください。",
-    gender_options: ["男性", "女性", "その他"],
-    ageQ: "年齢を教えてください。（歳）",
-    motherTongueQ: "母語（第一言語）は何ですか？",
-    usageQ: "日本語をどのくらいの頻度で使用しますか？",
-    usage_options: ["毎日", "週に数回", "月に数回", "ほとんど使わない"],
-    proficiencyQ: "日本語の習熟度はどの程度ですか？",
-    proficiency_options: ["JLPT N1", "JLPT N2", "JLPT N3", "JLPT N4", "JLPT N5", "初級", "中級", "上級", "母語話者に近い"],
-    musicQ: "音楽を学校の授業以外で習っていた経験はありますか？",
-    music_options: ["いいえ", "はい（1～5年）", "はい（5年以上）"],
-    final_thanks: "実験にご協力くださいまして、ありがとうございました。",
-    finish: "終了"
+  consent: consentText_ja,
+  consent_accept: "同意する",
+  video_prompt: "次のページで、本実験の回答方法を説明するビデオをご覧ください。",
+  video_continue: "次へ",
+  accent_question: "この日本語の音声に外国語訛りを感じましたか？",
+  yes: "はい",
+  no: "いいえ",
+  adjectives_prompt: "印象を表す言葉を3つまで選んでください：",
+  adjectives: ["親しみやすい", "自信がある", "丁寧", "流暢", "分かりやすい", "自然な", "冷たい", "無礼", "聞き取りにくい", "不自然"],
+  optional_comment: "話し手に関するコメントがあれば自由にご記入ください（任意）",
+  nativeQ: "あなたは日本語を母語としていますか？",
+  genderQ: "性別を教えてください。",
+  gender_options: ["男性", "女性", "その他", "回答しない"],
+  ageGroupQ: "あなたの年代を選んでください。",
+  age_group_options: ["18〜24歳", "25〜34歳", "35〜44歳", "45〜54歳", "55〜64歳", "65歳以上", "回答しない"],
+  currentCountryQ: "現在住んでいる国を教えてください。",
+  countriesLivedQ: "これまでに3か月以上住んだことのある国を選んでください。",
+  motherTongueQ: "母語（最も得意な言語）を教えてください。",
+  familyLanguageQ: "ご家族が使用している言語を教えてください。",
+  languageOtherQ: "日本語と母語以外に使用できる言語はありますか？",
+  languageOther_options: ["はい", "いいえ"],
+  languageOtherSelectQ: "「はい」と答えた場合、それらの言語を選んでください。",
+  languageOtherFreqQ: "それらの言語をどのくらいの頻度で使用しますか？",
+  languageFreq_options: [
+    "ほぼ毎日",
+    "週に2〜3回",
+    "週に1回",
+    "月に2〜3回",
+    "月に1回",
+    "2〜3か月に1回",
+    "ほとんど使わない"
+  ],
+  usageQ: "日本語をどのくらいの頻度で使用しますか？",
+  proficiencyQ: "日本語の習熟度はどの程度ですか？",
+  proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
+  musicQ: "音楽の訓練や経験はありますか？",
+  music_options: ["いいえ", "はい（1〜5年）", "はい（5年以上）"],
+  final_thanks: "ご参加いただき、ありがとうございました。ご質問がある場合はこちらをクリックしてください。",
+  finish: "終了"
   },
   sc: {
-    consent: consentText_sc,
-    consent_accept: "同意",
-    video_prompt: "请观看以下的说明视频。",
-    video_continue: "继续",
-    accent_question: "你在这段日语语音中听到外国口音了吗？",
-    yes: "是",
-    no: "否",
-    adjectives_prompt: "请选择最多三个词来描述您的印象：",
-    adjectives: ["友好", "自信", "礼貌", "流利", "清晰", "自然", "不友好", "无礼", "不清晰", "不自然"],
-    optional_comment: "如果对说话者有其他印象，请填写（可选）",
-    nativeQ: "您的母语是日语吗？",
-    genderQ: "您的性别是？",
-    gender_options: ["男", "女", "其他"],
-    ageQ: "您的年龄是？（岁）",
-    motherTongueQ: "您的母语是什么？",
-    usageQ: "您多久使用一次日语？",
-    usage_options: ["每天", "每周", "每月", "很少"],
-    proficiencyQ: "您会如何评价自己的日语水平？",
-    proficiency_options: ["JLPT N1", "JLPT N2", "JLPT N3", "JLPT N4", "JLPT N5", "基础", "会话", "流利", "接近母语"],
-    musicQ: "您是否接受过音乐训练或有相关经验？",
-    music_options: ["没有", "有（1-5年）", "有（5年以上）"],
-    final_thanks: "感谢您的参与！",
-    finish: "完成"
+  consent: consentText_sc,
+  consent_accept: "同意",
+  video_prompt: "请观看下一页中的说明视频。",
+  video_continue: "继续",
+  accent_question: "你在这段日语语音中听到外国口音了吗？",
+  yes: "是",
+  no: "否",
+  adjectives_prompt: "请选择最多三个词来描述您的印象：",
+  adjectives: ["友好", "自信", "礼貌", "流利", "清晰", "自然", "不友好", "无礼", "不清晰", "不自然"],
+  optional_comment: "您对说话者有其他印象吗？请填写（可选）",
+  nativeQ: "您的母语是日语吗？",
+  genderQ: "您的性别是？",
+  gender_options: ["男", "女", "其他", "不愿透露"],
+  ageGroupQ: "请选择您的年龄段。",
+  age_group_options: ["18–24岁", "25–34岁", "35–44岁", "45–54岁", "55–64岁", "65岁以上", "不愿透露"],
+  currentCountryQ: "您目前居住在哪个国家？",
+  countriesLivedQ: "您曾在哪些国家居住超过3个月？",
+  motherTongueQ: "您的第一语言是什么？",
+  familyLanguageQ: "您家人使用的语言有哪些？",
+  languageOtherQ: "除了母语和日语，您还会使用其他语言吗？",
+  languageOther_options: ["是", "否"],
+  languageOtherSelectQ: "如果是，请选择那些语言。",
+  languageOtherFreqQ: "您使用这些语言的频率是？",
+  languageFreq_options: [
+    "几乎每天",
+    "每周2–3次",
+    "每周1次",
+    "每月2–3次",
+    "每月1次",
+    "每几个月1次",
+    "几乎不使用"
+  ],
+  usageQ: "您使用日语的频率是多少？",
+  proficiencyQ: "您如何评价自己的日语水平？",
+  proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "基础", "会话", "流利"],
+  musicQ: "您是否接受过音乐训练或有相关经验？",
+  music_options: ["没有", "有（1–5年）", "有（超过5年）"],
+  final_thanks: "感谢您的参与。如有需要，请点击此处与我们联系。",
+  finish: "完成"
   },
   tc: {
-    consent: consentText_tc,
-    consent_accept: "同意",
-    video_prompt: "請觀看以下的說明影片。",
-    video_continue: "繼續",
-    accent_question: "您在這段日語語音中聽到外國口音了嗎？",
-    yes: "是",
-    no: "否",
-    adjectives_prompt: "請選擇最多三個詞來描述您的印象：",
-    adjectives: ["友善", "自信", "禮貌", "流利", "清晰", "自然", "不友善", "無禮", "不清晰", "不自然"],
-    optional_comment: "若對說話者有其他印象，請填寫（可選）",
-    nativeQ: "您的母語是日語嗎？",
-    genderQ: "您的性別是？",
-    gender_options: ["男", "女", "其他"],
-    ageQ: "您的年齡是？（歲）",
-    motherTongueQ: "您的母語是什麼？",
-    usageQ: "您多久使用一次日語？",
-    usage_options: ["每天", "每週", "每月", "很少"],
-    proficiencyQ: "您會如何評價自己的日語水準？",
-    proficiency_options: ["JLPT N1", "JLPT N2", "JLPT N3", "JLPT N4", "JLPT N5", "基礎", "會話", "流利", "接近母語"],
-    musicQ: "您是否接受過音樂訓練或有相關經驗？",
-    music_options: ["沒有", "有（1-5年）", "有（5年以上）"],
-    final_thanks: "感謝您的參與！",
-    finish: "結束"
+  consent: consentText_tc,
+  consent_accept: "同意",
+  video_prompt: "請觀看下一頁的說明影片。",
+  video_continue: "繼續",
+  accent_question: "您在這段日語語音中聽到外國口音了嗎？",
+  yes: "是",
+  no: "否",
+  adjectives_prompt: "請選擇最多三個詞來描述您的印象：",
+  adjectives: ["友善", "自信", "禮貌", "流利", "清晰", "自然", "不友善", "無禮", "不清晰", "不自然"],
+  optional_comment: "若您對說話者有其他印象，請填寫（選填）",
+  nativeQ: "您的母語是日語嗎？",
+  genderQ: "您的性別是？",
+  gender_options: ["男", "女", "其他", "不願透露"],
+  ageGroupQ: "請選擇您的年齡範圍。",
+  age_group_options: ["18–24歲", "25–34歲", "35–44歲", "45–54歲", "55–64歲", "65歲以上", "不願透露"],
+  currentCountryQ: "您目前居住在哪個國家？",
+  countriesLivedQ: "您曾在哪些國家居住超過3個月？",
+  motherTongueQ: "您的第一語言是什麼？",
+  familyLanguageQ: "您家人使用哪些語言？",
+  languageOtherQ: "除了日語與母語，您是否會使用其他語言？",
+  languageOther_options: ["是", "否"],
+  languageOtherSelectQ: "如果是，請選擇那些語言。",
+  languageOtherFreqQ: "您使用這些語言的頻率為何？",
+  languageFreq_options: [
+    "幾乎每天",
+    "每週2–3次",
+    "每週1次",
+    "每月2–3次",
+    "每月1次",
+    "每幾個月1次",
+    "幾乎不使用"
+  ],
+  usageQ: "您使用日語的頻率是多少？",
+  proficiencyQ: "您會如何評價自己的日語程度？",
+  proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
+  musicQ: "您是否有音樂訓練或經驗？",
+  music_options: ["沒有", "有（1–5年）", "有（超過5年）"],
+  final_thanks: "感謝您的參與。如有需要，請點此聯繫我們。",
+  finish: "結束"
   },
   ko: {
-    consent: consentText_ko,
-    consent_accept: "동의함",
-    video_prompt: "다음 안내 영상을 시청하세요.",
-    video_continue: "계속",
-    accent_question: "이 일본어 음성에서 외국인 억양을 들으셨습니까?",
-    yes: "예",
-    no: "아니오",
-    adjectives_prompt: "듣고 받은 인상을 나타내는 단어를 최대 3개 선택하세요:",
-    adjectives: ["친근한", "자신감 있는", "예의 바른", "유창한", "분명한", "자연스러운", "불친절한", "무례한", "불분명한", "부자연스러운"],
-    optional_comment: "화자에 대한 추가 인상이 있다면 작성해 주세요 (선택 사항)",
-    nativeQ: "일본어가 모국어입니까?",
-    genderQ: "성별을 알려주세요.",
-    gender_options: ["남성", "여성", "기타"],
-    ageQ: "나이가 어떻게 되십니까? (세)",
-    motherTongueQ: "모국어는 무엇입니까?",
-    usageQ: "일본어를 얼마나 자주 사용합니까?",
-    usage_options: ["매일", "주 몇 회", "월 몇 회", "거의 사용 안 함"],
-    proficiencyQ: "일본어 숙달 정도는 어느 수준입니까?",
-    proficiency_options: ["JLPT N1", "JLPT N2", "JLPT N3", "JLPT N4", "JLPT N5", "초급", "중급", "고급", "원어민 수준"],
-    musicQ: "음악 관련 훈련이나 경험이 있습니까?",
-    music_options: ["아니요", "예 (1-5년)", "예 (5년 이상)"],
-    final_thanks: "참여해 주셔서 감사합니다!",
-    finish: "종료"
+  consent: consentText_ko,
+  consent_accept: "동의함",
+  video_prompt: "다음 페이지에서 안내 영상을 시청하세요.",
+  video_continue: "계속",
+  accent_question: "이 일본어 음성에서 외국인 억양을 들으셨습니까?",
+  yes: "예",
+  no: "아니오",
+  adjectives_prompt: "인상을 표현하는 단어를 최대 3개 선택하세요:",
+  adjectives: ["친근한", "자신감 있는", "예의 바른", "유창한", "분명한", "자연스러운", "불친절한", "무례한", "불분명한", "부자연스러운"],
+  optional_comment: "화자에 대한 추가 의견이 있다면 작성해 주세요 (선택 사항)",
+  nativeQ: "일본어가 모국어입니까?",
+  genderQ: "성별을 알려주세요.",
+  gender_options: ["남성", "여성", "기타", "응답하지 않음"],
+  ageGroupQ: "연령대를 선택해 주세요.",
+  age_group_options: ["18–24세", "25–34세", "35–44세", "45–54세", "55–64세", "65세 이상", "응답하지 않음"],
+  currentCountryQ: "현재 거주하고 있는 국가는 어디입니까?",
+  countriesLivedQ: "3개월 이상 거주한 국가를 모두 선택해 주세요.",
+  motherTongueQ: "당신의 모국어는 무엇입니까?",
+  familyLanguageQ: "가족들이 사용하는 언어는 무엇입니까?",
+  languageOtherQ: "모국어와 일본어 외에 사용할 수 있는 언어가 있습니까?",
+  languageOther_options: ["예", "아니오"],
+  languageOtherSelectQ: "있다면 그 언어들을 선택해 주세요.",
+  languageOtherFreqQ: "그 언어들을 얼마나 자주 사용합니까?",
+  languageFreq_options: [
+    "거의 매일",
+    "주 2–3회",
+    "주 1회",
+    "월 2–3회",
+    "월 1회",
+    "2–3개월에 1회",
+    "거의 사용하지 않음"
+  ],
+  usageQ: "일본어를 얼마나 자주 사용하십니까?",
+  proficiencyQ: "일본어 실력을 어떻게 평가하시겠습니까?",
+  proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "초급", "중급", "고급"],
+  musicQ: "음악 훈련이나 경험이 있으십니까?",
+  music_options: ["없음", "있음 (1–5년)", "있음 (5년 이상)"],
+  final_thanks: "참여해 주셔서 감사합니다. 문의사항이 있으시면 여기를 클릭해 주세요.",
+  finish: "종료"
   }
 };
 
-// updated on 22:07
 function makeImpressionTrial() {
   const adjectiveList = translations[lang].adjectives || translations.en.adjectives;
   const shuffled = jsPsych.randomization.shuffle([...adjectiveList]);
@@ -363,7 +441,6 @@ function makeImpressionTrial() {
   };
 }
 
-
 // Timeline components
 const languageSelector = {
   type: jsPsychHtmlButtonResponse,
@@ -412,7 +489,6 @@ const instructionTextTrial = {
   }
 };
 
-// new code 6
 const instructionVideoTrial = {
   type: jsPsychVideoButtonResponse,
   stimulus: ['assets/video/dummy_instructions.mp4'],
@@ -513,24 +589,47 @@ const genderTrial = {
   data: { question: 'gender' }
 };
 
-const ageTrial = {
-  type: jsPsychSurveyHtmlForm,
-  preamble: () => `<p>${translations[lang].ageQ}</p>`,
-  html: () => {
-    const options = Array.from({ length: 82 }, (_, i) => 18 + i)
-      .map(age => `<option value="${age}">${age}</option>`)
-      .join('');
-    return `
-      <label>
-        <select name="age" required style="font-size: 1em; padding: .5em; width: 100%;">
-          <option value="" disabled selected>Select your age</option>
-          ${options}
-        </select>
-      </label>
-    `;
-  },
-  data: { question: 'age' }
-};
+const ageGroups = [
+  "18-24", "25-34", "35-44", "45-54", "55-64", "65以上", "回答しない"
+];
+
+// const ageTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: () => `<p>${translations[lang].ageQ}</p>`,
+//   html: () => {
+//     const options = Array.from({ length: 82 }, (_, i) => 18 + i)
+//       .map(age => `<option value="${age}">${age}</option>`)
+//       .join('');
+//     return `
+//       <label>
+//         <select name="age" required style="font-size: 1em; padding: .5em; width: 100%;">
+//           <option value="" disabled selected>Select your age</option>
+//           ${options}
+//         </select>
+//       </label>
+//     `;
+//   },
+//   data: { question: 'age' }
+// };
+
+const frequencyOptions = [
+  "ほぼ毎日",
+  "1週間に2～3回程度",
+  "1週間に1回程度",
+  "1ヶ月に2～3回程度",
+  "1ヶ月に1回程度",
+  "2～3ヶ月に1回程度",
+  "それ以下の頻度"
+];
+
+const musicExperienceOptions = [
+  "1年未満",
+  "1-3年",
+  "3-5年",
+  "5年以上"
+];
+
+
 
 const usageTrial = {
   type: jsPsychHtmlButtonResponse,
