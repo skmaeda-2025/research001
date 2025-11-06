@@ -1,74 +1,114 @@
 const languageOptions = [
- { code: "EN-US", label: "🇺🇸 English (US)" },
-  { code: "EN-GB", label: "🇬🇧 English (UK)" },
-  { code: "EN-AU", label: "🇦🇺 English (Australia)" },
-  { code: "EN-CA", label: "🇨🇦 English (Canada)" },
-  { code: "EN-NZ", label: "🇳🇿 English (New Zealand)" },
-  { code: "EN-OT", label: "🇬🇧 English (Other)" },
-  { code: "ZH-CN", label: "🇨🇳 Chinese (Mandarin, China)" },
-  { code: "ZH-TW", label: "🇹🇼 Chinese (Mandarin, Taiwan)" },
-  { code: "ZH-HK", label: "🇭🇰 Chinese (Cantonese, Hong Kong)" },
-  { code: "ZH-MO", label: "🇲🇴 Chinese (Macau)" },
-  { code: "HI", label: "🇮🇳 Hindi" },
-  { code: "PA", label: "🇮🇳 Punjabi" },
-  { code: "BN", label: "🇧🇩 Bengali (Bangladesh)" },
-  { code: "UR", label: "🇵🇰 Urdu" },
-  { code: "ID", label: "🇮🇩 Indonesian" },
-  { code: "MS", label: "🇲🇾 Malay (Malaysia)" },
-  { code: "TH", label: "🇹🇭 Thai" },
-  { code: "VI", label: "🇻🇳 Vietnamese" },
-  { code: "TL", label: "🇵🇭 Tagalog (Philippines)" },
-  { code: "KO", label: "🇰🇷 Korean" },
-  { code: "JA", label: "🇯🇵 Japanese" },
-  { code: "AR", label: "🇸🇦 Arabic" },
-  { code: "FA", label: "🇮🇷 Persian (Farsi)" },
-  { code: "TR", label: "🇹🇷 Turkish" },
-  { code: "RU", label: "🇷🇺 Russian" },
-  { code: "DE", label: "🇩🇪 German" },
-  { code: "FR", label: "🇫🇷 French" },
-  { code: "FR-NC", label: "🇳🇨 French (New Caledonia)" },
-  { code: "IT", label: "🇮🇹 Italian" },
-  { code: "ES-ES", label: "🇪🇸 Spanish (Spain)" },
-  { code: "ES-MX", label: "🇲🇽 Spanish (Mexico)" },
-  { code: "ES-AR", label: "🇦🇷 Spanish (Argentina)" },
-  { code: "ES-CL", label: "🇨🇱 Spanish (Chile)" },
-  { code: "ES-PY", label: "🇵🇾 Spanish (Paraguay)" },
-  { code: "ES-CO", label: "🇨🇴 Spanish (Colombia)" },
-  { code: "ES-PE", label: "🇵🇪 Spanish (Peru)" },
-  { code: "PT-BR", label: "🇧🇷 Portuguese (Brazil)" },
-  { code: "PT-PT", label: "🇵🇹 Portuguese (Portugal)" },
-  { code: "NL", label: "🇳🇱 Dutch" },
-  { code: "PL", label: "🇵🇱 Polish" },
-  { code: "EL", label: "🇬🇷 Greek" },
-  { code: "HU", label: "🇭🇺 Hungarian" },
-  { code: "RO", label: "🇷🇴 Romanian" },
-  { code: "SK", label: "🇸🇰 Slovak" },
-  { code: "SV", label: "🇸🇪 Swedish" },
-  { code: "BG", label: "🇧🇬 Bulgarian" },
-  { code: "UK", label: "🇺🇦 Ukrainian" },
-  { code: "LT", label: "🇱🇹 Lithuanian" },
-  { code: "LV", label: "🇱🇻 Latvian" },
-  { code: "ET", label: "🇪🇪 Estonian" },
-  { code: "SL", label: "🇸🇮 Slovenian" },
-  { code: "FI", label: "🇫🇮 Finnish" },
-  { code: "CS", label: "🇨🇿 Czech" },
-  { code: "DA", label: "🇩🇰 Danish" },
-  { code: "HE", label: "🇮🇱 Hebrew" },
-  { code: "NB", label: "🇳🇴 Norwegian" },
-  { code: "AF", label: "🇿🇦 Afrikaans" },
-  { code: "SW", label: "🇰🇪 Swahili" },
-  { code: "MN", label: "🇲🇳 Mongolian" },
-  { code: "KM", label: "🇰🇭 Khmer (Cambodia)" },
-  { code: "LO", label: "🇱🇦 Lao" },
-  { code: "SI-LK", label: "🇱🇰 Sinhala (Sri Lanka)" },
-  { code: "NE", label: "🇳🇵 Nepali" },
-  { code: "OTHER", label: "🌍 Other" }
+  { code: "AF", label: "Afrikaans" },
+  { code: "AR", label: "Arabic" },
+  { code: "BN", label: "Bengali" },
+  { code: "BG", label: "Bulgarian" },
+  { code: "ZH", label: "Chinese" },
+  { code: "HR", label: "Croatian" },
+  { code: "CS", label: "Czech" },
+  { code: "DA", label: "Danish" },
+  { code: "NL", label: "Dutch" },
+  { code: "EN", label: "English" },
+  { code: "ET", label: "Estonian" },
+  { code: "FI", label: "Finnish" },
+  { code: "FR", label: "French" },
+  { code: "DE", label: "German" },
+  { code: "EL", label: "Greek" },
+  { code: "HE", label: "Hebrew" },
+  { code: "HI", label: "Hindi" },
+  { code: "HU", label: "Hungarian" },
+  { code: "ID", label: "Indonesian" },
+  { code: "IT", label: "Italian" },
+  { code: "JA", label: "Japanese" },
+  { code: "KM", label: "Khmer" },
+  { code: "KO", label: "Korean" },
+  { code: "LO", label: "Lao" },
+  { code: "LV", label: "Latvian" },
+  { code: "LT", label: "Lithuanian" },
+  { code: "MS", label: "Malay" },
+  { code: "MN", label: "Mongolian" },
+  { code: "NE", label: "Nepali" },
+  { code: "NB", label: "Norwegian" },
+  { code: "PA", label: "Punjabi" },
+  { code: "FA", label: "Persian (Farsi)" },
+  { code: "PL", label: "Polish" },
+  { code: "PT", label: "Portuguese" },
+  { code: "RO", label: "Romanian" },
+  { code: "RU", label: "Russian" },
+  { code: "SK", label: "Slovak" },
+  { code: "SL", label: "Slovenian" },
+  { code: "SI", label: "Sinhala" },
+  { code: "ES", label: "Spanish" },
+  { code: "SW", label: "Swahili" },
+  { code: "SV", label: "Swedish" },
+  { code: "TL", label: "Tagalog" },
+  { code: "TH", label: "Thai" },
+  { code: "TR", label: "Turkish" },
+  { code: "UK", label: "Ukrainian" },
+  { code: "UR", label: "Urdu" },
+  { code: "VI", label: "Vietnamese" },
+  { code: "OTHER", label: "Other" }
 ];
 
+// function makeLanguageDropdown(questionText, responseName) {
+//   const options = languageOptions
+//     .map(l => `<option value="${l.code}">${l.label}</option>`)
+//     .join('');
+
+//   return {
+//     type: jsPsychSurveyHtmlForm,
+//     preamble: `<p>${questionText}</p>`,
+//     html: `
+//       <label>
+//         <select name="${responseName}" id="${responseName}" required style="font-size: 1em; padding: .5em; width: 100%;">
+//           <option value="" disabled selected>Select your language</option>
+//           ${options}
+//         </select>
+//       </label>
+//       <br><br>
+//       <label id="${responseName}_other_container" style="display:none;">
+//         Please specify: <input type="text" name="${responseName}_other" id="${responseName}_other_input" style="width:100%;" />
+//       </label>
+//       <p id="${responseName}_error" style="color:red; display:none;">Please specify your language.</p>
+//       <script>
+//         document.addEventListener('DOMContentLoaded', function () {
+//           const select = document.getElementById('${responseName}');
+//           const otherBox = document.getElementById('${responseName}_other_container');
+//           const otherInput = document.getElementById('${responseName}_other_input');
+//           const errorMsg = document.getElementById('${responseName}_error');
+
+//           select.addEventListener('change', function () {
+//             if (select.value === 'OTHER') {
+//               otherBox.style.display = 'block';
+//               otherInput.required = true;
+//             } else {
+//               otherBox.style.display = 'none';
+//               otherInput.required = false;
+//               errorMsg.style.display = 'none';
+//             }
+//           });
+
+//           // Prevent submission without filling in "Other"
+//           const form = select.closest('form');
+//           if (form) {
+//             form.addEventListener('submit', function (e) {
+//               if (select.value === 'OTHER' && !otherInput.value.trim()) {
+//                 e.preventDefault();
+//                 errorMsg.style.display = 'block';
+//               }
+//             });
+//           }
+//         });
+//       </script>
+//     `,
+//     data: { question: responseName }
+//   };
+// }
 function makeLanguageDropdown(questionText, responseName) {
   const options = languageOptions
     .map(l => `<option value="${l.code}">${l.label}</option>`)
     .join('');
+
   return {
     type: jsPsychSurveyHtmlForm,
     preamble: () => `<p>${questionText}</p>`,
@@ -80,16 +120,21 @@ function makeLanguageDropdown(questionText, responseName) {
         </select>
       </label>
       <br><br>
-      <label id="${responseName}_other_container" style="display:none;">
-        Please specify: <input type="text" name="${responseName}_other" style="width:100%;" />
+      <label>
+        Please specify (if "Other"): <input type="text" id="${responseName}_other_input" name="${responseName}_other" style="width:100%;" />
       </label>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
           const select = document.getElementById('${responseName}');
-          const otherBox = document.getElementById('${responseName}_other_container');
-          if (select && otherBox) {
+          const otherInput = document.getElementById('${responseName}_other_input');
+
+          if (select && otherInput) {
             select.addEventListener('change', function() {
-              otherBox.style.display = (select.value === 'OTHER') ? 'block' : 'none';
+              if (select.value === 'OTHER') {
+                otherInput.required = true;
+              } else {
+                otherInput.required = false;
+              }
             });
           }
         });
@@ -109,7 +154,12 @@ function generateUUID() {
   });
 }
 
-const jsPsych = initJsPsych({});
+// const jsPsych = initJsPsych({});
+const jsPsych = initJsPsych({
+  // show_progress_bar: true,
+  // auto_update_progress_bar: true
+});
+
 const participantID = generateUUID();
 // Tag all data with participant ID
 jsPsych.data.addProperties({ participant_id: participantID });
@@ -166,6 +216,15 @@ const consentText_ko = `<div class="consent-container">
 <p>연구 참여는 전적으로 자발적입니다. 연구 도중 언제든지 자유롭게 참여를 중단할 수 있습니다. 응답 내용은 익명으로 기록되며 비밀이 보장됩니다. 본 연구 참여로 인한 알려진 위험이나 직접적인 이익은 없습니다.</p>
 <p>위의 내용을 읽고 이해하셨다면 본 연구에 참여하는 것에 동의하시겠습니까? 동의하신다면 아래의 "동의함" 버튼을 눌러주세요. "동의함" 버튼을 누르시면 연구 참여에 동의한 것으로 간주됩니다.</p>
 </div>`;
+
+function makeProgressMessage(index, total) {
+  return {
+    type: jsPsychHtmlKeyboardResponse,
+    stimulus: `<p style="font-size:1.2em;">Audio ${index} of ${total}</p>`,
+    choices: "NO_KEYS",
+    trial_duration: 500  // brief pause (ms) before playing audio
+  };
+}
 
 const translations = {
   en: {
@@ -227,28 +286,28 @@ const translations = {
   accent_question: "この日本語の音声に外国語訛りを感じましたか？",
   yes: "はい",
   no: "いいえ",
-  adjectives_prompt: "印象を表す言葉を3つまで選んでください：",
+  adjectives_prompt: "音声に感じた印象を表す言葉を3つまで選んでください：",
   adjectives: [
-    "外交的",
-    "精力的",
+    // "外交的",
+    // "精力的",
     "暖かい",
     "親切",
     "責任感のある",
-    "良心的",
+    // "良心的",
     "平静",
     "安定した",
     "知性的",
     "思慮深い"
   ],
   optional_comment: "話し手に関するコメントがあれば自由にご記入ください（任意）",
-  nativeQ: "あなたは日本語を母語としていますか？",
+  nativeQ: "あなたは日本語が第一言語ですか？",
   genderQ: "性別を教えてください。",
   gender_options: ["男性", "女性", "その他", "回答しない"],
   ageGroupQ: "あなたの年代を選んでください。",
   age_group_options: ["18〜24歳", "25〜34歳", "35〜44歳", "45〜54歳", "55〜64歳", "65歳以上", "回答しない"],
   currentCountryQ: "現在住んでいる国を教えてください。",
   countriesLivedQ: "これまでに3か月以上住んだことのある国を選んでください。",
-  motherTongueQ: "母語（最も得意な言語）を教えてください。",
+  motherTongueQ: "第一言語（最も得意な言語）を教えてください。",
   familyLanguageQ: "ご家族が使用している言語を教えてください。",
   languageOtherQ: "日本語と母語以外に使用できる言語はありますか？",
   languageOther_options: ["はい", "いいえ"],
@@ -499,7 +558,6 @@ function makeImpressionTrial() {
   };
 }
 
-// Timeline components
 const languageSelector = {
   type: jsPsychHtmlButtonResponse,
   stimulus: `<p>Please select your language:<br/>
@@ -576,8 +634,28 @@ choices: function () { return ["Start Test"] }
 
 const play_audio = {
   type: jsPsychAudioKeyboardResponse,
-  stimulus: () => jsPsych.timelineVariable("audio"),  // or "file" if you use that key
-  prompt: `<p style="font-size: 1.2em;">🔊 再生中 Playing audio 播放中 재생 중 🔊</p>`,
+  stimulus: () => jsPsych.timelineVariable("audio"),
+  prompt: () => {
+    const current = jsPsych.data.get().filter({ phase: "stimulus" }).count() + 1;
+    const total = audioFiles.length;
+
+    return `
+      <div style="font-size: 1.2em; text-align: center; margin-top: 1em;">
+        🔊 <strong>
+        ${
+          {
+            en: "Playing audio…",
+            ja: "再生中…",
+            sc: "播放中…",
+            tc: "播放中…",
+            ko: "재생 중…"
+          }[lang] || "Playing audio…"
+        }
+        </strong><br>
+        ${current} / ${total}
+      </div>
+    `;
+  },
   choices: "NO_KEYS",
   trial_ends_after_audio: true,
   data: {
@@ -604,18 +682,62 @@ const nativeQuestionTrial = {
   data: { question: "is_native" }
 };
 
-const motherTongueTrial = makeLanguageDropdown(translations[lang].motherTongueQ, 'mother_tongue');
+const motherTongueTrial = {
+  ...makeLanguageDropdown(translations[lang].motherTongueQ, 'mother_tongue'),
+  preamble: function () {
+    let display = "";
+
+    try {
+      const data = jsPsych.data.get().values(); // get all trial data
+      const recent = [...data].reverse().find(d => d.response && d.response.mother_tongue);
+
+      if (recent) {
+        const selectedCode = recent.response.mother_tongue;
+        const labelObj = languageOptions.find(l => l.code === selectedCode);
+        if (labelObj) {
+          display = `<p><strong>Previously selected: ${labelObj.label}</strong></p>`;
+        }
+      }
+    } catch (e) {
+      console.warn("Could not retrieve previous language data:", e);
+    }
+
+    return `${display}<p>${translations[lang].motherTongueQ}</p>`;
+  }
+};
 
 const l2LanguageTrial = {
   type: jsPsychSurveyHtmlForm,
-  preamble: `<p>Which other language(s) can you speak?</p>`,
-  html: () => {
+  preamble: function () {
+    let showSelected = "";
+
+    try {
+      const allData = jsPsych.data.get().values();
+      const recent = [...allData].reverse().find(d => d.response?.l2_languages);
+
+      if (recent) {
+        const codes = recent.response.l2_languages;
+        const codeArray = Array.isArray(codes) ? codes : [codes];
+        const labels = codeArray.map(code => languageOptions.find(l => l.code === code)?.label).filter(Boolean);
+
+        if (labels.length) {
+          showSelected = `<p><strong>Previously selected: ${labels.join(', ')}</strong></p>`;
+        }
+      }
+    } catch (e) {
+      console.warn("L2 language lookup failed:", e);
+    }
+
+    return `${showSelected}<p>${translations[lang].languageOtherSelectQ}</p>`;
+  },
+
+  html: function () {
     const options = languageOptions
       .map(l => `<option value="${l.code}">${l.label}</option>`)
       .join('');
     return `
       <label>Select all that apply:</label><br>
-      <select name="l2_languages[]" id="l2_languages" multiple size="6" required style="width:100%; padding:.5em;">
+      <select name="l2_languages" id="l2_languages" multiple size="6" required style="width:100%; padding:.5em;">
         ${options}
       </select>
       <br><br>
@@ -708,14 +830,37 @@ const musicTrial = {
   data: { question: 'musical_experience' }
 };
 
-// Conditional timelines for native vs non-native questionnaires
 const nativeBlock = {
-  timeline: [ genderTrial, ageTrial, motherTongueTrial, usageTrial, l2LanguageTrial, musicTrial ],
+  timeline: [
+    genderTrial,
+    ageTrial,
+    // currentCountryTrial,
+    // countriesLivedTrial,
+    // familyLanguageTrial,
+    usageTrial,
+    // l2LanguageYesNoTrial,
+    // l2LanguageSelectTrial,
+    // l2LanguageFreqTrial,
+    musicTrial
+  ],
   conditional_function: () => isNative
 };
 
 const nonNativeBlock = {
-  timeline: [ genderTrial, ageTrial, motherTongueTrial, proficiencyTrial, usageTrial, l2LanguageTrial, musicTrial ],
+  timeline: [
+    genderTrial,
+    ageTrial,
+    // currentCountryTrial,
+    // countriesLivedTrial,
+    motherTongueTrial,
+    // familyLanguageTrial,
+    proficiencyTrial,
+    usageTrial,
+    // l2LanguageYesNoTrial,
+    // l2LanguageSelectTrial,
+    // l2LanguageFreqTrial,
+    musicTrial
+  ],
   conditional_function: () => !isNative
 };
 
@@ -751,16 +896,18 @@ timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
 timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
-// updated on 22:07
 timeline.push({
   timeline: [
     play_audio,
     accentQuestionTrial,
-    makeImpressionTrial()
+    {
+      timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
+    }
   ],
   timeline_variables: audioFiles,
   randomize_order: true
 });
+
 // timeline.push(mainTrialsLoop);　// removed
 timeline.push(nativeQuestionTrial);
 timeline.push(nativeBlock);
