@@ -1,3 +1,63 @@
+const countryOptions = [
+  { code: "AF", label: "Afghanistan" },
+  { code: "AL", label: "Albania" },
+  { code: "AR", label: "Argentina" },
+  { code: "AU", label: "Australia" },
+  { code: "AT", label: "Austria" },
+  { code: "BD", label: "Bangladesh" },
+  { code: "BE", label: "Belgium" },
+  { code: "BR", label: "Brazil" },
+  { code: "CA", label: "Canada" },
+  { code: "CL", label: "Chile" },
+  { code: "CN", label: "China" },
+  { code: "CO", label: "Colombia" },
+  { code: "CZ", label: "Czech Republic" },
+  { code: "DK", label: "Denmark" },
+  { code: "EG", label: "Egypt" },
+  { code: "FI", label: "Finland" },
+  { code: "FR", label: "France" },
+  { code: "DE", label: "Germany" },
+  { code: "GR", label: "Greece" },
+  { code: "HK", label: "Hong Kong" },
+  { code: "HU", label: "Hungary" },
+  { code: "IN", label: "India" },
+  { code: "ID", label: "Indonesia" },
+  { code: "IR", label: "Iran" },
+  { code: "IE", label: "Ireland" },
+  { code: "IL", label: "Israel" },
+  { code: "IT", label: "Italy" },
+  { code: "JP", label: "Japan" },
+  { code: "KR", label: "South Korea" },
+  { code: "MY", label: "Malaysia" },
+  { code: "MX", label: "Mexico" },
+  { code: "NL", label: "Netherlands" },
+  { code: "NZ", label: "New Zealand" },
+  { code: "NG", label: "Nigeria" },
+  { code: "NO", label: "Norway" },
+  { code: "PK", label: "Pakistan" },
+  { code: "PE", label: "Peru" },
+  { code: "PH", label: "Philippines" },
+  { code: "PL", label: "Poland" },
+  { code: "PT", label: "Portugal" },
+  { code: "RO", label: "Romania" },
+  { code: "RU", label: "Russia" },
+  { code: "SA", label: "Saudi Arabia" },
+  { code: "SG", label: "Singapore" },
+  { code: "ZA", label: "South Africa" },
+  { code: "ES", label: "Spain" },
+  { code: "SE", label: "Sweden" },
+  { code: "CH", label: "Switzerland" },
+  { code: "TW", label: "Taiwan" },
+  { code: "TH", label: "Thailand" },
+  { code: "TR", label: "Turkey" },
+  { code: "UA", label: "Ukraine" },
+  { code: "AE", label: "United Arab Emirates" },
+  { code: "GB", label: "United Kingdom" },
+  { code: "US", label: "United States" },
+  { code: "VN", label: "Vietnam" },
+  { code: "OTHER", label: "Other" }
+];
+
 const languageOptions = [
   { code: "AF", label: "Afrikaans" },
   { code: "AR", label: "Arabic" },
@@ -735,6 +795,70 @@ const ageTrial = {
   data: { question: "age_group" }
 };
 
+// --- Current Country Trial ---
+const currentCountryTrial = {
+  type: jsPsychSurveyHtmlForm,
+  preamble: `<p>${translations[lang].currentCountryQ}</p>`,
+  html: `
+    <label>
+      <select name="current_country" required style="width:100%; font-size:1em; padding:.5em;">
+        <option value="" disabled selected>Select a country</option>
+        ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+      </select>
+    </label>
+  `,
+  data: { question: 'current_country' }
+};
+
+
+// --- Countries Lived Trial ---
+const countriesLivedTrial = {
+  type: jsPsychSurveyHtmlForm,
+  preamble: `<p>${translations[lang].countriesLivedQ}</p>`,
+  html: `
+    <label>
+      <select name="countries_lived" multiple size="6" required style="width:100%; font-size:1em; padding:.5em;">
+        ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+      </select>
+    </label>
+  `,
+  data: { question: 'countries_lived' }
+};
+
+
+// --- Family Language Trial ---
+const familyLanguageTrial = makeLanguageDropdown(translations[lang].familyLanguageQ, 'family_language');
+
+// --- L2 Language Yes/No Trial ---
+const l2LanguageYesNoTrial = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function () {
+    return `<p>${translations[lang].languageOtherQ}</p>`;
+  },
+  choices: function () {
+    return translations[lang].languageOther_options;
+  },
+  data: { question: 'l2_yesno' },
+  on_finish: function (data) {
+    data.l2 = translations[lang].languageOther_options[data.response] === translations[lang].yes;
+  }
+};
+
+// --- L2 Language Frequency Trial ---
+const l2LanguageFreqTrial = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function () {
+    return `<p>${translations[lang].languageOtherFreqQ}</p>`;
+  },
+  choices: function () {
+    return translations[lang].languageFreq_options;
+  },
+  data: { question: 'l2_usage' },
+  conditional_function: function () {
+    const data = jsPsych.data.get().last(1).values()[0];
+    return data && data.l2;
+  }
+};
 
 const frequencyOptions = [
   "ほぼ毎日",
@@ -778,14 +902,12 @@ const nativeBlock = {
   timeline: [
     genderTrial,
     ageTrial,
-    // ageGroups,
-    // currentCountryTrial,
-    // countriesLivedTrial,
-    // familyLanguageTrial,
-    usageTrial,
-    // l2LanguageYesNoTrial,
+    currentCountryTrial,
+    countriesLivedTrial,
+    familyLanguageTrial,
+    l2LanguageYesNoTrial,
     // l2LanguageSelectTrial,
-    // l2LanguageFreqTrial,
+    l2LanguageFreqTrial,
     musicTrial
   ],
   conditional_function: () => isNative
@@ -795,16 +917,15 @@ const nonNativeBlock = {
   timeline: [
     genderTrial,
     ageTrial,
-    // ageGroups,
-    // currentCountryTrial,
-    // countriesLivedTrial,
+    currentCountryTrial,
+    countriesLivedTrial,
     motherTongueTrial,
-    // familyLanguageTrial,
+    familyLanguageTrial,
     proficiencyTrial,
     usageTrial,
-    // l2LanguageYesNoTrial,
+    l2LanguageYesNoTrial,
     // l2LanguageSelectTrial,
-    // l2LanguageFreqTrial,
+    l2LanguageFreqTrial,
     musicTrial
   ],
   conditional_function: () => !isNative
