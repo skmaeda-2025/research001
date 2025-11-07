@@ -50,60 +50,6 @@ const languageOptions = [
   { code: "OTHER", label: "Other" }
 ];
 
-// function makeLanguageDropdown(questionText, responseName) {
-//   const options = languageOptions
-//     .map(l => `<option value="${l.code}">${l.label}</option>`)
-//     .join('');
-
-//   return {
-//     type: jsPsychSurveyHtmlForm,
-//     preamble: `<p>${questionText}</p>`,
-//     html: `
-//       <label>
-//         <select name="${responseName}" id="${responseName}" required style="font-size: 1em; padding: .5em; width: 100%;">
-//           <option value="" disabled selected>Select your language</option>
-//           ${options}
-//         </select>
-//       </label>
-//       <br><br>
-//       <label id="${responseName}_other_container" style="display:none;">
-//         Please specify: <input type="text" name="${responseName}_other" id="${responseName}_other_input" style="width:100%;" />
-//       </label>
-//       <p id="${responseName}_error" style="color:red; display:none;">Please specify your language.</p>
-//       <script>
-//         document.addEventListener('DOMContentLoaded', function () {
-//           const select = document.getElementById('${responseName}');
-//           const otherBox = document.getElementById('${responseName}_other_container');
-//           const otherInput = document.getElementById('${responseName}_other_input');
-//           const errorMsg = document.getElementById('${responseName}_error');
-
-//           select.addEventListener('change', function () {
-//             if (select.value === 'OTHER') {
-//               otherBox.style.display = 'block';
-//               otherInput.required = true;
-//             } else {
-//               otherBox.style.display = 'none';
-//               otherInput.required = false;
-//               errorMsg.style.display = 'none';
-//             }
-//           });
-
-//           // Prevent submission without filling in "Other"
-//           const form = select.closest('form');
-//           if (form) {
-//             form.addEventListener('submit', function (e) {
-//               if (select.value === 'OTHER' && !otherInput.value.trim()) {
-//                 e.preventDefault();
-//                 errorMsg.style.display = 'block';
-//               }
-//             });
-//           }
-//         });
-//       </script>
-//     `,
-//     data: { question: responseName }
-//   };
-// }
 function makeLanguageDropdown(questionText, responseName) {
   const options = languageOptions
     .map(l => `<option value="${l.code}">${l.label}</option>`)
@@ -111,8 +57,8 @@ function makeLanguageDropdown(questionText, responseName) {
 
   return {
     type: jsPsychSurveyHtmlForm,
-    preamble: () => `<p>${questionText}</p>`,
-    html: () => `
+    preamble: `<p>${questionText}</p>`,
+    html: `
       <label>
         <select name="${responseName}" id="${responseName}" required style="font-size: 1em; padding:.5em; width: 100%;">
           <option value="" disabled selected>Select your language</option>
@@ -120,29 +66,32 @@ function makeLanguageDropdown(questionText, responseName) {
         </select>
       </label>
       <br><br>
-      <label>
-        Please specify (if "Other"): <input type="text" id="${responseName}_other_input" name="${responseName}_other" style="width:100%;" />
+      <label id="${responseName}_label">
+        Please specify (if "Other"):<br>
+        <input type="text" name="${responseName}_other" id="${responseName}_other" style="width:100%;" />
       </label>
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const select = document.getElementById('${responseName}');
-          const otherInput = document.getElementById('${responseName}_other_input');
+      <p id="error-${responseName}" style="color:red; display:none;">Please specify your language if you selected "Other".</p>
 
-          if (select && otherInput) {
-            select.addEventListener('change', function() {
-              if (select.value === 'OTHER') {
-                otherInput.required = true;
-              } else {
-                otherInput.required = false;
-              }
-            });
+      <script>
+        document.addEventListener('submit', function(event) {
+          const select = document.getElementById("${responseName}");
+          const otherInput = document.getElementById("${responseName}_other");
+          const errorMsg = document.getElementById("error-${responseName}");
+
+          if (select.value === "OTHER" && !otherInput.value.trim()) {
+            event.preventDefault();
+            errorMsg.style.display = "block";
+          } else {
+            errorMsg.style.display = "none";
           }
         });
       </script>
     `,
+    button_label: "Continue",
     data: { question: responseName }
   };
 }
+
 
 // This built-in method is part of the Web Crypto API, replaced by const participantID = crypto.randomUUID();
 function generateUUID() {
@@ -275,7 +224,8 @@ const translations = {
     proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "Basic", "Conversational", "Fluent"],
     musicQ: "Do you have any musical training or experience?",
     music_options: ["No", "Yes (1-5 years)", "Yes (more than 5 years)"],
-    final_thanks: "Thank you for your participation! Should you need to reach out to me, click here.",
+    final_thanks: `Thank you for your participation!<br>
+    <p>If you have any questions, feel free to <a href="mailto:research@example.com">contact me</a>.</p>`,
     finish: "Continue"
   },
   ja: {
@@ -327,7 +277,8 @@ const translations = {
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
   musicQ: "音楽の訓練や経験はありますか？",
   music_options: ["いいえ", "はい（1〜5年）", "はい（5年以上）"],
-  final_thanks: "ご参加いただき、ありがとうございました。ご質問がある場合はこちらをクリックしてください。",
+  final_thanks: `ご参加いただき、ありがとうございました。<br>
+  <p>ご質問がある場合は<a href="mailto:research@example.com">こちら</a>までご連絡ください。</p>`,
   finish: "次へ"
   },
   sc: {
@@ -379,7 +330,8 @@ const translations = {
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "基础", "会话", "流利"],
   musicQ: "您是否接受过音乐训练或有相关经验？",
   music_options: ["没有", "有（1–5年）", "有（超过5年）"],
-  final_thanks: "感谢您的参与。如有需要，请点击此处与我们联系。",
+  final_thanks: `感谢您的参与！<br>
+  如有任何疑问，请<a href="mailto:research@example.com">联系我们</a>。`,
   finish: "继续"
   },
   tc: {
@@ -431,7 +383,9 @@ const translations = {
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
   musicQ: "您是否有音樂訓練或經驗？",
   music_options: ["沒有", "有（1–5年）", "有（超過5年）"],
-  final_thanks: "感謝您的參與。如有需要，請點此聯繫我們。",
+  final_thanks: `感謝您的參與！<br>
+若有任何問題，歡迎<a href="mailto:research@example.com">與我們聯繫</a>。`
+,
   finish: "繼續"
   },
   ko: {
@@ -483,7 +437,8 @@ const translations = {
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "초급", "중급", "고급"],
   musicQ: "음악 훈련이나 경험이 있으십니까?",
   music_options: ["없음", "있음 (1–5년)", "있음 (5년 이상)"],
-  final_thanks: "참여해 주셔서 감사합니다. 문의사항이 있으시면 여기를 클릭해 주세요.",
+  final_thanks: `참여해 주셔서 감사합니다!<br>
+  질문이 있으시면 <a href="mailto:research@example.com">이메일로 문의해 주세요</a>.`,
   finish: "계속"
   }
 };
@@ -769,28 +724,17 @@ const genderTrial = {
   data: { question: 'gender' }
 };
 
-// const ageGroups = [
-//   "18-24", "25-34", "35-44", "45-54", "55-64", "65以上", "回答しない"
-// ];
-
 const ageTrial = {
-  type: jsPsychSurveyHtmlForm,
-  preamble: () => `<p>${translations[lang].ageQ}</p>`,
-  html: () => {
-    const options = Array.from({ length: 82 }, (_, i) => 18 + i)
-      .map(age => `<option value="${age}">${age}</option>`)
-      .join('');
-    return `
-      <label>
-        <select name="age" required style="font-size: 1em; padding: .5em; width: 100%;">
-          <option value="" disabled selected>Select your age</option>
-          ${options}
-        </select>
-      </label>
-    `;
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function () {
+    return `<p>${translations[lang].ageGroupQ}</p>`;
   },
-  data: { question: 'age' }
+  choices: function () {
+    return translations[lang].age_group_options;
+  },
+  data: { question: "age_group" }
 };
+
 
 const frequencyOptions = [
   "ほぼ毎日",
@@ -834,6 +778,7 @@ const nativeBlock = {
   timeline: [
     genderTrial,
     ageTrial,
+    // ageGroups,
     // currentCountryTrial,
     // countriesLivedTrial,
     // familyLanguageTrial,
@@ -850,6 +795,7 @@ const nonNativeBlock = {
   timeline: [
     genderTrial,
     ageTrial,
+    // ageGroups,
     // currentCountryTrial,
     // countriesLivedTrial,
     motherTongueTrial,
