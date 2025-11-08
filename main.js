@@ -777,6 +777,42 @@ const l2LanguageTrial = {
   data: { question: 'l2_languages' }
 };
 
+const l2LanguageSelectTrial = {
+  type: jsPsychSurveyHtmlForm,
+  preamble: `<p>${translations[lang].languageOtherSelectQ}</p>`,
+  html: `
+    <label>Select all that apply:</label><br>
+    <select name="l2_languages" id="l2_languages" multiple size="6" required style="width:100%; font-size:1em; padding:.5em;">
+      ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
+    </select>
+    <br><br>
+    <label>
+      Please specify other language(s):<br>
+      <input type="text" name="l2_languages_other" id="l2_languages_other" style="width:100%;" />
+    </label>
+    <p id="error-l2" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+
+    <script>
+      document.addEventListener('submit', function(event) {
+        const select = document.getElementById("l2_languages");
+        const otherInput = document.getElementById("l2_languages_other");
+        const errorMsg = document.getElementById("error-l2");
+
+        const selected = Array.from(select.selectedOptions).map(opt => opt.value);
+        const selectedOther = selected.includes("OTHER");
+
+        if (selectedOther && !otherInput.value.trim()) {
+          event.preventDefault();
+          errorMsg.style.display = "block";
+        } else {
+          errorMsg.style.display = "none";
+        }
+      });
+    </script>
+  `,
+  data: { question: 'l2_languages' }
+};
+
 const genderTrial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: function() { return `<p>${translations[lang].genderQ}</p>`; },
@@ -906,7 +942,7 @@ const nativeBlock = {
     countriesLivedTrial,
     familyLanguageTrial,
     l2LanguageYesNoTrial,
-    // l2LanguageSelectTrial,
+    l2LanguageSelectTrial,
     l2LanguageFreqTrial,
     musicTrial
   ],
@@ -924,7 +960,7 @@ const nonNativeBlock = {
     proficiencyTrial,
     usageTrial,
     l2LanguageYesNoTrial,
-    // l2LanguageSelectTrial,
+    l2LanguageSelectTrial,
     l2LanguageFreqTrial,
     musicTrial
   ],
@@ -961,7 +997,7 @@ timeline.push(languageSelector);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-timeline.push(instructionVideoTrial);
+// timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
 timeline.push({
   timeline: [
@@ -975,7 +1011,6 @@ timeline.push({
   randomize_order: true
 });
 
-// timeline.push(mainTrialsLoop);　// removed
 timeline.push(nativeQuestionTrial);
 timeline.push(nativeBlock);
 timeline.push(nonNativeBlock);
