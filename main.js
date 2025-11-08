@@ -772,17 +772,116 @@ function makeL2UsageTrial(languageCode) {
   };
 }
 
+// const l2UsageBlock = {
+//   timeline: [],
+//   on_timeline_start: function () {
+//     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
+//     const selected = last?.response?.l2_languages || [];
+
+//     const codes = Array.isArray(selected) ? selected : [selected];
+
+//     codes.forEach(code => {
+//       l2UsageBlock.timeline.push(makeL2UsageTrial(code));
+//     });
+//   }
+// };
+
+// const l2UsageBlock = {
+//   timeline: [
+//     {
+//       timeline: [
+//         {
+//           type: jsPsychHtmlButtonResponse,
+//           stimulus: function() {
+//             const code = jsPsych.timelineVariable('code');
+//             const label = languageOptions.find(l => l.code === code)?.label || code;
+//             return `<p>How often do you use <strong>${label}</strong>?</p>`;
+//           },
+//           choices: function() {
+//             return translations[lang].languageFreq_options;
+//           },
+//           data: function() {
+//             return {
+//               question: 'l2_language_usage',
+//               language_code: jsPsych.timelineVariable('code')
+//             };
+//           }
+//         }
+//       ],
+//       timeline_variables: function() {
+//         const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
+//         const selected = last?.response?.l2_languages || [];
+//         const codes = Array.isArray(selected) ? selected : [selected];
+
+//         return codes.map(code => ({ code: code }));
+//       }
+//     }
+//   ]
+// };
+
+// const l2UsageBlock = {
+//   timeline: [],
+//   on_timeline_start: function () {
+//     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
+//     const selected = last?.response?.l2_languages || [];
+//     const codes = Array.isArray(selected) ? selected : [selected];
+
+//     // Clear timeline first
+//     this.timeline.length = 0;
+
+//     // Add a trial for each selected language
+//     codes.forEach(code => {
+//       const label = languageOptions.find(l => l.code === code)?.label || code;
+
+//       this.timeline.push({
+//         type: jsPsychHtmlButtonResponse,
+//         stimulus: `<p>How often do you use <strong>${label}</strong>?</p>`,
+//         choices: translations[lang].languageFreq_options,
+//         data: {
+//           question: 'l2_language_usage',
+//           language_code: code
+//         }
+//       });
+//     });
+//   }
+// };
+
 const l2UsageBlock = {
   timeline: [],
   on_timeline_start: function () {
+    console.log("=== L2 Usage Block Starting ===");
+
     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
+    console.log("Last trial data:", last);
+
     const selected = last?.response?.l2_languages || [];
+    console.log("Selected languages raw:", selected);
 
     const codes = Array.isArray(selected) ? selected : [selected];
+    console.log("Language codes array:", codes);
+    console.log("Number of languages:", codes.length);
 
-    codes.forEach(code => {
-      l2UsageBlock.timeline.push(makeL2UsageTrial(code));
+    // Clear timeline first
+    this.timeline.length = 0;
+
+    // Add a trial for each selected language
+    codes.forEach((code, index) => {
+      const label = languageOptions.find(l => l.code === code)?.label || code;
+      console.log(`Adding trial ${index + 1} for: ${label} (${code})`);
+
+      this.timeline.push({
+        type: jsPsychHtmlButtonResponse,
+        stimulus: `<p>How often do you use <strong>${label}</strong>?</p>`,
+        choices: translations[lang].languageFreq_options,
+        data: {
+          question: 'l2_language_usage',
+          language_code: code
+        }
+      });
     });
+
+    console.log("Total trials added:", this.timeline.length);
+    console.log("=== L2 Usage Block Ready ===");
   }
 };
 
@@ -923,6 +1022,50 @@ const l2LanguageSelectTrial = {
     `;
   },
 
+  // on_load: function() {
+  //   const select = document.getElementById('l2_languages');
+  //   const displayDiv = document.getElementById('selected-l2-languages');
+  //   const otherLabel = document.getElementById('l2_other_label');
+  //   const otherInput = document.querySelector('input[name="l2_languages_other"]');
+  //   const errorMsg = document.getElementById('error-l2');
+
+  //   function updateSelectedDisplay() {
+  //     const selected = Array.from(select.selectedOptions);
+  //     if (selected.length > 0) {
+  //       const names = selected.map(opt => opt.text).join(', ');
+  //       displayDiv.textContent = names;
+  //     } else {
+  //       displayDiv.textContent = '';
+  //     }
+
+  //     // Show/hide "Other" input
+  //     const values = Array.from(select.selectedOptions).map(opt => opt.value);
+  //     otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
+  //   }
+
+  //   // Update display on all selection events
+  //   select.addEventListener('change', updateSelectedDisplay);
+  //   select.addEventListener('click', updateSelectedDisplay);
+  //   select.addEventListener('mousedown', () => setTimeout(updateSelectedDisplay, 0));
+  //   select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
+  //   select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
+  //   select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
+
+  //   // Validation on submit
+  //   const form = select.closest('form');
+  //   if (form) {
+  //     form.addEventListener('submit', function(event) {
+  //       const selected = Array.from(select.selectedOptions).map(o => o.value);
+  //       if (selected.includes('OTHER') && !otherInput.value.trim()) {
+  //         event.preventDefault();
+  //         errorMsg.style.display = 'block';
+  //       } else {
+  //         errorMsg.style.display = 'none';
+  //       }
+  //     });
+  //   }
+  // },
+
   on_load: function() {
     const select = document.getElementById('l2_languages');
     const displayDiv = document.getElementById('selected-l2-languages');
@@ -941,7 +1084,9 @@ const l2LanguageSelectTrial = {
 
       // Show/hide "Other" input
       const values = Array.from(select.selectedOptions).map(opt => opt.value);
-      otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
+      if (otherLabel) {
+        otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
+      }
     }
 
     // Update display on all selection events
@@ -957,11 +1102,11 @@ const l2LanguageSelectTrial = {
     if (form) {
       form.addEventListener('submit', function(event) {
         const selected = Array.from(select.selectedOptions).map(o => o.value);
-        if (selected.includes('OTHER') && !otherInput.value.trim()) {
+        if (selected.includes('OTHER') && otherInput && !otherInput.value.trim()) {
           event.preventDefault();
-          errorMsg.style.display = 'block';
+          if (errorMsg) errorMsg.style.display = 'block';
         } else {
-          errorMsg.style.display = 'none';
+          if (errorMsg) errorMsg.style.display = 'none';
         }
       });
     }
@@ -1095,7 +1240,79 @@ const countriesLivedTrial = {
 };
 
 // --- Family Language Trial ---
-const familyLanguageTrial = makeLanguageDropdown(translations[lang].familyLanguageQ, 'family_language');
+// const familyLanguageTrial = makeLanguageDropdown(translations[lang].familyLanguageQ, 'family_language');
+const familyLanguageTrial = {
+  type: jsPsychSurveyHtmlForm,
+  preamble: function() {
+    return `<p>${translations[lang].familyLanguageQ}</p>`;
+  },
+  html: function() {
+    const options = languageOptions
+      .map(l => `<option value="${l.code}">${l.label}</option>`)
+      .join('');
+
+    return `
+      <label>Select all that apply:</label><br>
+      <select name="family_language" id="family_language" multiple size="6" style="width:100%; padding:.5em;">
+        ${options}
+      </select>
+      <div id="selected-family-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+      </div>
+      <br>
+      <label id="family_language_other_label" style="display:none;">
+        Please specify other language(s):<br>
+        <input type="text" name="family_language_other" id="family_language_other" style="width:100%;" />
+      </label>
+      <p id="error-family-language" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+    `;
+  },
+  on_load: function() {
+    const select = document.getElementById('family_language');
+    const displayDiv = document.getElementById('selected-family-languages');
+    const otherLabel = document.getElementById('family_language_other_label');
+    const otherInput = document.getElementById('family_language_other');
+    const errorMsg = document.getElementById('error-family-language');
+
+    function updateSelectedDisplay() {
+      const selected = Array.from(select.selectedOptions);
+      if (selected.length > 0) {
+        const names = selected.map(opt => opt.text).join(', ');
+        displayDiv.textContent = names;
+      } else {
+        displayDiv.textContent = '';
+      }
+
+      // Show/hide "Other" input
+      const values = Array.from(select.selectedOptions).map(opt => opt.value);
+      if (otherLabel) {
+        otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
+      }
+    }
+
+    // Update display on all selection events
+    select.addEventListener('change', updateSelectedDisplay);
+    select.addEventListener('click', updateSelectedDisplay);
+    select.addEventListener('mousedown', () => setTimeout(updateSelectedDisplay, 0));
+    select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
+    select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
+    select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
+
+    // Validation on submit
+    const form = select.closest('form');
+    if (form) {
+      form.addEventListener('submit', function(event) {
+        const selected = Array.from(select.selectedOptions).map(o => o.value);
+        if (selected.includes('OTHER') && otherInput && !otherInput.value.trim()) {
+          event.preventDefault();
+          if (errorMsg) errorMsg.style.display = 'block';
+        } else {
+          if (errorMsg) errorMsg.style.display = 'none';
+        }
+      });
+    }
+  },
+  data: { question: 'family_language' }
+};
 
 // --- L2 Language Yes/No Trial ---
 const l2LanguageYesNoTrial = {
