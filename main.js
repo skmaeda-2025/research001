@@ -179,7 +179,7 @@ let isNative = false;
 //sample audios are mp3 files and real ones will be wav files.
 const audioFiles = [
   { id: "trial01", audio: "assets/audio/alpha1.mp3" },
-  { id: "trial02", audio: "assets/audio/beta2.mp3" },
+  // { id: "trial02", audio: "assets/audio/beta2.mp3" },
   // { id: "trial03", audio: "assets/audio/gamma3.mp3" },
   // { id: "trial04", audio: "assets/audio/delta4.mp3" },
   // { id: "trial05", audio: "assets/audio/epsilon5.mp3" },
@@ -721,6 +721,34 @@ const motherTongueTrial = {
   }
 };
 
+function makeL2UsageTrial(languageCode) {
+  const label = languageOptions.find(l => l.code === languageCode)?.label || languageCode;
+
+  return {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: () => `<p>How often do you use <strong>${label}</strong>?</p>`,
+    choices: () => translations[lang].languageFreq_options,
+    data: {
+      question: 'l2_language_usage',
+      language_code: languageCode
+    }
+  };
+}
+
+const l2UsageBlock = {
+  timeline: [],
+  on_timeline_start: function () {
+    const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
+    const selected = last?.response?.l2_languages || [];
+
+    const codes = Array.isArray(selected) ? selected : [selected];
+
+    codes.forEach(code => {
+      l2UsageBlock.timeline.push(makeL2UsageTrial(code));
+    });
+  }
+};
+
 const l2LanguageTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function () {
@@ -777,6 +805,42 @@ const l2LanguageTrial = {
   data: { question: 'l2_languages' }
 };
 
+// const l2LanguageSelectTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: `<p>${translations[lang].languageOtherSelectQ}</p>`,
+//   html: `
+//     <label>Select all that apply:</label><br>
+//     <select name="l2_languages" id="l2_languages" multiple size="6" required style="width:100%; font-size:1em; padding:.5em;">
+//       ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
+//     </select>
+//     <br><br>
+//     <label>
+//       Please specify other language(s):<br>
+//       <input type="text" name="l2_languages_other" id="l2_languages_other" style="width:100%;" />
+//     </label>
+//     <p id="error-l2" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+
+//     <script>
+//       document.addEventListener('submit', function(event) {
+//         const select = document.getElementById("l2_languages");
+//         const otherInput = document.getElementById("l2_languages_other");
+//         const errorMsg = document.getElementById("error-l2");
+
+//         const selected = Array.from(select.selectedOptions).map(opt => opt.value);
+//         const selectedOther = selected.includes("OTHER");
+
+//         if (selectedOther && !otherInput.value.trim()) {
+//           event.preventDefault();
+//           errorMsg.style.display = "block";
+//         } else {
+//           errorMsg.style.display = "none";
+//         }
+//       });
+//     </script>
+//   `,
+//   data: { question: 'l2_languages' }
+// };
+
 const l2LanguageSelectTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: `<p>${translations[lang].languageOtherSelectQ}</p>`,
@@ -813,6 +877,7 @@ const l2LanguageSelectTrial = {
   data: { question: 'l2_languages' }
 };
 
+
 const genderTrial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: function() { return `<p>${translations[lang].genderQ}</p>`; },
@@ -837,11 +902,32 @@ const currentCountryTrial = {
   preamble: `<p>${translations[lang].currentCountryQ}</p>`,
   html: `
     <label>
-      <select name="current_country" required style="width:100%; font-size:1em; padding:.5em;">
+      <select name="current_country" id="current_country" required style="width:100%; font-size:1em; padding:.5em;">
         <option value="" disabled selected>Select a country</option>
         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
       </select>
     </label>
+    <br><br>
+    <label>
+      Please specify if "Other":<br>
+      <input type="text" name="current_country_other" id="current_country_other" style="width:100%;" />
+    </label>
+    <p id="error-country" style="color:red; display:none;">Please fill in the country if you selected "Other".</p>
+
+    <script>
+      document.addEventListener('submit', function(event) {
+        const select = document.getElementById("current_country");
+        const other = document.getElementById("current_country_other");
+        const error = document.getElementById("error-country");
+
+        if (select.value === "OTHER" && !other.value.trim()) {
+          event.preventDefault();
+          error.style.display = "block";
+        } else {
+          error.style.display = "none";
+        }
+      });
+    </script>
   `,
   data: { question: 'current_country' }
 };
@@ -853,10 +939,32 @@ const countriesLivedTrial = {
   preamble: `<p>${translations[lang].countriesLivedQ}</p>`,
   html: `
     <label>
-      <select name="countries_lived" multiple size="6" required style="width:100%; font-size:1em; padding:.5em;">
+      <select name="countries_lived" id="countries_lived" multiple size="6" required style="width:100%; font-size:1em; padding:.5em;">
         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
       </select>
     </label>
+    <br><br>
+    <label>
+      Please specify if "Other":<br>
+      <input type="text" name="countries_lived_other" id="countries_lived_other" style="width:100%;" />
+    </label>
+    <p id="error-countries" style="color:red; display:none;">Please fill in the country if you selected "Other".</p>
+
+    <script>
+      document.addEventListener('submit', function(event) {
+        const select = document.getElementById("countries_lived");
+        const other = document.getElementById("countries_lived_other");
+        const error = document.getElementById("error-countries");
+
+        const selected = Array.from(select.selectedOptions).map(o => o.value);
+        if (selected.includes("OTHER") && !other.value.trim()) {
+          event.preventDefault();
+          error.style.display = "block";
+        } else {
+          error.style.display = "none";
+        }
+      });
+    </script>
   `,
   data: { question: 'countries_lived' }
 };
@@ -881,20 +989,20 @@ const l2LanguageYesNoTrial = {
 };
 
 // --- L2 Language Frequency Trial ---
-const l2LanguageFreqTrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function () {
-    return `<p>${translations[lang].languageOtherFreqQ}</p>`;
-  },
-  choices: function () {
-    return translations[lang].languageFreq_options;
-  },
-  data: { question: 'l2_usage' },
-  conditional_function: function () {
-    const data = jsPsych.data.get().last(1).values()[0];
-    return data && data.l2;
-  }
-};
+// const l2LanguageFreqTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function () {
+//     return `<p>${translations[lang].languageOtherFreqQ}</p>`;
+//   },
+//   choices: function () {
+//     return translations[lang].languageFreq_options;
+//   },
+//   data: { question: 'l2_usage' },
+//   conditional_function: function () {
+//     const data = jsPsych.data.get().last(1).values()[0];
+//     return data && data.l2;
+//   }
+// };
 
 const frequencyOptions = [
   "ほぼ毎日",
@@ -943,7 +1051,8 @@ const nativeBlock = {
     familyLanguageTrial,
     l2LanguageYesNoTrial,
     l2LanguageSelectTrial,
-    l2LanguageFreqTrial,
+    l2UsageBlock,
+    // l2LanguageFreqTrial,
     musicTrial
   ],
   conditional_function: () => isNative
@@ -961,7 +1070,8 @@ const nonNativeBlock = {
     usageTrial,
     l2LanguageYesNoTrial,
     l2LanguageSelectTrial,
-    l2LanguageFreqTrial,
+    l2UsageBlock,
+    // l2LanguageFreqTrial,
     musicTrial
   ],
   conditional_function: () => !isNative
@@ -969,27 +1079,32 @@ const nonNativeBlock = {
 
 // Final thank-you screen
 const thankYouTrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function() { return `<p>${translations[lang].final_thanks}</p>`; },
-  choices: function() { return [ translations[lang].finish ]; },
-  on_finish: async function () {
-    try {
-      const response = await fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: jsPsych.data.get().json()
-      });
-
-      if (!response || !response.ok) {
-        throw new Error(`Submission failed with status: ${response?.status}`);
-      }
-    } catch (error) {
-      alert("⚠️ Data submission failed. Saving backup locally.");
+  type: jsPsychHtmlKeyboardResponse,
+  stimulus: function () {
+    return `
+      <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+        <p>${translations[lang].final_thanks}</p>
+        <p><strong>You may now close this window. Your responses have been saved.</strong></p>
+      </div>
+    `;
+  },
+  choices: "NO_KEYS",
+  trial_duration: 5000, // 5 seconds display before auto-end (adjust if needed)
+  on_start: function () {
+    fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: jsPsych.data.get().json()
+    }).then(res => {
+      if (!res.ok) throw new Error("Failed to submit");
+    }).catch(err => {
+      alert("⚠️ Submission failed. Saving backup locally.");
       jsPsych.data.get().localSave("csv", "backup.csv");
-      console.error("Submission error:", error);
-    }
+      console.error(err);
+    });
   }
 };
+
 
 // Build and run timeline
 const timeline = [];
