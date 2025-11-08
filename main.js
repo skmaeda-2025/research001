@@ -1038,7 +1038,6 @@ const countriesLivedTrial = {
   data: { question: 'countries_lived' }
 };
 
-
 // --- Family Language Trial ---
 const familyLanguageTrial = makeLanguageDropdown(translations[lang].familyLanguageQ, 'family_language');
 
@@ -1264,6 +1263,7 @@ timeline.push(afterNativeQuestionTrial);
 timeline.push(thankYouTrial);
 
 jsPsych.run(timeline);
+// <<<<<<< HEAD
 
 
 // const countryOptions = [
@@ -2434,3 +2434,5 @@ jsPsych.run(timeline);
 // timeline.push(thankYouTrial);
 
 // jsPsych.run(timeline);
+// // =======
+// // >>>>>>> d85ae7735cc7d0292511460e8eccd0f865ea150a
