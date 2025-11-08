@@ -288,7 +288,9 @@ const translations = {
     skip: "Skip",
     final_thanks: `Thank you for your participation!<br>
     <p>If you have any questions, feel free to <a href="mailto:research@example.com">contact me</a>.</p>`,
-    finish: "Continue"
+    finish: "Continue",
+    continue_button: "Continue",
+    specify_other: "Please specify if \"Other\":",
   },
   ja: {
   consent: consentText_ja,
@@ -342,7 +344,9 @@ const translations = {
   skip: "スキップ",
   final_thanks: `ご参加いただき、ありがとうございました。<br>
   <p>ご質問がある場合は<a href="mailto:research@example.com">こちら</a>までご連絡ください。</p>`,
-  finish: "次へ"
+  finish: "次へ",
+  continue_button: "次へ",
+  specify_other: "「その他」を選択した場合は具体的に記入してください：",
   },
   sc: {
   consent: consentText_sc,
@@ -396,7 +400,9 @@ const translations = {
   skip: "跳过",
   final_thanks: `感谢您的参与！<br>
   如有任何疑问，请<a href="mailto:research@example.com">联系我们</a>。`,
-  finish: "继续"
+  finish: "继续",
+  continue_button: "继续",
+  specify_other: "如果选择\"其他\"，请具体说明：",
   },
   tc: {
   consent: consentText_tc,
@@ -449,9 +455,11 @@ const translations = {
   music_options: ["沒有", "有（1–5年）", "有（超過5年）"],
   skip: "跳過",
   final_thanks: `感謝您的參與！<br>
-若有任何問題，歡迎<a href="mailto:research@example.com">與我們聯繫</a>。`
-,
-  finish: "繼續"
+  若有任何問題，歡迎<a href="mailto:research@example.com">與我們聯繫</a>。`
+  ,
+  finish: "繼續",
+  continue_button: "繼續",
+  specify_other: "如果選擇「其他」，請具體說明：",
   },
   ko: {
   consent: consentText_ko,
@@ -505,7 +513,9 @@ const translations = {
   skip: "건너뛰기",
   final_thanks: `참여해 주셔서 감사합니다!<br>
   질문이 있으시면 <a href="mailto:research@example.com">이메일로 문의해 주세요</a>.`,
-  finish: "계속"
+  finish: "계속",
+  continue_button: "계속",
+  specify_other: "\"기타\"를 선택한 경우 구체적으로 입력해 주세요：",
   }
 };
 
@@ -725,36 +735,53 @@ const motherTongueTrial = {
 
     return `${display}<p>${translations[lang].motherTongueQ}</p>`;
   },
-  html: `
-    <label>
-      <select name="mother_tongue" id="mother_tongue" required style="font-size: 1em; padding:.5em; width: 100%;">
-        <option value="" disabled selected>Select your language</option>
-        ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
-      </select>
-    </label>
-    <br><br>
-    <label id="mother_tongue_label">
-      Please specify (if "Other"):<br>
-      <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="width:100%;" />
-    </label>
-    <p id="error-mother_tongue" style="color:red; display:none;">Please specify your language if you selected "Other".</p>
+  // html: `
+  //   <label>
+  //     <select name="mother_tongue" id="mother_tongue" required style="font-size: 1em; padding:.5em; width: 100%;">
+  //       <option value="" disabled selected>Select your language</option>
+  //       ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
+  //     </select>
+  //   </label>
+  //   <br><br>
+  //   <label id="mother_tongue_label">
+  //     Please specify (if "Other"):<br>
+  //     <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="width:100%;" />
+  //   </label>
+  //   <p id="error-mother_tongue" style="color:red; display:none;">Please specify your language if you selected "Other".</p>
 
-    <script>
-      document.addEventListener('submit', function(event) {
-        const select = document.getElementById("mother_tongue");
-        const otherInput = document.getElementById("mother_tongue_other");
-        const errorMsg = document.getElementById("error-mother_tongue");
+  //   <script>
+  //     document.addEventListener('submit', function(event) {
+  //       const select = document.getElementById("mother_tongue");
+  //       const otherInput = document.getElementById("mother_tongue_other");
+  //       const errorMsg = document.getElementById("error-mother_tongue");
 
-        if (select.value === "OTHER" && !otherInput.value.trim()) {
-          event.preventDefault();
-          errorMsg.style.display = "block";
-        } else {
-          errorMsg.style.display = "none";
-        }
-      });
-    </script>
-  `,
-  button_label: "Continue",
+  //       if (select.value === "OTHER" && !otherInput.value.trim()) {
+  //         event.preventDefault();
+  //         errorMsg.style.display = "block";
+  //       } else {
+  //         errorMsg.style.display = "none";
+  //       }
+  //     });
+  //   </script>
+  // `,
+  html: function() {
+    return `
+      <label>
+        <select name="mother_tongue" id="mother_tongue" required style="font-size: 1em; padding:.5em; width: 100%;">
+          <option value="" disabled selected>Select your language</option>
+          ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
+        </select>
+      </label>
+      <br><br>
+      <label id="mother_tongue_label">
+        ${translations[lang].specify_other}<br>
+        <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="width:100%;" />
+      </label>
+      <p id="error-mother_tongue" style="color:red; display:none;">${translations[lang].specify_other}</p>
+    `;
+  },
+  button_label: function() { return translations[lang].continue_button; },
+  // button_label: "Continue",
   data: { question: 'mother_tongue' }
 };
 
@@ -846,17 +873,66 @@ function makeL2UsageTrial(languageCode) {
 //   }
 // };
 
+// const l2UsageBlock = {
+//   timeline: [],
+//   on_timeline_start: function () {
+//     console.log("=== L2 Usage Block Starting ===");
+
+//     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
+//     console.log("Last trial data:", last);
+
+//     const selected = last?.response?.l2_languages || [];
+//     console.log("Selected languages raw:", selected);
+
+//     const codes = Array.isArray(selected) ? selected : [selected];
+//     console.log("Language codes array:", codes);
+//     console.log("Number of languages:", codes.length);
+
+//     // Clear timeline first
+//     this.timeline.length = 0;
+
+//     // Add a trial for each selected language
+//     codes.forEach((code, index) => {
+//       const label = languageOptions.find(l => l.code === code)?.label || code;
+//       console.log(`Adding trial ${index + 1} for: ${label} (${code})`);
+
+//       this.timeline.push({
+//         type: jsPsychHtmlButtonResponse,
+//         // stimulus: `<p>How often do you use <strong>${label}</strong>?</p>`,
+//         stimulus: function() {
+//           const code = this.data.language_code;
+//           const label = languageOptions.find(l => l.code === code)?.label || code;
+//           // Use translation based on language
+//           const questionTemplate = {
+//             en: `How often do you use <strong>${label}</strong>?`,
+//             ja: `<strong>${label}</strong>をどのくらいの頻度で使用しますか？`,
+//             sc: `您使用<strong>${label}</strong>的频率是？`,
+//             tc: `您使用<strong>${label}</strong>的頻率為何？`,
+//             ko: `<strong>${label}</strong>을(를) 얼마나 자주 사용합니까?`
+//           };
+//           return `<p>${questionTemplate[lang] || questionTemplate.en}</p>`;
+//         },
+//         choices: translations[lang].languageFreq_options,
+//         data: {
+//           question: 'l2_language_usage',
+//           language_code: code
+//         }
+//       });
+//     });
+
+//     console.log("Total trials added:", this.timeline.length);
+//     console.log("=== L2 Usage Block Ready ===");
+//   }
+// };
+
 const l2UsageBlock = {
   timeline: [],
   on_timeline_start: function () {
     console.log("=== L2 Usage Block Starting ===");
-
     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
     console.log("Last trial data:", last);
-
     const selected = last?.response?.l2_languages || [];
     console.log("Selected languages raw:", selected);
-
     const codes = Array.isArray(selected) ? selected : [selected];
     console.log("Language codes array:", codes);
     console.log("Number of languages:", codes.length);
@@ -869,9 +945,18 @@ const l2UsageBlock = {
       const label = languageOptions.find(l => l.code === code)?.label || code;
       console.log(`Adding trial ${index + 1} for: ${label} (${code})`);
 
+      // Create question template with current language
+      const questionTemplate = {
+        en: `How often do you use <strong>${label}</strong>?`,
+        ja: `<strong>${label}</strong>をどのくらいの頻度で使用しますか？`,
+        sc: `您使用<strong>${label}</strong>的频率是？`,
+        tc: `您使用<strong>${label}</strong>的頻率為何？`,
+        ko: `<strong>${label}</strong>을(를) 얼마나 자주 사용합니까?`
+      };
+
       this.timeline.push({
         type: jsPsychHtmlButtonResponse,
-        stimulus: `<p>How often do you use <strong>${label}</strong>?</p>`,
+        stimulus: `<p>${questionTemplate[lang] || questionTemplate.en}</p>`,
         choices: translations[lang].languageFreq_options,
         data: {
           question: 'l2_language_usage',
@@ -920,7 +1005,7 @@ const l2LanguageTrial = {
         ${options}
       </select>
       <br><br>
-      <label id="l2_other_label" style="display:none;">
+      <label id="l2_other_label">
         Please specify other language(s):<br>
         <input type="text" name="l2_languages_other" style="width:100%;" />
       </label>
@@ -1002,25 +1087,46 @@ const l2LanguageSelectTrial = {
     return `${showSelected}<p>${translations[lang].languageOtherSelectQ}</p>`;
   },
 
-  html: function () {
+  // html: function () {
+  //   const options = languageOptions
+  //     .map(l => `<option value="${l.code}">${l.label}</option>`)
+  //     .join('');
+  //   return `
+  //     <label>Select all that apply:</label><br>
+  //     <select name="l2_languages" id="l2_languages" multiple size="6" required style="width:100%; padding:.5em;">
+  //       ${options}
+  //     </select>
+  //     <div id="selected-l2-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+  //     </div>
+  //     <br>
+  //     <label id="l2_other_label" style="display:none;">
+  //       Please specify other language(s):<br>
+  //       <input type="text" name="l2_languages_other" style="width:100%;" />
+  //     </label>
+  //     <p id="error-l2" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+  //   `;
+  // },
+  html: function() {
     const options = languageOptions
       .map(l => `<option value="${l.code}">${l.label}</option>`)
       .join('');
+
     return `
       <label>Select all that apply:</label><br>
-      <select name="l2_languages" id="l2_languages" multiple size="6" required style="width:100%; padding:.5em;">
+      <select name="l2_languages" id="l2_languages" multiple size="6" style="width:100%; padding:.5em;">
         ${options}
       </select>
       <div id="selected-l2-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
       </div>
       <br>
-      <label id="l2_other_label" style="display:none;">
-        Please specify other language(s):<br>
+      <label id="l2_other_label">
+        ${translations[lang].specify_other}<br>
         <input type="text" name="l2_languages_other" style="width:100%;" />
       </label>
-      <p id="error-l2" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+      <p id="error-l2" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
   },
+  button_label: function() { return translations[lang].continue_button; },
 
   // on_load: function() {
   //   const select = document.getElementById('l2_languages');
@@ -1081,13 +1187,13 @@ const l2LanguageSelectTrial = {
       } else {
         displayDiv.textContent = '';
       }
-
-      // Show/hide "Other" input
-      const values = Array.from(select.selectedOptions).map(opt => opt.value);
-      if (otherLabel) {
-        otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
-      }
     }
+      // Show/hide "Other" input
+    //   const values = Array.from(select.selectedOptions).map(opt => opt.value);
+    //   if (otherLabel) {
+      //   otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
+      }
+
 
     // Update display on all selection events
     select.addEventListener('change', updateSelectedDisplay);
@@ -1110,8 +1216,7 @@ const l2LanguageSelectTrial = {
         }
       });
     }
-  },
-
+  };
   data: { question: 'l2_languages' }
 };
 
@@ -1136,36 +1241,54 @@ const ageTrial = {
 // --- Current Country Trial ---
 const currentCountryTrial = {
   type: jsPsychSurveyHtmlForm,
-  preamble: `<p>${translations[lang].currentCountryQ}</p>`,
-  html: `
-    <label>
-      <select name="current_country" id="current_country" style="width:100%; font-size:1em; padding:.5em;">
-        <option value="" disabled selected>Select a country</option>
-        ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
-      </select>
-    </label>
-    <br><br>
-    <label>
-      Please specify if "Other":<br>
-      <input type="text" name="current_country_other" id="current_country_other" style="width:100%;" />
-    </label>
-    <p id="error-country" style="color:red; display:none;">Please fill in the country if you selected "Other".</p>
+  // preamble: `<p>${translations[lang].currentCountryQ}</p>`,
+  preamble: function() { return `<p>${translations[lang].currentCountryQ}</p>`; },
+  // html: `
+  //   <label>
+  //     <select name="current_country" id="current_country" style="width:100%; font-size:1em; padding:.5em;">
+  //       <option value="" disabled selected>Select a country</option>
+  //       ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+  //     </select>
+  //   </label>
+  //   <br><br>
+  //   <label>
+  //     Please specify if "Other":<br>
+  //     <input type="text" name="current_country_other" id="current_country_other" style="width:100%;" />
+  //   </label>
+  //   <p id="error-country" style="color:red; display:none;">Please fill in the country if you selected "Other".</p>
 
-    <script>
-      document.addEventListener('submit', function(event) {
-        const select = document.getElementById("current_country");
-        const other = document.getElementById("current_country_other");
-        const error = document.getElementById("error-country");
+  //   <script>
+  //     document.addEventListener('submit', function(event) {
+  //       const select = document.getElementById("current_country");
+  //       const other = document.getElementById("current_country_other");
+  //       const error = document.getElementById("error-country");
 
-        if (select.value === "OTHER" && !other.value.trim()) {
-          event.preventDefault();
-          error.style.display = "block";
-        } else {
-          error.style.display = "none";
-        }
-      });
-    </script>
-  `,
+  //       if (select.value === "OTHER" && !other.value.trim()) {
+  //         event.preventDefault();
+  //         error.style.display = "block";
+  //       } else {
+  //         error.style.display = "none";
+  //       }
+  //     });
+  //   </script>
+  // `,
+  html: function() {
+    return `
+      <label>
+        <select name="current_country" id="current_country" style="width:100%; font-size:1em; padding:.5em;">
+          <option value="" disabled selected>Select a country</option>
+          ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+        </select>
+      </label>
+      <br><br>
+      <label>
+        ${translations[lang].specify_other}<br>
+        <input type="text" name="current_country_other" id="current_country_other" style="width:100%;" />
+      </label>
+      <p id="error-country" style="color:red; display:none;">${translations[lang].specify_other}</p>
+    `;
+  },
+button_label: function() { return translations[lang].continue_button; },
   data: { question: 'current_country' }
 };
 
@@ -1173,22 +1296,41 @@ const currentCountryTrial = {
 // --- Countries Lived Trial ---
 const countriesLivedTrial = {
   type: jsPsychSurveyHtmlForm,
-  preamble: `<p>${translations[lang].countriesLivedQ}</p>`,
-  html: `
-    <label>
-      <select name="countries_lived" id="countries_lived" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
-        ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
-      </select>
-    </label>
-    <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
-    </div>
-    <br>
-    <label>
-      Please specify if "Other":<br>
-      <input type="text" name="countries_lived_other" id="countries_lived_other" style="width:100%;" />
-    </label>
-    <p id="error-countries" style="color:red; display:none;">Please fill in the country if you selected "Other".</p>
-  `,
+  // preamble: `<p>${translations[lang].countriesLivedQ}</p>`,
+  preamble: function() { return `<p>${translations[lang].countriesLivedQ}</p>`; },
+  // html: `
+  //   <label>
+  //     <select name="countries_lived" id="countries_lived" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
+  //       ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+  //     </select>
+  //   </label>
+  //   <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+  //   </div>
+  //   <br>
+  //   <label>
+  //     Please specify if "Other":<br>
+  //     <input type="text" name="countries_lived_other" id="countries_lived_other" style="width:100%;" />
+  //   </label>
+  //   <p id="error-countries" style="color:red; display:none;">Please fill in the country if you selected "Other".</p>
+  // `,
+  html: function() {
+    return `
+      <label>
+        <select name="countries_lived" id="countries_lived" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
+          ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+        </select>
+      </label>
+      <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+      </div>
+      <br>
+      <label>
+        ${translations[lang].specify_other}<br>
+        <input type="text" name="countries_lived_other" id="countries_lived_other" style="width:100%;" />
+      </label>
+      <p id="error-countries" style="color:red; display:none;">${translations[lang].specify_other}</p>
+    `;
+  },
+button_label: function() { return translations[lang].continue_button; },
   on_load: function() {
     const select = document.getElementById("countries_lived");
     const displayDiv = document.getElementById("selected-countries");
@@ -1246,6 +1388,26 @@ const familyLanguageTrial = {
   preamble: function() {
     return `<p>${translations[lang].familyLanguageQ}</p>`;
   },
+  // html: function() {
+  //   const options = languageOptions
+  //     .map(l => `<option value="${l.code}">${l.label}</option>`)
+  //     .join('');
+
+  //   return `
+  //     <label>Select all that apply:</label><br>
+  //     <select name="family_language" id="family_language" multiple size="6" style="width:100%; padding:.5em;">
+  //       ${options}
+  //     </select>
+  //     <div id="selected-family-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+  //     </div>
+  //     <br>
+  //     <label id="family_language_other_label" style="display:none;">
+  //       Please specify other language(s):<br>
+  //       <input type="text" name="family_language_other" id="family_language_other" style="width:100%;" />
+  //     </label>
+  //     <p id="error-family-language" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+  //   `;
+  // },
   html: function() {
     const options = languageOptions
       .map(l => `<option value="${l.code}">${l.label}</option>`)
@@ -1259,13 +1421,14 @@ const familyLanguageTrial = {
       <div id="selected-family-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
       </div>
       <br>
-      <label id="family_language_other_label" style="display:none;">
-        Please specify other language(s):<br>
+      <label id="family_language_other_label">
+        ${translations[lang].specify_other}<br>
         <input type="text" name="family_language_other" id="family_language_other" style="width:100%;" />
       </label>
-      <p id="error-family-language" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+      <p id="error-family-language" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
   },
+  button_label: function() { return translations[lang].continue_button; },
   on_load: function() {
     const select = document.getElementById('family_language');
     const displayDiv = document.getElementById('selected-family-languages');
@@ -1283,11 +1446,11 @@ const familyLanguageTrial = {
       }
 
       // Show/hide "Other" input
-      const values = Array.from(select.selectedOptions).map(opt => opt.value);
-      if (otherLabel) {
-        otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
-      }
-    }
+    //   const values = Array.from(select.selectedOptions).map(opt => opt.value);
+    //   if (otherLabel) {
+    //     otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
+    //   }
+    // }
 
     // Update display on all selection events
     select.addEventListener('change', updateSelectedDisplay);
