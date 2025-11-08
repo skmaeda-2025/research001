@@ -842,42 +842,133 @@ const l2LanguageTrial = {
   data: { question: 'l2_languages' }
 };
 
+// const l2LanguageSelectTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: `<p>${translations[lang].languageOtherSelectQ}</p>`,
+//   html: `
+//     <label>Select all that apply:</label><br>
+//     <select name="l2_languages" id="l2_languages" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
+//       ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
+//     </select>
+//     <br><br>
+//     <label>
+//       Please specify other language(s):<br>
+//       <input type="text" name="l2_languages_other" id="l2_languages_other" style="width:100%;" />
+//     </label>
+//     <p id="error-l2" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+
+//     <script>
+//       document.addEventListener('submit', function(event) {
+//         const select = document.getElementById("l2_languages");
+//         const otherInput = document.getElementById("l2_languages_other");
+//         const errorMsg = document.getElementById("error-l2");
+
+//         const selected = Array.from(select.selectedOptions).map(opt => opt.value);
+//         const selectedOther = selected.includes("OTHER");
+
+//         if (selectedOther && !otherInput.value.trim()) {
+//           event.preventDefault();
+//           errorMsg.style.display = "block";
+//         } else {
+//           errorMsg.style.display = "none";
+//         }
+//       });
+//     </script>
+//   `,
+//   data: { question: 'l2_languages' }
+// };
+
 const l2LanguageSelectTrial = {
   type: jsPsychSurveyHtmlForm,
-  preamble: `<p>${translations[lang].languageOtherSelectQ}</p>`,
-  html: `
-    <label>Select all that apply:</label><br>
-    <select name="l2_languages" id="l2_languages" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
-      ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
-    </select>
-    <br><br>
-    <label>
-      Please specify other language(s):<br>
-      <input type="text" name="l2_languages_other" id="l2_languages_other" style="width:100%;" />
-    </label>
-    <p id="error-l2" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+  preamble: function () {
+    let showSelected = "";
 
-    <script>
-      document.addEventListener('submit', function(event) {
-        const select = document.getElementById("l2_languages");
-        const otherInput = document.getElementById("l2_languages_other");
-        const errorMsg = document.getElementById("error-l2");
+    try {
+      const allData = jsPsych.data.get().values();
+      const recent = [...allData].reverse().find(d => d.response?.l2_languages);
 
-        const selected = Array.from(select.selectedOptions).map(opt => opt.value);
-        const selectedOther = selected.includes("OTHER");
+      if (recent) {
+        const codes = recent.response.l2_languages;
+        const codeArray = Array.isArray(codes) ? codes : [codes];
+        const labels = codeArray.map(code => languageOptions.find(l => l.code === code)?.label).filter(Boolean);
 
-        if (selectedOther && !otherInput.value.trim()) {
+        if (labels.length) {
+          showSelected = `<p><strong>Previously selected: ${labels.join(', ')}</strong></p>`;
+        }
+      }
+    } catch (e) {
+      console.warn("L2 language lookup failed:", e);
+    }
+
+    return `${showSelected}<p>${translations[lang].languageOtherSelectQ}</p>`;
+  },
+
+  html: function () {
+    const options = languageOptions
+      .map(l => `<option value="${l.code}">${l.label}</option>`)
+      .join('');
+    return `
+      <label>Select all that apply:</label><br>
+      <select name="l2_languages" id="l2_languages" multiple size="6" required style="width:100%; padding:.5em;">
+        ${options}
+      </select>
+      <div id="selected-l2-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+      </div>
+      <br>
+      <label id="l2_other_label" style="display:none;">
+        Please specify other language(s):<br>
+        <input type="text" name="l2_languages_other" style="width:100%;" />
+      </label>
+      <p id="error-l2" style="color:red; display:none;">Please specify the language if "Other" is selected.</p>
+    `;
+  },
+
+  on_load: function() {
+    const select = document.getElementById('l2_languages');
+    const displayDiv = document.getElementById('selected-l2-languages');
+    const otherLabel = document.getElementById('l2_other_label');
+    const otherInput = document.querySelector('input[name="l2_languages_other"]');
+    const errorMsg = document.getElementById('error-l2');
+
+    function updateSelectedDisplay() {
+      const selected = Array.from(select.selectedOptions);
+      if (selected.length > 0) {
+        const names = selected.map(opt => opt.text).join(', ');
+        displayDiv.textContent = names;
+      } else {
+        displayDiv.textContent = '';
+      }
+
+      // Show/hide "Other" input
+      const values = Array.from(select.selectedOptions).map(opt => opt.value);
+      otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
+    }
+
+    // Update display on all selection events
+    select.addEventListener('change', updateSelectedDisplay);
+    select.addEventListener('click', updateSelectedDisplay);
+    select.addEventListener('mousedown', () => setTimeout(updateSelectedDisplay, 0));
+    select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
+    select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
+    select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
+
+    // Validation on submit
+    const form = select.closest('form');
+    if (form) {
+      form.addEventListener('submit', function(event) {
+        const selected = Array.from(select.selectedOptions).map(o => o.value);
+        if (selected.includes('OTHER') && !otherInput.value.trim()) {
           event.preventDefault();
-          errorMsg.style.display = "block";
+          errorMsg.style.display = 'block';
         } else {
-          errorMsg.style.display = "none";
+          errorMsg.style.display = 'none';
         }
       });
-    </script>
-  `,
+    }
+  },
+
   data: { question: 'l2_languages' }
 };
-
 
 const genderTrial = {
   type: jsPsychHtmlButtonResponse,
