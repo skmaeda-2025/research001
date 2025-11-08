@@ -120,7 +120,7 @@ function makeLanguageDropdown(questionText, responseName) {
     preamble: `<p>${questionText}</p>`,
     html: `
       <label>
-        <select name="${responseName}" id="${responseName}" required style="font-size: 1em; padding:.5em; width: 100%;">
+        <select name="${responseName}" id="${responseName}" style="font-size: 1em; padding:.5em; width: 100%;">
           <option value="" disabled selected>Select your language</option>
           ${options}
         </select>
@@ -284,6 +284,7 @@ const translations = {
     proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "Basic", "Conversational", "Fluent"],
     musicQ: "Do you have any musical training or experience?",
     music_options: ["No", "Yes (1-5 years)", "Yes (more than 5 years)"],
+    skip: "Skip",
     final_thanks: `Thank you for your participation!<br>
     <p>If you have any questions, feel free to <a href="mailto:research@example.com">contact me</a>.</p>`,
     finish: "Continue"
@@ -337,6 +338,7 @@ const translations = {
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
   musicQ: "音楽の訓練や経験はありますか？",
   music_options: ["いいえ", "はい（1〜5年）", "はい（5年以上）"],
+  skip: "スキップ",
   final_thanks: `ご参加いただき、ありがとうございました。<br>
   <p>ご質問がある場合は<a href="mailto:research@example.com">こちら</a>までご連絡ください。</p>`,
   finish: "次へ"
@@ -390,6 +392,7 @@ const translations = {
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "基础", "会话", "流利"],
   musicQ: "您是否接受过音乐训练或有相关经验？",
   music_options: ["没有", "有（1–5年）", "有（超过5年）"],
+  skip: "跳过",
   final_thanks: `感谢您的参与！<br>
   如有任何疑问，请<a href="mailto:research@example.com">联系我们</a>。`,
   finish: "继续"
@@ -443,6 +446,7 @@ const translations = {
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
   musicQ: "您是否有音樂訓練或經驗？",
   music_options: ["沒有", "有（1–5年）", "有（超過5年）"],
+  skip: "跳過",
   final_thanks: `感謝您的參與！<br>
 若有任何問題，歡迎<a href="mailto:research@example.com">與我們聯繫</a>。`
 ,
@@ -497,6 +501,7 @@ const translations = {
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "초급", "중급", "고급"],
   musicQ: "음악 훈련이나 경험이 있으십니까?",
   music_options: ["없음", "있음 (1–5년)", "있음 (5년 이상)"],
+  skip: "건너뛰기",
   final_thanks: `참여해 주셔서 감사합니다!<br>
   질문이 있으시면 <a href="mailto:research@example.com">이메일로 문의해 주세요</a>.`,
   finish: "계속"
@@ -698,7 +703,7 @@ const nativeQuestionTrial = {
 };
 
 const motherTongueTrial = {
-  ...makeLanguageDropdown(translations[lang].motherTongueQ, 'mother_tongue'),
+  type: jsPsychSurveyHtmlForm,
   preamble: function () {
     let display = "";
 
@@ -718,7 +723,38 @@ const motherTongueTrial = {
     }
 
     return `${display}<p>${translations[lang].motherTongueQ}</p>`;
-  }
+  },
+  html: `
+    <label>
+      <select name="mother_tongue" id="mother_tongue" required style="font-size: 1em; padding:.5em; width: 100%;">
+        <option value="" disabled selected>Select your language</option>
+        ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
+      </select>
+    </label>
+    <br><br>
+    <label id="mother_tongue_label">
+      Please specify (if "Other"):<br>
+      <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="width:100%;" />
+    </label>
+    <p id="error-mother_tongue" style="color:red; display:none;">Please specify your language if you selected "Other".</p>
+
+    <script>
+      document.addEventListener('submit', function(event) {
+        const select = document.getElementById("mother_tongue");
+        const otherInput = document.getElementById("mother_tongue_other");
+        const errorMsg = document.getElementById("error-mother_tongue");
+
+        if (select.value === "OTHER" && !otherInput.value.trim()) {
+          event.preventDefault();
+          errorMsg.style.display = "block";
+        } else {
+          errorMsg.style.display = "none";
+        }
+      });
+    </script>
+  `,
+  button_label: "Continue",
+  data: { question: 'mother_tongue' }
 };
 
 function makeL2UsageTrial(languageCode) {
@@ -846,7 +882,7 @@ const l2LanguageSelectTrial = {
   preamble: `<p>${translations[lang].languageOtherSelectQ}</p>`,
   html: `
     <label>Select all that apply:</label><br>
-    <select name="l2_languages" id="l2_languages" multiple size="6" required style="width:100%; font-size:1em; padding:.5em;">
+    <select name="l2_languages" id="l2_languages" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
       ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
     </select>
     <br><br>
@@ -902,7 +938,7 @@ const currentCountryTrial = {
   preamble: `<p>${translations[lang].currentCountryQ}</p>`,
   html: `
     <label>
-      <select name="current_country" id="current_country" required style="width:100%; font-size:1em; padding:.5em;">
+      <select name="current_country" id="current_country" style="width:100%; font-size:1em; padding:.5em;">
         <option value="" disabled selected>Select a country</option>
         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
       </select>
@@ -939,20 +975,53 @@ const countriesLivedTrial = {
   preamble: `<p>${translations[lang].countriesLivedQ}</p>`,
   html: `
     <label>
-      <select name="countries_lived" id="countries_lived" multiple size="6" required style="width:100%; font-size:1em; padding:.5em;">
+      <select name="countries_lived" id="countries_lived" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
       </select>
     </label>
-    <br><br>
+    <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+    </div>
+    <br>
     <label>
       Please specify if "Other":<br>
       <input type="text" name="countries_lived_other" id="countries_lived_other" style="width:100%;" />
     </label>
     <p id="error-countries" style="color:red; display:none;">Please fill in the country if you selected "Other".</p>
+  `,
+  on_load: function() {
+    const select = document.getElementById("countries_lived");
+    const displayDiv = document.getElementById("selected-countries");
 
-    <script>
-      document.addEventListener('submit', function(event) {
-        const select = document.getElementById("countries_lived");
+    function updateSelectedDisplay() {
+      const selected = Array.from(select.selectedOptions);
+      if (selected.length > 0) {
+        const names = selected.map(opt => opt.text).join(', ');
+        displayDiv.textContent = names;
+      } else {
+        displayDiv.textContent = '';
+      }
+    }
+
+    // Catch all possible selection events
+    select.addEventListener('change', updateSelectedDisplay);
+    select.addEventListener('click', updateSelectedDisplay);
+    select.addEventListener('mousedown', function() {
+      setTimeout(updateSelectedDisplay, 0);
+    });
+    select.addEventListener('mouseup', function() {
+      setTimeout(updateSelectedDisplay, 0);
+    });
+    select.addEventListener('keydown', function() {
+      setTimeout(updateSelectedDisplay, 0);
+    });
+    select.addEventListener('keyup', function() {
+      setTimeout(updateSelectedDisplay, 0);
+    });
+
+    // Validation on submit
+    const form = select.closest('form');
+    if (form) {
+      form.addEventListener('submit', function(event) {
         const other = document.getElementById("countries_lived_other");
         const error = document.getElementById("error-countries");
 
@@ -964,8 +1033,8 @@ const countriesLivedTrial = {
           error.style.display = "none";
         }
       });
-    </script>
-  `,
+    }
+  },
   data: { question: 'countries_lived' }
 };
 
@@ -1023,9 +1092,29 @@ const musicExperienceOptions = [
 
 const usageTrial = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: function() { return `<p>${translations[lang].usageQ}</p>`; },
+  stimulus: function() {
+    return `
+      <div style="position: relative;">
+        <button id="skip-btn" style="position: absolute; top: -40px; right: 0; padding: 8px 16px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
+          ${translations[lang].skip}
+        </button>
+        <p>${translations[lang].usageQ}</p>
+      </div>
+    `;
+  },
   choices: function() { return translations[lang].languageFreq_options; },
-  data: { question: 'japanese_usage' }
+  data: { question: 'japanese_usage' },
+  on_load: function() {
+    const skipBtn = document.getElementById('skip-btn');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', function() {
+        jsPsych.finishTrial({
+          response: null,
+          skipped: true
+        });
+      });
+    }
+  }
 };
 
 const proficiencyTrial = {
@@ -1037,45 +1126,87 @@ const proficiencyTrial = {
 
 const musicTrial = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: function() { return `<p>${translations[lang].musicQ}</p>`; },
+  stimulus: function() {
+    return `
+      <div style="position: relative;">
+        <button id="skip-btn-music" style="position: absolute; top: -40px; right: 0; padding: 8px 16px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
+          ${translations[lang].skip}
+        </button>
+        <p>${translations[lang].musicQ}</p>
+      </div>
+    `;
+  },
   choices: function() { return translations[lang].music_options; },
-  data: { question: 'musical_experience' }
+  data: { question: 'musical_experience' },
+  on_load: function() {
+    const skipBtn = document.getElementById('skip-btn-music');
+    if (skipBtn) {
+      skipBtn.addEventListener('click', function() {
+        jsPsych.finishTrial({
+          response: null,
+          skipped: true
+        });
+      });
+    }
+  }
 };
 
-const nativeBlock = {
+const basicBlock = {
   timeline: [
     genderTrial,
     ageTrial,
     currentCountryTrial,
     countriesLivedTrial,
+    {
+      ...motherTongueTrial,
+      on_finish: function(data) {
+        // Check if mother tongue is Japanese
+        if (data.response && data.response.mother_tongue === 'JA') {
+          isNative = true;
+        } else {
+          isNative = false;
+        }
+      }
+    },
     familyLanguageTrial,
-    l2LanguageYesNoTrial,
-    l2LanguageSelectTrial,
-    l2UsageBlock,
-    // l2LanguageFreqTrial,
-    musicTrial
+  ]
+}
+
+const nativeBlock = {
+  timeline: [
   ],
   conditional_function: () => isNative
 };
 
 const nonNativeBlock = {
   timeline: [
-    genderTrial,
-    ageTrial,
-    currentCountryTrial,
-    countriesLivedTrial,
-    motherTongueTrial,
-    familyLanguageTrial,
     proficiencyTrial,
-    usageTrial,
-    l2LanguageYesNoTrial,
-    l2LanguageSelectTrial,
-    l2UsageBlock,
-    // l2LanguageFreqTrial,
-    musicTrial
   ],
   conditional_function: () => !isNative
 };
+
+const afterNativeQuestionTrial = {
+  timeline: [
+    usageTrial,
+    l2LanguageYesNoTrial,
+    {
+      timeline: [l2LanguageSelectTrial],
+      conditional_function: function() {
+        const data = jsPsych.data.get().last(1).values()[0];
+        return data.l2 === true;
+      }
+    },
+    {
+      timeline: [l2UsageBlock],
+      conditional_function: function() {
+        const data = jsPsych.data.get().filter({question: 'l2_yesno'}).last(1).values()[0];
+        return data.l2 === true;
+      }
+    },
+    // l2LanguageFreqTrial,
+    musicTrial
+  ]
+}
 
 // Final thank-you screen
 const thankYouTrial = {
@@ -1113,22 +1244,23 @@ timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
 // timeline.push(instructionVideoTrial);
-timeline.push(preTestMessage);
-timeline.push({
-  timeline: [
-    play_audio,
-    accentQuestionTrial,
-    {
-      timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
-    }
-  ],
-  timeline_variables: audioFiles,
-  randomize_order: true
-});
+// timeline.push(preTestMessage);
+// timeline.push({
+//   timeline: [
+//     play_audio,
+//     accentQuestionTrial,
+//     {
+//       timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
+//     }
+//   ],
+//   timeline_variables: audioFiles,
+//   randomize_order: true
+// });
 
-timeline.push(nativeQuestionTrial);
+timeline.push(basicBlock);
 timeline.push(nativeBlock);
 timeline.push(nonNativeBlock);
+timeline.push(afterNativeQuestionTrial);
 timeline.push(thankYouTrial);
 
 jsPsych.run(timeline);
