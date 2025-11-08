@@ -153,15 +153,15 @@ function makeLanguageDropdown(questionText, responseName) {
 }
 
 
-// This built-in method is part of the Web Crypto API, replaced by const participantID = crypto.randomUUID();
-function generateUUID() {
-  // Generate a random UUID v4
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    const r = Math.random() * 16 | 0;
-    const v = c === 'x' ? r : (r & 0x3 | 0x8);
-    return v.toString(16);
-  });
-}
+// // This built-in method is part of the Web Crypto API, replaced by const participantID = crypto.randomUUID();
+// function generateUUID() {
+//   // Generate a random UUID v4
+//   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+//     const r = Math.random() * 16 | 0;
+//     const v = c === 'x' ? r : (r & 0x3 | 0x8);
+//     return v.toString(16);
+//   });
+// }
 
 // const jsPsych = initJsPsych({});
 const jsPsych = initJsPsych({
@@ -169,7 +169,8 @@ const jsPsych = initJsPsych({
   // auto_update_progress_bar: true
 });
 
-const participantID = generateUUID();
+// const participantID = generateUUID();
+const participantID = crypto.randomUUID();
 // Tag all data with participant ID
 jsPsych.data.addProperties({ participant_id: participantID });
 
@@ -1036,22 +1037,23 @@ const l2LanguageYesNoTrial = {
 //   }
 // };
 
-const frequencyOptions = [
-  "ほぼ毎日",
-  "1週間に2～3回程度",
-  "1週間に1回程度",
-  "1ヶ月に2～3回程度",
-  "1ヶ月に1回程度",
-  "2～3ヶ月に1回程度",
-  "それ以下の頻度"
-];
+// seems never used
+// const frequencyOptions = [
+//   "ほぼ毎日",
+//   "1週間に2～3回程度",
+//   "1週間に1回程度",
+//   "1ヶ月に2～3回程度",
+//   "1ヶ月に1回程度",
+//   "2～3ヶ月に1回程度",
+//   "それ以下の頻度"
+// ];
 
-const musicExperienceOptions = [
-  "1年未満",
-  "1-3年",
-  "3-5年",
-  "5年以上"
-];
+// const musicExperienceOptions = [
+//   "1年未満",
+//   "1-3年",
+//   "3-5年",
+//   "5年以上"
+// ];
 
 const usageTrial = {
   type: jsPsychHtmlButtonResponse,
