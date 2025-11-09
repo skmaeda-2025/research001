@@ -282,6 +282,9 @@ const translations = {
     specify_other: "Please specify if \"Other\":",
     mandatory: "<span style='color:red;'>*</span>",
     optional: "<span style='color:gray;'>(Optional)</span>",
+    select_all_apply: "Select all that apply:",
+    multi_select_hint: "(You can press Ctrl button to select multiple options)",
+    close_window: "You may now close this window. Your responses have been saved.",
   },
   ja: {
   consent: consentText_ja,
@@ -328,18 +331,21 @@ const translations = {
     "ほとんど使わない"
   ],
   usageQ: "日本語をどのくらいの頻度で使用しますか？",
-  proficiencyQ: "日本語の習熟度はどの程度ですか？",
+  proficiencyQ: "あなたの日本語の習熟度を教えてください。",
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
-  musicQ: "音楽の訓練や経験はありますか？",
+  musicQ: "学校の授業以外で、音楽を習ったり、音楽活動をした経験はありますか？",
   music_options: ["いいえ", "はい（1〜5年）", "はい（5年以上）"],
   skip: "スキップ",
   final_thanks: `ご参加いただき、ありがとうございました。<br>
   <p>ご質問がある場合は<a href="mailto:research@example.com">こちら</a>までご連絡ください。</p>`,
   finish: "次へ",
   continue_button: "次へ",
-  specify_other: "「Other」を選択した場合は具体的に記入してください：",
+  specify_other: "「Other」を選択した場合は具体的に記入してください。：",
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（任意）</span>",
+  select_all_apply: "該当するものをすべて選んでください：",
+  multi_select_hint: "（Ctrlキーを押しながら選択すると、複数選択できます。）",
+  close_window: "回答は保存されました。このウィンドウを閉じてください。",
   },
   sc: {
   consent: consentText_sc,
@@ -398,6 +404,9 @@ const translations = {
   specify_other: "如果选择\"Other\"，请具体说明：",
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（可选）</span>",
+  select_all_apply: "选择所有适用项：",
+  multi_select_hint: "（您可以按住Ctrl键选择多个选项）",
+  close_window: "您的回答已保存。您现在可以关闭此窗口。",
   },
   tc: {
   consent: consentText_tc,
@@ -457,6 +466,9 @@ const translations = {
   specify_other: "如果選擇「Other」，請具體說明：",
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（選填）</span>",
+  select_all_apply: "選擇所有適用項：",
+  multi_select_hint: "（您可以按住Ctrl鍵選擇多個選項）",
+  close_window: "您的回答已保存。您現在可以關閉此視窗。",
   },
   ko: {
   consent: consentText_ko,
@@ -515,6 +527,9 @@ const translations = {
   specify_other: "\"Other\"를 선택한 경우 구체적으로 입력해 주세요：",
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>(선택 사항)</span>",
+  select_all_apply: "해당하는 항목을 모두 선택하세요：",
+  multi_select_hint: "(Ctrl 키를 누른 채로 여러 개를 선택할 수 있습니다)",
+  close_window: "응답이 저장되었습니다. 이제 이 창을 닫으셔도 됩니다.",
   }
 };
 
@@ -590,19 +605,20 @@ function makeImpressionTrial() {
 
 const languageSelector = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<p>Please select your language:<br/>
-    言語を選択してください。<br/>
-    请选择您的语言。<br/>
-    請選擇您的語言。<br/>
-    사용할 언어를 선택해 주세요.</p>`,
-  choices: ["English", "日本語", "简体中文", "繁體中文", "한국어"],
+  stimulus: `<p>
+    実験に興味を持っていただきありがとうございます。表示言語を選択してください。<br/>
+    感谢您对本实验的兴趣。请选择显示语言。<br/>
+    感謝您對本實驗的興趣。請選擇顯示語言。<br/>
+    실험에 관심을 가져주셔서 감사합니다. 표시 언어를 선택해 주세요.<br/>
+    Thank you for your interest in this experiment. Please select your display language.</p>`,
+  choices: ["日本語", "简体中文", "繁體中文", "한국어", "English"],
   on_finish: function(data) {
     const choice = data.response;
-    if (choice === 0) lang = 'en';
-    if (choice === 1) lang = 'ja';
-    if (choice === 2) lang = 'sc';
-    if (choice === 3) lang = 'tc';
-    if (choice === 4) lang = 'ko';
+    if (choice === 0) lang = 'ja';
+    if (choice === 1) lang = 'sc';
+    if (choice === 2) lang = 'tc';
+    if (choice === 3) lang = 'ko';
+    if (choice === 4) lang = 'en';
   }
 };
 
@@ -652,7 +668,7 @@ stimulus: function () {
 return `
       <div style="text-align: left; max-width: 700px; margin: 0 auto;">
         <p>You are about to begin the actual test. There are 10 audio clips in total. Please listen carefully and answer honestly.</p>
-        <p>これから本番のテストが始まります。音声は全部で10個あります。よく聞いて、正直に答えてください。</p>
+        <p>これから本番のテストが始まります。音声は全部で10個あります。音声は一度だけ流れます。よく聞いて、正直に答えてください。</p>
         <p>您即将开始正式测试。共有10个音频片段。请认真聆听并如实作答。</p>
         <p>您即將開始正式測試。共有10個音訊片段。請仔細聆聽並誠實作答。</p>
         <p>이제 본 테스트가 시작됩니다. 총 10개의 오디오가 재생됩니다. 주의 깊게 듣고 솔직하게 응답해 주세요.</p>
@@ -768,132 +784,6 @@ function makeL2UsageTrial(languageCode) {
     }
   };
 }
-
-// const l2UsageBlock = {
-//   timeline: [],
-//   on_timeline_start: function () {
-//     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
-//     const selected = last?.response?.l2_languages || [];
-
-//     const codes = Array.isArray(selected) ? selected : [selected];
-
-//     codes.forEach(code => {
-//       l2UsageBlock.timeline.push(makeL2UsageTrial(code));
-//     });
-//   }
-// };
-
-// const l2UsageBlock = {
-//   timeline: [
-//     {
-//       timeline: [
-//         {
-//           type: jsPsychHtmlButtonResponse,
-//           stimulus: function() {
-//             const code = jsPsych.timelineVariable('code');
-//             const label = languageOptions.find(l => l.code === code)?.label || code;
-//             return `<p>How often do you use <strong>${label}</strong>?</p>`;
-//           },
-//           choices: function() {
-//             return translations[lang].languageFreq_options;
-//           },
-//           data: function() {
-//             return {
-//               question: 'l2_language_usage',
-//               language_code: jsPsych.timelineVariable('code')
-//             };
-//           }
-//         }
-//       ],
-//       timeline_variables: function() {
-//         const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
-//         const selected = last?.response?.l2_languages || [];
-//         const codes = Array.isArray(selected) ? selected : [selected];
-
-//         return codes.map(code => ({ code: code }));
-//       }
-//     }
-//   ]
-// };
-
-// const l2UsageBlock = {
-//   timeline: [],
-//   on_timeline_start: function () {
-//     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
-//     const selected = last?.response?.l2_languages || [];
-//     const codes = Array.isArray(selected) ? selected : [selected];
-
-//     // Clear timeline first
-//     this.timeline.length = 0;
-
-//     // Add a trial for each selected language
-//     codes.forEach(code => {
-//       const label = languageOptions.find(l => l.code === code)?.label || code;
-
-//       this.timeline.push({
-//         type: jsPsychHtmlButtonResponse,
-//         stimulus: `<p>How often do you use <strong>${label}</strong>?</p>`,
-//         choices: translations[lang].languageFreq_options,
-//         data: {
-//           question: 'l2_language_usage',
-//           language_code: code
-//         }
-//       });
-//     });
-//   }
-// };
-
-// const l2UsageBlock = {
-//   timeline: [],
-//   on_timeline_start: function () {
-//     console.log("=== L2 Usage Block Starting ===");
-
-//     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
-//     console.log("Last trial data:", last);
-
-//     const selected = last?.response?.l2_languages || [];
-//     console.log("Selected languages raw:", selected);
-
-//     const codes = Array.isArray(selected) ? selected : [selected];
-//     console.log("Language codes array:", codes);
-//     console.log("Number of languages:", codes.length);
-
-//     // Clear timeline first
-//     this.timeline.length = 0;
-
-//     // Add a trial for each selected language
-//     codes.forEach((code, index) => {
-//       const label = languageOptions.find(l => l.code === code)?.label || code;
-//       console.log(`Adding trial ${index + 1} for: ${label} (${code})`);
-
-//       this.timeline.push({
-//         type: jsPsychHtmlButtonResponse,
-//         // stimulus: `<p>How often do you use <strong>${label}</strong>?</p>`,
-//         stimulus: function() {
-//           const code = this.data.language_code;
-//           const label = languageOptions.find(l => l.code === code)?.label || code;
-//           // Use translation based on language
-//           const questionTemplate = {
-//             en: `How often do you use <strong>${label}</strong>?`,
-//             ja: `<strong>${label}</strong>をどのくらいの頻度で使用しますか？`,
-//             sc: `您使用<strong>${label}</strong>的频率是？`,
-//             tc: `您使用<strong>${label}</strong>的頻率為何？`,
-//             ko: `<strong>${label}</strong>을(를) 얼마나 자주 사용합니까?`
-//           };
-//           return `<p>${questionTemplate[lang] || questionTemplate.en}</p>`;
-//         },
-//         choices: translations[lang].languageFreq_options,
-//         data: {
-//           question: 'l2_language_usage',
-//           language_code: code
-//         }
-//       });
-//     });
-
-//     console.log("Total trials added:", this.timeline.length);
-//     console.log("=== L2 Usage Block Ready ===");
-//   }
-// };
 
 const l2UsageBlock = {
   timeline: [],
@@ -1027,7 +917,8 @@ const l2LanguageSelectTrial = {
       .join('');
 
     return `
-      <label>Select all that apply:</label><br>
+      <label>${translations[lang].select_all_apply}<br>
+      <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
       <select name="l2_languages" id="l2_languages" multiple size="6" style="width:100%; padding:.5em;">
         ${options}
       </select>
@@ -1136,11 +1027,11 @@ const countriesLivedTrial = {
   preamble: function() { return `<p>${translations[lang].countriesLivedQ} ${translations[lang].optional}</p>`; },
   html: function() {
     return `
-      <label>
-        <select name="countries_lived" id="countries_lived" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
-          ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
-        </select>
-      </label>
+      <label>${translations[lang].select_all_apply}<br>
+      <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
+      <select name="countries_lived" id="countries_lived" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
+        ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+      </select>
       <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
       </div>
       <br>
@@ -1208,13 +1099,15 @@ const familyLanguageTrial = {
   preamble: function() {
     return `<p>${translations[lang].familyLanguageQ} ${translations[lang].optional}</p>`;
   },
+
   html: function() {
     const options = languageOptions
       .map(l => `<option value="${l.code}">${l.label}</option>`)
       .join('');
 
     return `
-      <label>Select all that apply:</label><br>
+      <label>${translations[lang].select_all_apply}<br>
+      <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
       <select name="family_language" id="family_language" multiple size="6" style="width:100%; padding:.5em;">
         ${options}
       </select>
@@ -1405,18 +1298,44 @@ const afterNativeQuestionTrial = {
 }
 
 // Final thank-you screen
+// const thankYouTrial = {
+//   type: jsPsychHtmlKeyboardResponse,
+//   stimulus: function () {
+//     return `
+//       <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+//         <p>${translations[lang].final_thanks}</p>
+//         <p><strong>You may now close this window. Your responses have been saved.</strong></p>
+//       </div>
+//     `;
+//   },
+//   choices: "NO_KEYS",
+//   trial_duration: 5000, // 5 seconds display before auto-end (adjust if needed)
+//   on_start: function () {
+//     fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: jsPsych.data.get().json()
+//     }).then(res => {
+//       if (!res.ok) throw new Error("Failed to submit");
+//     }).catch(err => {
+//       alert("⚠️ Submission failed. Saving backup locally.");
+//       jsPsych.data.get().localSave("csv", "backup.csv");
+//       console.error(err);
+//     });
+//   }
+// };
 const thankYouTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function () {
     return `
       <div style="text-align: center; max-width: 600px; margin: 0 auto;">
         <p>${translations[lang].final_thanks}</p>
-        <p><strong>You may now close this window. Your responses have been saved.</strong></p>
+        <p>${translations[lang].close_window}</p>
       </div>
     `;
   },
   choices: "NO_KEYS",
-  trial_duration: 5000, // 5 seconds display before auto-end (adjust if needed)
+  trial_duration: 5000,
   on_start: function () {
     fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
       method: "POST",
