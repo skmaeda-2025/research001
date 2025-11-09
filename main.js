@@ -1103,40 +1103,11 @@ button_label: function() { return translations[lang].continue_button; },
   data: { question: 'countries_lived' }
 };
 
-// --- Family Language Trial ---
-// const familyLanguageTrial = {
-//   type: jsPsychSurveyHtmlForm,
-//   preamble: function() {
-//     return `<p>${translations[lang].familyLanguageQ} ${translations[lang].optional}</p>`;
-//   },
-
-//   html: function() {
-//     const options = languageOptions
-//       .map(l => `<option value="${l.code}">${l.label}</option>`)
-//       .join('');
-
-//     return `
-//       <label>${translations[lang].select_all_apply}<br>
-//       <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-//       <select name="family_language" id="family_language" multiple size="6" style="width:100%; padding:.5em;">
-//         ${options}
-//       </select>
-//       <div id="selected-family-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
-//       </div>
-//       <br>
-//       <label id="family_language_other_label">
-//         ${translations[lang].specify_other}<br>
-//         <input type="text" name="family_language_other" id="family_language_other" style="width:100%;" />
-//       </label>
-//       <p id="error-family-language" style="color:red; display:none;">${translations[lang].specify_other}</p>
-//     `;
-//   },
-//   button_label: function() { return translations[lang].continue_button; },
 const familyLanguageTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function() {
     return `
-      <p>${translations[lang].familyLanguageQ} ${translations[lang].mandatory}</p>
+      <p>${translations[lang].familyLanguageQ} ${translations[lang].optional}</p>
       <p style="font-size:0.9em; color:#666;">${translations[lang].family_definition}</p>
     `;
   },
@@ -1338,45 +1309,11 @@ const afterNativeQuestionTrial = {
         return data.l2 === true;
       }
     },
-    // {
-    //   timeline: [l2UsageBlock],
-    //   conditional_function: function() {
-    //     const data = jsPsych.data.get().filter({question: 'l2_yesno'}).last(1).values()[0];
-    //     return data.l2 === true;
-    //   }
-    // },
-    // l2LanguageFreqTrial,
     musicTrial
   ]
 }
 
-// Final thank-you screen
-// const thankYouTrial = {
-//   type: jsPsychHtmlKeyboardResponse,
-//   stimulus: function () {
-//     return `
-//       <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-//         <p>${translations[lang].final_thanks}</p>
-//         <p><strong>You may now close this window. Your responses have been saved.</strong></p>
-//       </div>
-//     `;
-//   },
-//   choices: "NO_KEYS",
-//   trial_duration: 5000, // 5 seconds display before auto-end (adjust if needed)
-//   on_start: function () {
-//     fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
-//       method: "POST",
-//       headers: { "Content-Type": "application/json" },
-//       body: jsPsych.data.get().json()
-//     }).then(res => {
-//       if (!res.ok) throw new Error("Failed to submit");
-//     }).catch(err => {
-//       alert("⚠️ Submission failed. Saving backup locally.");
-//       jsPsych.data.get().localSave("csv", "backup.csv");
-//       console.error(err);
-//     });
-//   }
-// };
+
 const thankYouTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function () {
