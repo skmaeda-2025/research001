@@ -168,16 +168,16 @@ let isNative = false;
 
 //sample audios are mp3 files and real ones will be wav files.
 const audioFiles = [
-  { id: "trial01", audio: "assets/audio/alpha1.wav" },
-  { id: "trial02", audio: "assets/audio/beta2.wav" },
-  { id: "trial03", audio: "assets/audio/gamma3.wav" },
-  { id: "trial04", audio: "assets/audio/delta4.wav" },
-  { id: "trial05", audio: "assets/audio/epsilon5.wav" },
-  { id: "trial06", audio: "assets/audio/zeta6.wav" },
-  { id: "trial07", audio: "assets/audio/eta7.wav" },
-  { id: "trial08", audio: "assets/audio/theta8.wav" },
-  { id: "trial09", audio: "assets/audio/iota9.wav" },
-  { id: "trial10", audio: "assets/audio/kappa10.wav" },
+  { id: "trial01", audio: "assets/audio/alpha1.mp3" },
+  { id: "trial02", audio: "assets/audio/beta2.mp3" },
+  { id: "trial03", audio: "assets/audio/gamma3.mp3" },
+  { id: "trial04", audio: "assets/audio/delta4.mp3" },
+  { id: "trial05", audio: "assets/audio/epsilon5.mp3" },
+  { id: "trial06", audio: "assets/audio/zeta6.mp3" },
+  { id: "trial07", audio: "assets/audio/eta7.mp3" },
+  { id: "trial08", audio: "assets/audio/theta8.mp3" },
+  { id: "trial09", audio: "assets/audio/iota9.mp3" },
+  { id: "trial10", audio: "assets/audio/kappa10.mp3" },
 ];
 
 // Multi-language content
@@ -986,23 +986,63 @@ const l2LanguageSelectTrial = {
   data: { question: 'l2_languages' }
 };
 
+// const genderTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//     stimulus: function() {
+//       return `<p>${translations[lang].genderQ} ${translations[lang].mandatory}</p>`;
+//     },
+//   choices: function() { return translations[lang].gender_options; },
+//   data: { question: 'gender' }
+// };
+
 const genderTrial = {
-  type: jsPsychHtmlButtonResponse,
-    stimulus: function() {
-      return `<p>${translations[lang].genderQ} ${translations[lang].mandatory}</p>`;
-    },
-  choices: function() { return translations[lang].gender_options; },
+  type: jsPsychSurveyHtmlForm,
+  preamble: function() {
+    return `<p>${translations[lang].genderQ} ${translations[lang].mandatory}</p>`;
+  },
+  html: function() {
+    const options = translations[lang].gender_options
+      .map((option, i) => `<option value="${i}">${option}</option>`)
+      .join('');
+    return `
+      <select name="gender" required style="width:100%; font-size:16px; padding:12px;">
+        <option value="" disabled selected>Select...</option>
+        ${options}
+      </select>
+    `;
+  },
+  button_label: function() { return translations[lang].continue_button; },
   data: { question: 'gender' }
 };
 
+// const ageTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function () {
+//     return `<p>${translations[lang].ageGroupQ} ${translations[lang].mandatory}</p>`;
+//   },
+//   choices: function () {
+//     return translations[lang].age_group_options;
+//   },
+//   data: { question: "age_group" }
+// };
+
 const ageTrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function () {
+  type: jsPsychSurveyHtmlForm,
+  preamble: function() {
     return `<p>${translations[lang].ageGroupQ} ${translations[lang].mandatory}</p>`;
   },
-  choices: function () {
-    return translations[lang].age_group_options;
+  html: function() {
+    const options = translations[lang].age_group_options
+      .map((option, i) => `<option value="${i}">${option}</option>`)
+      .join('');
+    return `
+      <select name="age_group" required style="width:100%; font-size:16px; padding:12px;">
+        <option value="" disabled selected>Select...</option>
+        ${options}
+      </select>
+    `;
   },
+  button_label: function() { return translations[lang].continue_button; },
   data: { question: "age_group" }
 };
 
@@ -1177,77 +1217,227 @@ const familyLanguageTrial = {
 };
 
 // --- L2 Language Yes/No Trial ---
+// const l2LanguageYesNoTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function () {
+//     return `<p>${translations[lang].languageOtherQ} ${translations[lang].mandatory}</p>`;
+//   },
+//   choices: function () {
+//     return translations[lang].languageOther_options;
+//   },
+//   data: { question: 'l2_yesno' },
+//   on_finish: function (data) {
+//     data.l2 = translations[lang].languageOther_options[data.response] === translations[lang].yes;
+//   }
+// };
+
 const l2LanguageYesNoTrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function () {
+  type: jsPsychSurveyHtmlForm,
+  preamble: function() {
     return `<p>${translations[lang].languageOtherQ} ${translations[lang].mandatory}</p>`;
   },
-  choices: function () {
-    return translations[lang].languageOther_options;
+  html: function() {
+    const options = translations[lang].languageOther_options
+      .map((option, i) => `<option value="${i}">${option}</option>`)
+      .join('');
+    return `
+      <select name="l2_yesno" required style="width:100%; font-size:16px; padding:12px;">
+        <option value="" disabled selected>Select...</option>
+        ${options}
+      </select>
+    `;
   },
+  button_label: function() { return translations[lang].continue_button; },
   data: { question: 'l2_yesno' },
-  on_finish: function (data) {
-    data.l2 = translations[lang].languageOther_options[data.response] === translations[lang].yes;
+  on_finish: function(data) {
+    // Check if "Yes" was selected (index 0 is Yes in most languages)
+    data.l2 = (data.response.l2_yesno === "0");
   }
 };
 
+// const usageTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() {
+//     return `
+//       <div style="position: relative;">
+//         <button id="skip-btn" style="position: absolute; top: -40px; right: 0; padding: 8px 16px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
+//           ${translations[lang].skip}
+//         </button>
+//         <p>${translations[lang].usageQ} ${translations[lang].optional}</p>
+//       </div>
+//     `;
+//   },
+//   choices: function() { return translations[lang].languageFreq_options; },
+//   data: { question: 'japanese_usage' },
+//   on_load: function() {
+//     const skipBtn = document.getElementById('skip-btn');
+//     if (skipBtn) {
+//       skipBtn.addEventListener('click', function() {
+//         jsPsych.finishTrial({
+//           response: null,
+//           skipped: true
+//         });
+//       });
+//     }
+//   }
+// };
+
+// const usageTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `<p>${translations[lang].usageQ} ${translations[lang].optional}</p>`;
+//   },
+//   html: function() {
+//     const options = translations[lang].languageFreq_options
+//       .map((option, i) => `<option value="${i}">${option}</option>`)
+//       .join('');
+//     return `
+//       <select name="japanese_usage" style="width:100%; font-size:16px; padding:12px;">
+//         <option value="" selected>${translations[lang].skip}</option>
+//         ${options}
+//       </select>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   data: { question: 'japanese_usage' }
+// };
+
 const usageTrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function() {
+  type: jsPsychSurveyHtmlForm,
+  preamble: function() {
     return `
       <div style="position: relative;">
-        <button id="skip-btn" style="position: absolute; top: -40px; right: 0; padding: 8px 16px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
-          ${translations[lang].skip}
-        </button>
         <p>${translations[lang].usageQ} ${translations[lang].optional}</p>
       </div>
     `;
   },
-  choices: function() { return translations[lang].languageFreq_options; },
+  html: function() {
+    const options = translations[lang].languageFreq_options
+      .map((option, i) => `<option value="${i}">${option}</option>`)
+      .join('');
+    return `
+      <select name="japanese_usage" style="width:100%; font-size:16px; padding:12px;">
+        <option value="" disabled selected>Select...</option>
+        ${options}
+      </select>
+    `;
+  },
+  button_label: function() {
+    return [translations[lang].continue_button];
+  },
   data: { question: 'japanese_usage' },
-  on_load: function() {
-    const skipBtn = document.getElementById('skip-btn');
-    if (skipBtn) {
-      skipBtn.addEventListener('click', function() {
-        jsPsych.finishTrial({
-          response: null,
-          skipped: true
-        });
-      });
+  on_finish: function(data) {
+    // If skip button was clicked (button index 1), mark as skipped
+    if (data.button_pressed === 1) {
+      data.skipped = true;
+      data.response = { japanese_usage: null };
     }
   }
 };
 
+// const proficiencyTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() { return `<p>${translations[lang].proficiencyQ} ${translations[lang].mandatory}</p>`; },
+//   choices: function() { return translations[lang].proficiency_options; },
+//   data: { question: 'japanese_proficiency' }
+// };
+
 const proficiencyTrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function() { return `<p>${translations[lang].proficiencyQ} ${translations[lang].mandatory}</p>`; },
-  choices: function() { return translations[lang].proficiency_options; },
+  type: jsPsychSurveyHtmlForm,
+  preamble: function() {
+    return `<p>${translations[lang].proficiencyQ} ${translations[lang].mandatory}</p>`;
+  },
+  html: function() {
+    const options = translations[lang].proficiency_options
+      .map((option, i) => `<option value="${i}">${option}</option>`)
+      .join('');
+    return `
+      <select name="japanese_proficiency" required style="width:100%; font-size:16px; padding:12px;">
+        <option value="" disabled selected>Select...</option>
+        ${options}
+      </select>
+    `;
+  },
+  button_label: function() { return translations[lang].continue_button; },
   data: { question: 'japanese_proficiency' }
 };
 
+// const musicTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() {
+//     return `
+//       <div style="position: relative;">
+//         <button id="skip-btn-music" style="position: absolute; top: -40px; right: 0; padding: 8px 16px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
+//           ${translations[lang].skip}
+//         </button>
+//         <p>${translations[lang].musicQ} ${translations[lang].optional}</p>
+//       </div>
+//     `;
+//   },
+//   choices: function() { return translations[lang].music_options; },
+//   data: { question: 'musical_experience' },
+//   on_load: function() {
+//     const skipBtn = document.getElementById('skip-btn-music');
+//     if (skipBtn) {
+//       skipBtn.addEventListener('click', function() {
+//         jsPsych.finishTrial({
+//           response: null,
+//           skipped: true
+//         });
+//       });
+//     }
+//   }
+// };
+
+// const musicTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `<p>${translations[lang].musicQ} ${translations[lang].optional}</p>`;
+//   },
+//   html: function() {
+//     const options = translations[lang].music_options
+//       .map((option, i) => `<option value="${i}">${option}</option>`)
+//       .join('');
+//     return `
+//       <select name="musical_experience" style="width:100%; font-size:16px; padding:12px;">
+//         <option value="" selected>${translations[lang].skip}</option>
+//         ${options}
+//       </select>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   data: { question: 'musical_experience' }
+// };
+
 const musicTrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function() {
+  type: jsPsychSurveyHtmlForm,
+  preamble: function() {
     return `
       <div style="position: relative;">
-        <button id="skip-btn-music" style="position: absolute; top: -40px; right: 0; padding: 8px 16px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
-          ${translations[lang].skip}
-        </button>
         <p>${translations[lang].musicQ} ${translations[lang].optional}</p>
       </div>
     `;
   },
-  choices: function() { return translations[lang].music_options; },
+  html: function() {
+    const options = translations[lang].music_options
+      .map((option, i) => `<option value="${i}">${option}</option>`)
+      .join('');
+    return `
+      <select name="musical_experience" style="width:100%; font-size:16px; padding:12px;">
+        <option value="" disabled selected>Select...</option>
+        ${options}
+      </select>
+    `;
+  },
+  button_label: function() {
+    return [translations[lang].continue_button];
+  },
   data: { question: 'musical_experience' },
-  on_load: function() {
-    const skipBtn = document.getElementById('skip-btn-music');
-    if (skipBtn) {
-      skipBtn.addEventListener('click', function() {
-        jsPsych.finishTrial({
-          response: null,
-          skipped: true
-        });
-      });
+  on_finish: function(data) {
+    // If skip button was clicked (button index 1), mark as skipped
+    if (data.button_pressed === 1) {
+      data.skipped = true;
+      data.response = { musical_experience: null };
     }
   }
 };
@@ -1313,7 +1503,6 @@ const afterNativeQuestionTrial = {
   ]
 }
 
-
 const thankYouTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function () {
@@ -1347,19 +1536,19 @@ timeline.push(languageSelector);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-timeline.push(instructionVideoTrial);
+// timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
-timeline.push({
-  timeline: [
-    play_audio,
-    accentQuestionTrial,
-    {
-      timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
-    }
-  ],
-  timeline_variables: audioFiles,
-  randomize_order: true
-});
+// timeline.push({
+//   timeline: [
+//     play_audio,
+//     accentQuestionTrial,
+//     {
+//       timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
+//     }
+//   ],
+//   timeline_variables: audioFiles,
+//   randomize_order: true
+// });
 timeline.push(backgroundIntroTrial);
 timeline.push(basicBlock);
 timeline.push(nativeBlock);
