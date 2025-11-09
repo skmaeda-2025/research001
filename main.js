@@ -781,64 +781,64 @@ const motherTongueTrial = {
   data: { question: 'mother_tongue' }
 };
 
-function makeL2UsageTrial(languageCode) {
-  const label = languageOptions.find(l => l.code === languageCode)?.label || languageCode;
+// function makeL2UsageTrial(languageCode) {
+//   const label = languageOptions.find(l => l.code === languageCode)?.label || languageCode;
 
-  return {
-    type: jsPsychHtmlButtonResponse,
-    stimulus: () => `<p>How often do you use <strong>${label}</strong>?</p>`,
-    choices: () => translations[lang].languageFreq_options,
-    data: {
-      question: 'l2_language_usage',
-      language_code: languageCode
-    }
-  };
-}
+//   return {
+//     type: jsPsychHtmlButtonResponse,
+//     stimulus: () => `<p>How often do you use <strong>${label}</strong>?</p>`,
+//     choices: () => translations[lang].languageFreq_options,
+//     data: {
+//       question: 'l2_language_usage',
+//       language_code: languageCode
+//     }
+//   };
+// }
 
-const l2UsageBlock = {
-  timeline: [],
-  on_timeline_start: function () {
-    console.log("=== L2 Usage Block Starting ===");
-    const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
-    console.log("Last trial data:", last);
-    const selected = last?.response?.l2_languages || [];
-    console.log("Selected languages raw:", selected);
-    const codes = Array.isArray(selected) ? selected : [selected];
-    console.log("Language codes array:", codes);
-    console.log("Number of languages:", codes.length);
+// const l2UsageBlock = {
+//   timeline: [],
+//   on_timeline_start: function () {
+//     console.log("=== L2 Usage Block Starting ===");
+//     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
+//     console.log("Last trial data:", last);
+//     const selected = last?.response?.l2_languages || [];
+//     console.log("Selected languages raw:", selected);
+//     const codes = Array.isArray(selected) ? selected : [selected];
+//     console.log("Language codes array:", codes);
+//     console.log("Number of languages:", codes.length);
 
-    // Clear timeline first
-    this.timeline.length = 0;
+//     // Clear timeline first
+//     this.timeline.length = 0;
 
-    // Add a trial for each selected language
-    codes.forEach((code, index) => {
-      const label = languageOptions.find(l => l.code === code)?.label || code;
-      console.log(`Adding trial ${index + 1} for: ${label} (${code})`);
+//     // Add a trial for each selected language
+//     codes.forEach((code, index) => {
+//       const label = languageOptions.find(l => l.code === code)?.label || code;
+//       console.log(`Adding trial ${index + 1} for: ${label} (${code})`);
 
-      // Create question template with current language
-      const questionTemplate = {
-        en: `How often do you use <strong>${label}</strong>?`,
-        ja: `<strong>${label}</strong>をどのくらいの頻度で使用しますか？`,
-        sc: `您使用<strong>${label}</strong>的频率是？`,
-        tc: `您使用<strong>${label}</strong>的頻率為何？`,
-        ko: `<strong>${label}</strong>을(를) 얼마나 자주 사용합니까?`
-      };
+//       // Create question template with current language
+//       const questionTemplate = {
+//         en: `How often do you use <strong>${label}</strong>?`,
+//         ja: `<strong>${label}</strong>をどのくらいの頻度で使用しますか？`,
+//         sc: `您使用<strong>${label}</strong>的频率是？`,
+//         tc: `您使用<strong>${label}</strong>的頻率為何？`,
+//         ko: `<strong>${label}</strong>을(를) 얼마나 자주 사용합니까?`
+//       };
 
-      this.timeline.push({
-        type: jsPsychHtmlButtonResponse,
-        stimulus: `<p>${questionTemplate[lang] || questionTemplate.en}</p>`,
-        choices: translations[lang].languageFreq_options,
-        data: {
-          question: 'l2_language_usage',
-          language_code: code
-        }
-      });
-    });
+//       this.timeline.push({
+//         type: jsPsychHtmlButtonResponse,
+//         stimulus: `<p>${questionTemplate[lang] || questionTemplate.en}</p>`,
+//         choices: translations[lang].languageFreq_options,
+//         data: {
+//           question: 'l2_language_usage',
+//           language_code: code
+//         }
+//       });
+//     });
 
-    console.log("Total trials added:", this.timeline.length);
-    console.log("=== L2 Usage Block Ready ===");
-  }
-};
+//     console.log("Total trials added:", this.timeline.length);
+//     console.log("=== L2 Usage Block Ready ===");
+//   }
+// };
 
 const l2LanguageTrial = {
   type: jsPsychSurveyHtmlForm,
@@ -1338,13 +1338,13 @@ const afterNativeQuestionTrial = {
         return data.l2 === true;
       }
     },
-    {
-      timeline: [l2UsageBlock],
-      conditional_function: function() {
-        const data = jsPsych.data.get().filter({question: 'l2_yesno'}).last(1).values()[0];
-        return data.l2 === true;
-      }
-    },
+    // {
+    //   timeline: [l2UsageBlock],
+    //   conditional_function: function() {
+    //     const data = jsPsych.data.get().filter({question: 'l2_yesno'}).last(1).values()[0];
+    //     return data.l2 === true;
+    //   }
+    // },
     // l2LanguageFreqTrial,
     musicTrial
   ]
@@ -1388,7 +1388,7 @@ const thankYouTrial = {
     `;
   },
   choices: "NO_KEYS",
-  trial_duration: 5000,
+  // trial_duration: 5000,
   on_start: function () {
     fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
       method: "POST",

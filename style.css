@@ -119,3 +119,164 @@ video {
   display: block !important;
   height: 20px;
 }
+
+/* Make everything responsive */
+body {
+  margin: 0;
+  padding: 20px;
+  font-family: 'Arial', sans-serif;
+  font-size: 16px; /* Base font size for better mobile readability */
+}
+
+/* Make jsPsych content responsive */
+#jspsych-content {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Improve button sizing on mobile */
+.jspsych-btn {
+  font-size: 16px !important;
+  padding: 12px 20px !important;
+  margin: 8px 4px !important;
+  min-height: 44px; /* iOS recommended tap target size */
+  touch-action: manipulation; /* Prevent double-tap zoom */
+}
+
+/* Make select dropdowns bigger on mobile */
+select {
+  font-size: 16px !important; /* Prevents iOS zoom on focus */
+  padding: 10px !important;
+  min-height: 44px;
+  width: 100% !important;
+}
+
+/* Make text inputs bigger */
+input[type="text"] {
+  font-size: 16px !important;
+  padding: 10px !important;
+  min-height: 44px;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Make textareas bigger */
+textarea {
+  font-size: 16px !important;
+  padding: 10px !important;
+  width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* Improve checkbox/radio sizing */
+input[type="checkbox"],
+input[type="radio"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+/* Make consent container readable on mobile */
+.consent-container {
+  max-width: 100%;
+  padding: 15px;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.consent-container h2 {
+  font-size: 1.5em;
+  margin-bottom: 15px;
+}
+
+/* Improve impression trial layout on mobile */
+.impression-container {
+  max-width: 100%;
+  padding: 10px;
+}
+
+.impression-container label {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 12px !important;
+  font-size: 16px;
+}
+
+.impression-continue-btn {
+  font-size: 18px !important;
+  padding: 14px 30px !important;
+  min-height: 50px;
+  width: 100%;
+  max-width: 300px;
+}
+
+/* Responsive video */
+video {
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+/* Skip buttons positioning for mobile */
+#skip-btn,
+#skip-btn-music {
+  position: static !important; /* Don't use absolute positioning on mobile */
+  display: block;
+  width: 100%;
+  max-width: 200px;
+  margin: 0 auto 20px auto !important;
+  padding: 10px 16px !important;
+  font-size: 16px !important;
+}
+
+/* Media query for larger screens */
+@media (min-width: 768px) {
+  body {
+    padding: 40px;
+  }
+
+  #jspsych-content {
+    max-width: 800px;
+  }
+
+  .impression-container label {
+    display: inline-block !important;
+    width: 48% !important;
+  }
+
+  /* Restore absolute positioning for skip buttons on desktop */
+  #skip-btn,
+  #skip-btn-music {
+    position: absolute !important;
+    top: -40px;
+    right: 0;
+    width: auto;
+    margin: 0 !important;
+  }
+
+  .impression-continue-btn {
+    width: auto;
+  }
+}
+
+/* Prevent text from being too small */
+p, label, span {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+/* Improve selected countries/languages display */
+#selected-countries,
+#selected-family-languages,
+#selected-l2-languages {
+  font-size: 14px !important;
+  padding: 8px;
+  min-height: 30px !important;
+}
+
+/* Make error messages visible */
+.impression-error {
+  font-size: 16px;
+  padding: 10px;
+  margin: 10px 0;
+}
