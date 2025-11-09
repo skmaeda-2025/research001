@@ -1192,7 +1192,7 @@ const l2LanguageSelectTrial = {
     //   const values = Array.from(select.selectedOptions).map(opt => opt.value);
     //   if (otherLabel) {
       //   otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
-      }
+      // }
 
 
     // Update display on all selection events
@@ -1216,7 +1216,7 @@ const l2LanguageSelectTrial = {
         }
       });
     }
-  };
+  },
   data: { question: 'l2_languages' }
 };
 
@@ -1450,7 +1450,7 @@ const familyLanguageTrial = {
     //   if (otherLabel) {
     //     otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
     //   }
-    // }
+    }
 
     // Update display on all selection events
     select.addEventListener('change', updateSelectedDisplay);
