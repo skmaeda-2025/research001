@@ -285,16 +285,18 @@ const translations = {
     select_all_apply: "Select all that apply:",
     multi_select_hint: "(You can press Ctrl button to select multiple options)",
     close_window: "You may now close this window. Your responses have been saved.",
+    background_intro: "The listening part is complete. Thank you!<br><br>Now we would like to ask about your background. There are up to 10 questions in total — about 4 or 5 are mandatory (depending on your background), and the rest are optional.",
+    family_definition: "(Parents, guardians, spouse, partner, children)",
   },
   ja: {
   consent: consentText_ja,
   consent_accept: "同意する",
-  video_prompt: "次のページで、本実験の回答方法を説明するビデオをご覧ください。",
+  video_prompt: "次のページで、実験の回答方法の説明動画をご覧ください。",
   video_continue: "次へ",
   accent_question: "この日本語の音声に外国語訛りを感じましたか？",
   yes: "はい",
   no: "いいえ",
-  adjectives_prompt: "音声に感じた印象を表す言葉を3つまで選んでください：",
+  adjectives_prompt: "音声または話者に感じた印象を表す言葉を3つまで選んでください：",
   adjectives: [
     // "外交的",
     // "精力的",
@@ -307,7 +309,7 @@ const translations = {
     "知性的",
     "思慮深い"
   ],
-  optional_comment: "話し手に関するコメントがあれば自由にご記入ください（任意）",
+  optional_comment: "音声、または話者に関するコメントがあれば自由にご記入ください（任意）",
   nativeQ: "あなたは日本語が第一言語ですか？",
   genderQ: "性別を教えてください。",
   gender_options: ["男性", "女性", "その他", "回答しない"],
@@ -317,7 +319,7 @@ const translations = {
   countriesLivedQ: "これまでに3か月以上住んだことのある国を選んでください。",
   motherTongueQ: "第一言語（最も得意な言語）を教えてください。",
   familyLanguageQ: "ご家族が使用している言語を教えてください。",
-  languageOtherQ: "日本語と母語以外に使用できる言語はありますか？",
+  languageOtherQ: "日本語、または母語以外に使用できる言語はありますか？",
   languageOther_options: ["はい", "いいえ"],
   languageOtherSelectQ: "「はい」と答えた場合、それらの言語を選んでください。",
   languageOtherFreqQ: "それらの言語をどのくらいの頻度で使用しますか？",
@@ -346,6 +348,8 @@ const translations = {
   select_all_apply: "該当するものをすべて選んでください：",
   multi_select_hint: "（Ctrlキーを押しながら選択すると、複数選択できます。）",
   close_window: "回答は保存されました。このウィンドウを閉じてください。",
+  background_intro: "音声の聞き取りは終了しました。ありがとうございました。<br>次に、あなたの背景についてお伺いします。<br><br>質問は最大で10問あり、4〜5問は必須（ご自身の背景によって異なります）、残りは任意です。",
+  family_definition: "（両親、保護者、配偶者、パートナー、子ども）",
   },
   sc: {
   consent: consentText_sc,
@@ -407,6 +411,8 @@ const translations = {
   select_all_apply: "选择所有适用项：",
   multi_select_hint: "（您可以按住Ctrl键选择多个选项）",
   close_window: "您的回答已保存。您现在可以关闭此窗口。",
+  background_intro: "听力部分已完成。谢谢！<br><br>接下来我们想了解您的背景信息。共有最多10个问题，其中大约4到5个为必答（根据您的背景而定），其余为选答。",
+  family_definition: "（父母、监护人、配偶、伴侣、子女）",
   },
   tc: {
   consent: consentText_tc,
@@ -469,6 +475,8 @@ const translations = {
   select_all_apply: "選擇所有適用項：",
   multi_select_hint: "（您可以按住Ctrl鍵選擇多個選項）",
   close_window: "您的回答已保存。您現在可以關閉此視窗。",
+  background_intro: "聽力部分已完成。謝謝！<br><br>接下來我們想了解您的背景資訊。共有最多10個問題，其中約有4到5個為必答（依您的背景而定），其餘為選答。",
+  family_definition: "（父母、監護人、配偶、伴侶、子女）",
   },
   ko: {
   consent: consentText_ko,
@@ -530,6 +538,8 @@ const translations = {
   select_all_apply: "해당하는 항목을 모두 선택하세요：",
   multi_select_hint: "(Ctrl 키를 누른 채로 여러 개를 선택할 수 있습니다)",
   close_window: "응답이 저장되었습니다. 이제 이 창을 닫으셔도 됩니다.",
+  background_intro: "듣기 부분이 완료되었습니다. 감사합니다!<br><br>이제 귀하의 배경에 대해 몇 가지 질문을 드리겠습니다. 총 최대 10개의 문항이 있으며, 약 4~5개는 필수(개인 배경에 따라 다름)이고 나머지는 선택 항목입니다.",
+  family_definition: "(부모, 보호자, 배우자, 파트너, 자녀)",
   }
 };
 
@@ -1094,12 +1104,42 @@ button_label: function() { return translations[lang].continue_button; },
 };
 
 // --- Family Language Trial ---
+// const familyLanguageTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `<p>${translations[lang].familyLanguageQ} ${translations[lang].optional}</p>`;
+//   },
+
+//   html: function() {
+//     const options = languageOptions
+//       .map(l => `<option value="${l.code}">${l.label}</option>`)
+//       .join('');
+
+//     return `
+//       <label>${translations[lang].select_all_apply}<br>
+//       <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
+//       <select name="family_language" id="family_language" multiple size="6" style="width:100%; padding:.5em;">
+//         ${options}
+//       </select>
+//       <div id="selected-family-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+//       </div>
+//       <br>
+//       <label id="family_language_other_label">
+//         ${translations[lang].specify_other}<br>
+//         <input type="text" name="family_language_other" id="family_language_other" style="width:100%;" />
+//       </label>
+//       <p id="error-family-language" style="color:red; display:none;">${translations[lang].specify_other}</p>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
 const familyLanguageTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function() {
-    return `<p>${translations[lang].familyLanguageQ} ${translations[lang].optional}</p>`;
+    return `
+      <p>${translations[lang].familyLanguageQ} ${translations[lang].mandatory}</p>
+      <p style="font-size:0.9em; color:#666;">${translations[lang].family_definition}</p>
+    `;
   },
-
   html: function() {
     const options = languageOptions
       .map(l => `<option value="${l.code}">${l.label}</option>`)
@@ -1122,6 +1162,7 @@ const familyLanguageTrial = {
     `;
   },
   button_label: function() { return translations[lang].continue_button; },
+  // ... rest of the code stays the same
   on_load: function() {
     const select = document.getElementById('family_language');
     const displayDiv = document.getElementById('selected-family-languages');
@@ -1238,6 +1279,18 @@ const musicTrial = {
       });
     }
   }
+};
+
+const backgroundIntroTrial = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function() {
+    return `
+      <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+        <p style="font-size: 1.1em;">${translations[lang].background_intro}</p>
+      </div>
+    `;
+  },
+  choices: function() { return [translations[lang].continue_button]; }
 };
 
 const basicBlock = {
@@ -1370,7 +1423,7 @@ timeline.push(instructionTextTrial);
 //   timeline_variables: audioFiles,
 //   randomize_order: true
 // });
-
+timeline.push(backgroundIntroTrial);
 timeline.push(basicBlock);
 timeline.push(nativeBlock);
 timeline.push(nonNativeBlock);
