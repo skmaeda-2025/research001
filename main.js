@@ -169,15 +169,15 @@ let isNative = false;
 //sample audios are mp3 files and real ones will be wav files.
 const audioFiles = [
   { id: "trial01", audio: "assets/audio/alpha1.wav" },
-  // { id: "trial02", audio: "assets/audio/beta2.wav" },
-  // { id: "trial03", audio: "assets/audio/gamma3.wav" },
-  // { id: "trial04", audio: "assets/audio/delta4.wav" },
-  // { id: "trial05", audio: "assets/audio/epsilon5.wav" },
-  // { id: "trial06", audio: "assets/audio/zeta6.wav" },
-  // { id: "trial07", audio: "assets/audio/eta7.wav" },
-  // { id: "trial08", audio: "assets/audio/theta8.wav" },
-  // { id: "trial09", audio: "assets/audio/iota9.wav" },
-  // { id: "trial10", audio: "assets/audio/kappa10.wav" },
+  { id: "trial02", audio: "assets/audio/beta2.wav" },
+  { id: "trial03", audio: "assets/audio/gamma3.wav" },
+  { id: "trial04", audio: "assets/audio/delta4.wav" },
+  { id: "trial05", audio: "assets/audio/epsilon5.wav" },
+  { id: "trial06", audio: "assets/audio/zeta6.wav" },
+  { id: "trial07", audio: "assets/audio/eta7.wav" },
+  { id: "trial08", audio: "assets/audio/theta8.wav" },
+  { id: "trial09", audio: "assets/audio/iota9.wav" },
+  { id: "trial10", audio: "assets/audio/kappa10.wav" },
 ];
 
 // Multi-language content
@@ -1347,19 +1347,19 @@ timeline.push(languageSelector);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-// timeline.push(instructionVideoTrial);
-// timeline.push(preTestMessage);
-// timeline.push({
-//   timeline: [
-//     play_audio,
-//     accentQuestionTrial,
-//     {
-//       timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
-//     }
-//   ],
-//   timeline_variables: audioFiles,
-//   randomize_order: true
-// });
+timeline.push(instructionVideoTrial);
+timeline.push(preTestMessage);
+timeline.push({
+  timeline: [
+    play_audio,
+    accentQuestionTrial,
+    {
+      timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
+    }
+  ],
+  timeline_variables: audioFiles,
+  randomize_order: true
+});
 timeline.push(backgroundIntroTrial);
 timeline.push(basicBlock);
 timeline.push(nativeBlock);

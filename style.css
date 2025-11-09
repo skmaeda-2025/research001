@@ -1,108 +1,69 @@
-/* ensure the page uses the full viewport */
-html, body {
-  height: 100%;
-  width: 100%;
-  margin: 0;
-}
-
-/* make the jsPsych display area fill the viewport and center content */
-#jspsych-target,
-.jspsych-display-element,
-.jspsych-content-wrapper {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column; /* worked ok for video vertical position */
-  align-items: flex-start; /* Change from center to flex-start */
-  justify-content: center; /* worked ok for text & video vertical position */
+/* Basic reset */
+* {
   box-sizing: border-box;
-  background: #ffffff;
-  padding-bottom: 30vh; /* Must be max 40vh */
 }
 
-/* make any <video> element scale to fit the viewport while preserving aspect ratio */
-#jspsych-target video,
-.jspsych-display-element video,
-.jspsych-content-wrapper video,
-video {
-  width: 100vw;
-  height: 100vh;
-  max-width: 100%;
-  max-height: 100%;
-  object-fit: contain; /* use cover if you want to crop and fully fill */
-  display: block;
-  background: #ffffff;
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Arial', sans-serif;
 }
 
-/* if plugin wraps video in a container, ensure container also allows scaling */
-.jspsych-video-player,
-.jspsych-video {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Consent page specific styles */
+/* Consent page */
 .consent-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 20px;
   line-height: 1.6;
 }
 
 .consent-container h2 {
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 .consent-container p {
-  margin-bottom: 1.5rem;
+  margin-bottom: 15px;
   text-align: left;
 }
 
-#jspsych-target video,
-.jspsych-display-element video,
-.jspsych-content-wrapper video,
+/* Video */
 video {
-  /* height: 100vh; */  /* ← comment this out */
-  max-height: 70vh;     /* ← optional limit */
+  max-width: 100%;
+  max-height: 70vh;
+  width: auto;
+  height: auto;
 }
 
-/* Impression trial layout */
+/* Impression trial */
 .impression-container {
   max-width: 800px;
   margin: 0 auto;
-  padding: 0 1rem;
+  padding: 20px;
 }
 
-.impression-container textarea#impression_comment {
+.impression-container textarea {
   width: 100%;
-  box-sizing: border-box;
   font-size: 1rem;
-  padding: .5rem;
-  margin-top: .5rem;
+  padding: 10px;
+  margin-top: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
 }
 
-/* Error message styling */
 .impression-error {
   color: #c00;
-  margin-top: .5rem;
+  margin-top: 10px;
 }
 
-/* Center the button below the textarea */
 .impression-button-row {
-  width: 100%;
   display: flex;
-  justify-content: center; /* centers the button horizontally */
-  margin-top: 1rem;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .impression-continue-btn {
-  padding: .6rem 1rem;
+  padding: 12px 24px;
   font-size: 1rem;
   border-radius: 6px;
   border: 1px solid #ccc;
@@ -115,275 +76,9 @@ video {
   cursor: not-allowed;
 }
 
-#jspsych-progressbar-container {
-  display: block !important;
-  height: 20px;
-}
-
-/* Make everything responsive */
-body {
-  margin: 0;
-  padding: 20px;
-  font-family: 'Arial', sans-serif;
-  font-size: 16px; /* Base font size for better mobile readability */
-}
-
-/* Make jsPsych content responsive */
-#jspsych-content {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 10px;
-}
-
-/* Improve button sizing on mobile */
-.jspsych-btn {
-  font-size: 16px !important;
-  padding: 12px 20px !important;
-  margin: 8px 4px !important;
-  min-height: 44px; /* iOS recommended tap target size */
-  touch-action: manipulation; /* Prevent double-tap zoom */
-}
-
-/* Make select dropdowns bigger on mobile */
-select {
-  font-size: 16px !important; /* Prevents iOS zoom on focus */
-  padding: 10px !important;
-  min-height: 44px;
-  width: 100% !important;
-}
-
-/* Make text inputs bigger */
-input[type="text"] {
-  font-size: 16px !important;
-  padding: 10px !important;
-  min-height: 44px;
-  width: 100% !important;
-  box-sizing: border-box;
-}
-
-/* Make textareas bigger */
-textarea {
-  font-size: 16px !important;
-  padding: 10px !important;
-  width: 100% !important;
-  box-sizing: border-box;
-}
-
-/* Improve checkbox/radio sizing */
-input[type="checkbox"],
-input[type="radio"] {
-  width: 20px;
-  height: 20px;
-  margin-right: 10px;
-}
-
-/* Make consent container readable on mobile */
-.consent-container {
-  max-width: 100%;
-  padding: 15px;
-  line-height: 1.6;
-  font-size: 16px;
-}
-
-.consent-container h2 {
-  font-size: 1.5em;
-  margin-bottom: 15px;
-}
-
-/* Improve impression trial layout on mobile */
-.impression-container {
-  max-width: 100%;
-  padding: 10px;
-}
-
-.impression-container label {
-  display: block !important;
-  width: 100% !important;
-  margin-bottom: 12px !important;
-  font-size: 16px;
-}
-
-.impression-continue-btn {
-  font-size: 18px !important;
-  padding: 14px 30px !important;
-  min-height: 50px;
-  width: 100%;
-  max-width: 300px;
-}
-
-/* Responsive video */
-video {
-  max-width: 100% !important;
-  height: auto !important;
-}
-
-/* Skip buttons positioning for mobile */
-#skip-btn,
-#skip-btn-music {
-  position: static !important; /* Don't use absolute positioning on mobile */
-  display: block;
-  width: 100%;
-  max-width: 200px;
-  margin: 0 auto 20px auto !important;
-  padding: 10px 16px !important;
-  font-size: 16px !important;
-}
-
-/* Media query for larger screens */
-@media (min-width: 768px) {
-  body {
-    padding: 40px;
+/* Mobile: prevent iOS zoom and allow horizontal scroll for buttons */
+@media (max-width: 767px) {
+  select, input[type="text"], textarea {
+    font-size: 16px;
   }
-
-  #jspsych-content {
-    max-width: 800px;
-  }
-
-  .impression-container label {
-    display: inline-block !important;
-    width: 48% !important;
-  }
-
-  /* Restore absolute positioning for skip buttons on desktop */
-  #skip-btn,
-  #skip-btn-music {
-    position: absolute !important;
-    top: -40px;
-    right: 0;
-    width: auto;
-    margin: 0 !important;
-  }
-
-  .impression-continue-btn {
-    width: auto;
-  }
-}
-
-/* Prevent text from being too small */
-p, label, span {
-  font-size: 16px;
-  line-height: 1.5;
-}
-
-/* Improve selected countries/languages display */
-#selected-countries,
-#selected-family-languages,
-#selected-l2-languages {
-  font-size: 14px !important;
-  padding: 8px;
-  min-height: 30px !important;
-}
-
-/* Make error messages visible */
-.impression-error {
-  font-size: 16px;
-  padding: 10px;
-  margin: 10px 0;
-}
-
-/* Stack buttons vertically on mobile when there are many options */
-.jspsych-btn-group {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  width: 100%;
-  max-width: 500px;
-  margin: 0 auto;
-}
-
-.jspsych-btn-group .jspsych-btn {
-  width: 100% !important;
-  margin: 8px 0 !important;
-  text-align: center;
-}
-
-/* Desktop: restore horizontal layout */
-@media (min-width: 768px) {
-  .jspsych-btn-group {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
-  .jspsych-btn-group .jspsych-btn {
-    width: auto !important;
-    margin: 8px 5px !important;
-    flex: 0 1 auto;
-  }
-}
-
-/* For 2-option questions (Yes/No), keep them side by side even on mobile */
-.jspsych-btn-group-2 {
-  flex-direction: row !important;
-  justify-content: center;
-  gap: 10px;
-}
-
-.jspsych-btn-group-2 .jspsych-btn {
-  width: 45% !important;
-  min-width: 120px;
-}
-
-/* Better dropdown styling for mobile */
-select {
-  font-size: 16px !important;
-  padding: 14px 12px !important;
-  min-height: 52px;
-  width: 100% !important;
-  border-radius: 8px;
-  border: 2px solid #ccc;
-  background: #fff;
-  box-sizing: border-box;
-  appearance: none; /* Remove default arrow */
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 12px center;
-  padding-right: 40px;
-  cursor: pointer;
-}
-
-select:focus {
-  outline: none;
-  border-color: #4CAF50;
-  box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.1);
-}
-
-/* Multiple select boxes - make them bigger */
-select[multiple] {
-  min-height: 200px;
-  padding-right: 12px;
-  background-image: none;
-}
-
-select[multiple] option {
-  padding: 12px;
-  margin: 2px 0;
-  border-radius: 4px;
-}
-
-select[multiple] option:checked {
-  background: #4CAF50;
-  color: white;
-}
-
-/* Prevent horizontal overflow */
-body, html {
-  overflow-x: hidden;
-  width: 100%;
-}
-
-#jspsych-target,
-.jspsych-display-element,
-.jspsych-content-wrapper {
-  overflow-x: hidden;
-  width: 100%;
-  max-width: 100vw;
-}
-
-/* Ensure button containers don't overflow */
-.jspsych-content {
-  width: 100%;
-  max-width: 100%;
-  padding: 0 15px;
-  box-sizing: border-box;
 }
