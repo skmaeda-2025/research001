@@ -168,16 +168,16 @@ let isNative = false;
 
 //sample audios are mp3 files and real ones will be wav files.
 const audioFiles = [
-  { id: "trial01", audio: "assets/audio/alpha1.mp3" },
-  // { id: "trial02", audio: "assets/audio/beta2.mp3" },
-  // { id: "trial03", audio: "assets/audio/gamma3.mp3" },
-  // { id: "trial04", audio: "assets/audio/delta4.mp3" },
-  // { id: "trial05", audio: "assets/audio/epsilon5.mp3" },
-  // { id: "trial06", audio: "assets/audio/zeta6.mp3" },
-  // { id: "trial07", audio: "assets/audio/eta7.mp3" },
-  // { id: "trial08", audio: "assets/audio/theta8.mp3" },
-  // { id: "trial09", audio: "assets/audio/iota9.mp3" },
-  // { id: "trial10", audio: "assets/audio/kappa10.mp3" },
+  { id: "trial01", audio: "assets/audio/alpha1.wav" },
+  // { id: "trial02", audio: "assets/audio/beta2.wav" },
+  // { id: "trial03", audio: "assets/audio/gamma3.wav" },
+  // { id: "trial04", audio: "assets/audio/delta4.wav" },
+  // { id: "trial05", audio: "assets/audio/epsilon5.wav" },
+  // { id: "trial06", audio: "assets/audio/zeta6.wav" },
+  // { id: "trial07", audio: "assets/audio/eta7.wav" },
+  // { id: "trial08", audio: "assets/audio/theta8.wav" },
+  // { id: "trial09", audio: "assets/audio/iota9.wav" },
+  // { id: "trial10", audio: "assets/audio/kappa10.wav" },
 ];
 
 // Multi-language content
