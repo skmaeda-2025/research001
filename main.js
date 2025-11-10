@@ -120,7 +120,7 @@ function makeLanguageDropdown(questionText, responseName) {
     preamble: `<p>${questionText}</p>`,
     html: `
       <label>
-        <select name="${responseName}" id="${responseName}" style="font-size: 1em; padding:.5em; width: 100%;">
+        <select name="${responseName}" id="${responseName}" style="padding:.5em; width: 100%;">
           <option value="" disabled selected>Select your language</option>
           ${options}
         </select>
@@ -186,13 +186,13 @@ const introductionTrial = {
         <h2 style="margin-bottom: 30px; color: #333;">${translations[lang].intro_title}</h2>
 
         <div style="text-align: left; background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
-          <p style="margin-bottom: 15px; font-size: 1.1em;">
+          <p style="margin-bottom: 15px;">
             🎧 ${translations[lang].intro_audio}
           </p>
-          <p style="margin-bottom: 15px; font-size: 1.1em;">
+          <p style="margin-bottom: 15px;">
             ✓ ${translations[lang].intro_age}
           </p>
-          <p style="margin-bottom: 0; font-size: 1.1em;">
+          <p style="margin-bottom: 0;">
             ⏱️ ${translations[lang].intro_time}
           </p>
         </div>
@@ -241,7 +241,7 @@ const consentText_ko = `<div class="consent-container">
 function makeProgressMessage(index, total) {
   return {
     type: jsPsychHtmlKeyboardResponse,
-    stimulus: `<p style="font-size:1.2em;">Audio ${index} of ${total}</p>`,
+    stimulus: `<p>Audio ${index} of ${total}</p>`,
     choices: "NO_KEYS",
     trial_duration: 500  // brief pause (ms) before playing audio
   };
@@ -607,7 +607,7 @@ function makeImpressionTrial() {
 
       return `
         <div class="impression-container">
-          <p style="font-size:1.2em;"><strong>${translations[lang].adjectives_prompt}</strong></p>
+          <p><strong>${translations[lang].adjectives_prompt}</strong></p>
           ${checkboxes}
           <br><br>
           <label>${translations[lang].optional_comment || "Optional comment:"}</label><br>
@@ -697,7 +697,7 @@ const instructionTextTrial = {
   stimulus: function () {
     return `
       <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-        <p style="font-size: 1.1em;">
+        <p>
           ${translations[lang].video_prompt}
         </p>
       </div>
@@ -743,7 +743,7 @@ const play_audio = {
     const total = audioFiles.length;
 
     return `
-      <div style="font-size: 1.2em; text-align: center; margin-top: 1em;">
+      <div style="text-align: center; margin-top: 1em;">
         🔊 <strong>
         ${
           {
@@ -810,7 +810,7 @@ const motherTongueTrial = {
   html: function() {
     return `
       <label>
-        <select name="mother_tongue" id="mother_tongue" required style="font-size: 1em; padding:.5em; width: 100%;">
+        <select name="mother_tongue" id="mother_tongue" required style="padding:.5em; width: 100%;">
           <option value="" disabled selected>Select your language</option>
           ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
         </select>
@@ -975,11 +975,11 @@ const l2LanguageSelectTrial = {
 
     return `
       <label>${translations[lang].select_all_apply}<br>
-      <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
+      <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
       <select name="l2_languages" id="l2_languages" multiple size="6" style="width:100%; padding:.5em;">
         ${options}
       </select>
-      <div id="selected-l2-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+      <div id="selected-l2-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
       </div>
       <br>
       <label id="l2_other_label">
@@ -1100,7 +1100,7 @@ const currentCountryTrial = {
   html: function() {
     return `
       <label>
-        <select name="current_country" id="current_country" style="width:100%; font-size:1em; padding:.5em;">
+        <select name="current_country" id="current_country" style="width:100%; padding:.5em;">
           <option value="" disabled selected>Select a country</option>
           ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
         </select>
@@ -1126,7 +1126,7 @@ const countriesLivedTrial = {
     return `
       <label>${translations[lang].select_all_apply}<br>
       <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-      <select name="countries_lived" id="countries_lived" multiple size="6" style="width:100%; font-size:1em; padding:.5em;">
+      <select name="countries_lived" id="countries_lived" multiple size="6" style="width:100%; padding:.5em;">
         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
       </select>
       <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
@@ -1195,7 +1195,7 @@ const familyLanguageTrial = {
   preamble: function() {
     return `
       <p>${translations[lang].familyLanguageQ} ${translations[lang].optional}</p>
-      <p style="font-size:0.9em; color:#666;">${translations[lang].family_definition}</p>
+      <p style="color:#666;">${translations[lang].family_definition}</p>
     `;
   },
   html: function() {
@@ -1205,11 +1205,11 @@ const familyLanguageTrial = {
 
     return `
       <label>${translations[lang].select_all_apply}<br>
-      <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
+      <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
       <select name="family_language" id="family_language" multiple size="6" style="width:100%; padding:.5em;">
         ${options}
       </select>
-      <div id="selected-family-languages" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+      <div id="selected-family-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
       </div>
       <br>
       <label id="family_language_other_label">
@@ -1494,7 +1494,7 @@ const backgroundIntroTrial = {
   stimulus: function() {
     return `
       <div style="text-align: center; max-width: 700px; margin: 0 auto;">
-        <p style="font-size: 1.1em;">${translations[lang].background_intro}</p>
+        <p>${translations[lang].background_intro}</p>
       </div>
     `;
   },
