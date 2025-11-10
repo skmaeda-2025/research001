@@ -689,7 +689,7 @@ const consentTrial = {
 const preloadTrial = {
   type: jsPsychPreload,
   audio: audioFiles.map(a => a.audio),
-  video: ['assets/video/dummy_instructions.webm']
+  video: ['assets/video/dummy_instructions.mp4']
 };
 
 const instructionTextTrial = {
@@ -710,7 +710,7 @@ const instructionTextTrial = {
 
 const instructionVideoTrial = {
   type: jsPsychVideoButtonResponse,
-  stimulus: ['assets/video/dummy_instructions.webm'],
+  stimulus: ['assets/video/dummy_instructions.mp4'],
   prompt: "",
   choices: [translations[lang].video_continue],
   response_allowed_while_playing: false,
