@@ -167,15 +167,15 @@ let isNative = false;
 //sample audios are mp3 files and real ones will be wav files.
 const audioFiles = [
   { id: "trial01", audio: "assets/audio/alpha1.wav" },
-  { id: "trial02", audio: "assets/audio/beta2.wav" },
-  { id: "trial03", audio: "assets/audio/gamma3.wav" },
-  { id: "trial04", audio: "assets/audio/delta4.wav" },
-  { id: "trial05", audio: "assets/audio/epsilon5.wav" },
-  { id: "trial06", audio: "assets/audio/zeta6.wav" },
-  { id: "trial07", audio: "assets/audio/eta7.wav" },
-  { id: "trial08", audio: "assets/audio/theta8.wav" },
-  { id: "trial09", audio: "assets/audio/iota9.wav" },
-  { id: "trial10", audio: "assets/audio/kappa10.wav" },
+  // { id: "trial02", audio: "assets/audio/beta2.wav" },
+  // { id: "trial03", audio: "assets/audio/gamma3.wav" },
+  // { id: "trial04", audio: "assets/audio/delta4.wav" },
+  // { id: "trial05", audio: "assets/audio/epsilon5.wav" },
+  // { id: "trial06", audio: "assets/audio/zeta6.wav" },
+  // { id: "trial07", audio: "assets/audio/eta7.wav" },
+  // { id: "trial08", audio: "assets/audio/theta8.wav" },
+  // { id: "trial09", audio: "assets/audio/iota9.wav" },
+  // { id: "trial10", audio: "assets/audio/kappa10.wav" },
 ];
 
 const introductionTrial = {
@@ -305,7 +305,7 @@ const translations = {
     mandatory: "<span style='color:red;'>*</span>",
     optional: "<span style='color:gray;'>(Optional)</span>",
     select_all_apply: "Select all that apply:",
-    multi_select_hint: "(On Windows, hold the Ctrl key while clicking. On Mac, hold the Command key while clicking.)",
+    multi_select_hint: '(<i class="fa-brands fa-windows"></i> Hold down the Ctrl key and click items to select multiple <i class="fa-brands fa-apple"></i> Hold down the Command key and click items to select multiple.)',
     close_window: "You may now close this window. Your responses have been saved.",
     background_intro: "The listening part is complete. Thank you!<br><br>Now we would like to ask about your background. There are up to 10 questions in total — about 4 or 5 are mandatory (depending on your background), and the rest are optional.",
     family_definition: "(Parents, guardians, spouse, partner, children)",
@@ -314,6 +314,7 @@ const translations = {
     intro_age: "You must be 18 years or older to participate in this study.",
     intro_time: "The study will take approximately 10 minutes to complete.",
     intro_ready: "Ready to Begin",
+    impression_error: "⚠️ Please select 1–3 adjectives.",
   },
   ja: {
   consent: consentText_ja,
@@ -373,7 +374,7 @@ const translations = {
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（任意）</span>",
   select_all_apply: "該当するものをすべて選んでください：",
-  multi_select_hint: "（Win Ctrlキーを押したまま項目をクリックすると、複数選択できます。 Mac Commandキーを押したまま、項目をクリックすると、複数選択できます。）",
+  multi_select_hint: '（<i class="fa-brands fa-windows"></i> Ctrlキーを押したまま項目をクリックをして複数選択 <i class="fa-brands fa-apple"></i> Commandキーを押したまま、項目をクリックして複数選択）',
   close_window: "回答は保存されました。このウィンドウを閉じてください。",
   background_intro: "音声の聞き取りは終了しました。ありがとうございました。<br>次に、あなたの背景についてお伺いします。<br><br>質問は最大で10問あり、4〜5問は必須（ご自身の背景によって異なります）、残りは任意です。",
   family_definition: "（両親、保護者、配偶者、パートナー、子ども）",
@@ -382,6 +383,7 @@ const translations = {
   intro_age: "本研究には18歳以上の方のみご参加いただけます。",
   intro_time: "所要時間は約10分です。",
   intro_ready: "開始する",
+  impression_error: "⚠️ 1～3個の形容詞を選んでください。"
   },
   sc: {
   consent: consentText_sc,
@@ -441,7 +443,7 @@ const translations = {
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（可选）</span>",
   select_all_apply: "选择所有适用项：",
-  multi_select_hint: "（在 Windows 上按住 Ctrl 键的同时点击，在 Mac 上按住 Command 键的同时点击。）",
+  multi_select_hint: '（<i class="fa-brands fa-windows"></i> 按住 Ctrl 键 并点击项目以进行多选。<i class="fa-brands fa-apple"></i> 按住 Command 键 并点击项目以进行多选。）',
   close_window: "您的回答已保存。您现在可以关闭此窗口。",
   background_intro: "听力部分已完成。谢谢！<br><br>接下来我们想了解您的背景信息。共有最多10个问题，其中大约4到5个为必答（根据您的背景而定），其余为选答。",
   family_definition: "（父母、监护人、配偶、伴侣、子女）",
@@ -450,6 +452,7 @@ const translations = {
   intro_age: "您必须年满18岁才能参加本研究。",
   intro_time: "本研究大约需要10分钟完成。",
   intro_ready: "准备开始",
+  impression_error: "⚠️ 请选择1到3个形容词。"
   },
   tc: {
   consent: consentText_tc,
@@ -510,7 +513,7 @@ const translations = {
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（選填）</span>",
   select_all_apply: "選擇所有適用項：",
-  multi_select_hint: "（在 Windows 上按住 Ctrl 鍵的同時點擊，在 Mac 上按住 Command 鍵的同時點擊。）",
+  multi_select_hint: '（<i class="fa-brands fa-windows"></i> 按住 Ctrl 鍵 並點擊項目以進行多重選擇。<i class="fa-brands fa-apple"></i> 按住 Command 鍵 並點擊項目以進行多重選擇。）',
   close_window: "您的回答已保存。您現在可以關閉此視窗。",
   background_intro: "聽力部分已完成。謝謝！<br><br>接下來我們想了解您的背景資訊。共有最多10個問題，其中約有4到5個為必答（依您的背景而定），其餘為選答。",
   family_definition: "（父母、監護人、配偶、伴侶、子女）",
@@ -519,6 +522,7 @@ const translations = {
   intro_age: "您必須年滿18歲才能參加本研究。",
   intro_time: "本研究大約需要10分鐘完成。",
   intro_ready: "準備開始",
+  impression_error: "⚠️ 請選擇1到3個形容詞。"
   },
   ko: {
   consent: consentText_ko,
@@ -578,7 +582,7 @@ const translations = {
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>(선택 사항)</span>",
   select_all_apply: "해당하는 항목을 모두 선택하세요：",
-  multi_select_hint: "(Windows에서는 Ctrl 키를 누른 채 클릭하고, Mac에서는 Command 키를 누른 채 클릭하세요.)",
+  multi_select_hint: '(<i class="fa-brands fa-windows"></i> Ctrl 키를 누른 상태에서 항목을 클릭하여 여러 개를 선택하세요. <i class="fa-brands fa-apple"></i> Command 키를 누른 상태에서 항목을 클릭하여 여러 개를 선택하세요.)',
   close_window: "응답이 저장되었습니다. 이제 이 창을 닫으셔도 됩니다.",
   background_intro: "듣기 부분이 완료되었습니다. 감사합니다!<br><br>이제 귀하의 배경에 대해 몇 가지 질문을 드리겠습니다. 총 최대 10개의 문항이 있으며, 약 4~5개는 필수(개인 배경에 따라 다름)이고 나머지는 선택 항목입니다.",
   family_definition: "(부모, 보호자, 배우자, 파트너, 자녀)",
@@ -587,6 +591,7 @@ const translations = {
   intro_age: "본 연구에는 만 18세 이상만 참여할 수 있습니다.",
   intro_time: "연구는 약 10분 정도 소요됩니다.",
   intro_ready: "시작하기",
+  impression_error: "⚠️ 형용사를 1~3개 선택해 주세요."
   }
 };
 
@@ -611,8 +616,8 @@ function makeImpressionTrial() {
           ${checkboxes}
           <br><br>
           <label>${translations[lang].optional_comment || "Optional comment:"}</label><br>
-          <textarea id="impression_comment" rows="3" cols="50" placeholder="..."></textarea>
-          <p id="error-msg" class="impression-error" style="display:none;">⚠️ Please select 1–3 adjectives to continue.</p>
+          <textarea id="impression_comment" rows="2" cols="50" placeholder="..."></textarea>
+          <p id="error-msg" class="impression-error" style="display:none;">${translations[lang].impression_error}</p>
           <div class="impression-button-row">
             <button id="continue-btn" class="impression-continue-btn" disabled>${translations[lang].finish || "Next"}</button>
           </div>
@@ -841,51 +846,6 @@ const motherTongueTrial = {
 //     }
 //   };
 // }
-
-// const l2UsageBlock = {
-//   timeline: [],
-//   on_timeline_start: function () {
-//     console.log("=== L2 Usage Block Starting ===");
-//     const last = jsPsych.data.get().filter({ question: "l2_languages" }).last(1).values()[0];
-//     console.log("Last trial data:", last);
-//     const selected = last?.response?.l2_languages || [];
-//     console.log("Selected languages raw:", selected);
-//     const codes = Array.isArray(selected) ? selected : [selected];
-//     console.log("Language codes array:", codes);
-//     console.log("Number of languages:", codes.length);
-
-//     // Clear timeline first
-//     this.timeline.length = 0;
-
-//     // Add a trial for each selected language
-//     codes.forEach((code, index) => {
-//       const label = languageOptions.find(l => l.code === code)?.label || code;
-//       console.log(`Adding trial ${index + 1} for: ${label} (${code})`);
-
-//       // Create question template with current language
-//       const questionTemplate = {
-//         en: `How often do you use <strong>${label}</strong>?`,
-//         ja: `<strong>${label}</strong>をどのくらいの頻度で使用しますか？`,
-//         sc: `您使用<strong>${label}</strong>的频率是？`,
-//         tc: `您使用<strong>${label}</strong>的頻率為何？`,
-//         ko: `<strong>${label}</strong>을(를) 얼마나 자주 사용합니까?`
-//       };
-
-//       this.timeline.push({
-//         type: jsPsychHtmlButtonResponse,
-//         stimulus: `<p>${questionTemplate[lang] || questionTemplate.en}</p>`,
-//         choices: translations[lang].languageFreq_options,
-//         data: {
-//           question: 'l2_language_usage',
-//           language_code: code
-//         }
-//       });
-//     });
-
-//     console.log("Total trials added:", this.timeline.length);
-//     console.log("=== L2 Usage Block Ready ===");
-//   }
-// };
 
 const l2LanguageTrial = {
   type: jsPsychSurveyHtmlForm,
@@ -1302,53 +1262,6 @@ const l2LanguageYesNoTrial = {
   }
 };
 
-// const usageTrial = {
-//   type: jsPsychHtmlButtonResponse,
-//   stimulus: function() {
-//     return `
-//       <div style="position: relative;">
-//         <button id="skip-btn" style="position: absolute; top: -40px; right: 0; padding: 8px 16px; background-color: #f0f0f0; border: 1px solid #ccc; border-radius: 4px; cursor: pointer; font-size: 0.9em;">
-//           ${translations[lang].skip}
-//         </button>
-//         <p>${translations[lang].usageQ} ${translations[lang].optional}</p>
-//       </div>
-//     `;
-//   },
-//   choices: function() { return translations[lang].languageFreq_options; },
-//   data: { question: 'japanese_usage' },
-//   on_load: function() {
-//     const skipBtn = document.getElementById('skip-btn');
-//     if (skipBtn) {
-//       skipBtn.addEventListener('click', function() {
-//         jsPsych.finishTrial({
-//           response: null,
-//           skipped: true
-//         });
-//       });
-//     }
-//   }
-// };
-
-// const usageTrial = {
-//   type: jsPsychSurveyHtmlForm,
-//   preamble: function() {
-//     return `<p>${translations[lang].usageQ} ${translations[lang].optional}</p>`;
-//   },
-//   html: function() {
-//     const options = translations[lang].languageFreq_options
-//       .map((option, i) => `<option value="${i}">${option}</option>`)
-//       .join('');
-//     return `
-//       <select name="japanese_usage" style="width:100%; font-size:16px; padding:12px;">
-//         <option value="" selected>${translations[lang].skip}</option>
-//         ${options}
-//       </select>
-//     `;
-//   },
-//   button_label: function() { return translations[lang].continue_button; },
-//   data: { question: 'japanese_usage' }
-// };
-
 const usageTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function() {
@@ -1381,13 +1294,6 @@ const usageTrial = {
     }
   }
 };
-
-// const proficiencyTrial = {
-//   type: jsPsychHtmlButtonResponse,
-//   stimulus: function() { return `<p>${translations[lang].proficiencyQ} ${translations[lang].mandatory}</p>`; },
-//   choices: function() { return translations[lang].proficiency_options; },
-//   data: { question: 'japanese_proficiency' }
-// };
 
 const proficiencyTrial = {
   type: jsPsychSurveyHtmlForm,
@@ -1584,7 +1490,7 @@ timeline.push(introductionTrial);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-timeline.push(instructionVideoTrial);
+// timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
 timeline.push({
   timeline: [
