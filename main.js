@@ -710,7 +710,7 @@ const instructionTextTrial = {
 
 const instructionVideoTrial = {
   type: jsPsychVideoButtonResponse,
-  stimulus: ['assets/video/dummy_instructions.mp4'],
+  stimulus: ['assets/video/dummy_instructions.webm'],
   prompt: "",
   choices: [translations[lang].video_continue],
   response_allowed_while_playing: false,
