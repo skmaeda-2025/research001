@@ -154,8 +154,6 @@ function makeLanguageDropdown(questionText, responseName) {
 
 // const jsPsych = initJsPsych({});
 const jsPsych = initJsPsych({
-  // show_progress_bar: true,
-  // auto_update_progress_bar: true
 });
 
 // const participantID = generateUUID();
@@ -168,17 +166,41 @@ let isNative = false;
 
 //sample audios are mp3 files and real ones will be wav files.
 const audioFiles = [
-  { id: "trial01", audio: "assets/audio/alpha1.mp3" },
-  { id: "trial02", audio: "assets/audio/beta2.mp3" },
-  { id: "trial03", audio: "assets/audio/gamma3.mp3" },
-  { id: "trial04", audio: "assets/audio/delta4.mp3" },
-  { id: "trial05", audio: "assets/audio/epsilon5.mp3" },
-  { id: "trial06", audio: "assets/audio/zeta6.mp3" },
-  { id: "trial07", audio: "assets/audio/eta7.mp3" },
-  { id: "trial08", audio: "assets/audio/theta8.mp3" },
-  { id: "trial09", audio: "assets/audio/iota9.mp3" },
-  { id: "trial10", audio: "assets/audio/kappa10.mp3" },
+  { id: "trial01", audio: "assets/audio/alpha1.wav" },
+  { id: "trial02", audio: "assets/audio/beta2.wav" },
+  { id: "trial03", audio: "assets/audio/gamma3.wav" },
+  { id: "trial04", audio: "assets/audio/delta4.wav" },
+  { id: "trial05", audio: "assets/audio/epsilon5.wav" },
+  { id: "trial06", audio: "assets/audio/zeta6.wav" },
+  { id: "trial07", audio: "assets/audio/eta7.wav" },
+  { id: "trial08", audio: "assets/audio/theta8.wav" },
+  { id: "trial09", audio: "assets/audio/iota9.wav" },
+  { id: "trial10", audio: "assets/audio/kappa10.wav" },
 ];
+
+const introductionTrial = {
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function() {
+    return `
+      <div style="max-width: 700px; margin: 0 auto; text-align: center; padding: 40px 20px;">
+        <h2 style="margin-bottom: 30px; color: #333;">${translations[lang].intro_title}</h2>
+
+        <div style="text-align: left; background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+          <p style="margin-bottom: 15px; font-size: 1.1em;">
+            🎧 ${translations[lang].intro_audio}
+          </p>
+          <p style="margin-bottom: 15px; font-size: 1.1em;">
+            ✓ ${translations[lang].intro_age}
+          </p>
+          <p style="margin-bottom: 0; font-size: 1.1em;">
+            ⏱️ ${translations[lang].intro_time}
+          </p>
+        </div>
+      </div>
+    `;
+  },
+  choices: function() { return [translations[lang].intro_ready]; }
+};
 
 // Multi-language content
 const consentText_en = `<div class="consent-container">
@@ -283,10 +305,15 @@ const translations = {
     mandatory: "<span style='color:red;'>*</span>",
     optional: "<span style='color:gray;'>(Optional)</span>",
     select_all_apply: "Select all that apply:",
-    multi_select_hint: "(You can press Ctrl button to select multiple options)",
+    multi_select_hint: "(On Windows, hold the Ctrl key while clicking. On Mac, hold the Command key while clicking.)",
     close_window: "You may now close this window. Your responses have been saved.",
     background_intro: "The listening part is complete. Thank you!<br><br>Now we would like to ask about your background. There are up to 10 questions in total — about 4 or 5 are mandatory (depending on your background), and the rest are optional.",
     family_definition: "(Parents, guardians, spouse, partner, children)",
+    intro_title: "Welcome to the Study",
+    intro_audio: "This is a listening experiment. Please participate in a quiet environment. You may listen to the audio using headphones, earphones, or speakers.",
+    intro_age: "You must be 18 years or older to participate in this study.",
+    intro_time: "The study will take approximately 10 minutes to complete.",
+    intro_ready: "Ready to Begin",
   },
   ja: {
   consent: consentText_ja,
@@ -346,10 +373,15 @@ const translations = {
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（任意）</span>",
   select_all_apply: "該当するものをすべて選んでください：",
-  multi_select_hint: "（Ctrlキーを押しながら選択すると、複数選択できます。）",
+  multi_select_hint: "（Win Ctrlキーを押したまま項目をクリックすると、複数選択できます。 Mac Commandキーを押したまま、項目をクリックすると、複数選択できます。）",
   close_window: "回答は保存されました。このウィンドウを閉じてください。",
   background_intro: "音声の聞き取りは終了しました。ありがとうございました。<br>次に、あなたの背景についてお伺いします。<br><br>質問は最大で10問あり、4〜5問は必須（ご自身の背景によって異なります）、残りは任意です。",
   family_definition: "（両親、保護者、配偶者、パートナー、子ども）",
+  intro_title: "実験へようこそ",
+  intro_audio: "これは音声聞き取り実験です。静かな環境でご参加ください。ヘッドフォン・イヤホンまたはスピーカーで音声をお聞きいただけます。",
+  intro_age: "本研究には18歳以上の方のみご参加いただけます。",
+  intro_time: "所要時間は約10分です。",
+  intro_ready: "開始する",
   },
   sc: {
   consent: consentText_sc,
@@ -409,10 +441,15 @@ const translations = {
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（可选）</span>",
   select_all_apply: "选择所有适用项：",
-  multi_select_hint: "（您可以按住Ctrl键选择多个选项）",
+  multi_select_hint: "（在 Windows 上按住 Ctrl 键的同时点击，在 Mac 上按住 Command 键的同时点击。）",
   close_window: "您的回答已保存。您现在可以关闭此窗口。",
   background_intro: "听力部分已完成。谢谢！<br><br>接下来我们想了解您的背景信息。共有最多10个问题，其中大约4到5个为必答（根据您的背景而定），其余为选答。",
   family_definition: "（父母、监护人、配偶、伴侣、子女）",
+  intro_title: "欢迎参加本研究",
+  intro_audio: "这是一个听力实验。请在安静的环境中参加。您可以使用耳机、耳塞或音箱收听音频。",
+  intro_age: "您必须年满18岁才能参加本研究。",
+  intro_time: "本研究大约需要10分钟完成。",
+  intro_ready: "准备开始",
   },
   tc: {
   consent: consentText_tc,
@@ -473,10 +510,15 @@ const translations = {
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（選填）</span>",
   select_all_apply: "選擇所有適用項：",
-  multi_select_hint: "（您可以按住Ctrl鍵選擇多個選項）",
+  multi_select_hint: "（在 Windows 上按住 Ctrl 鍵的同時點擊，在 Mac 上按住 Command 鍵的同時點擊。）",
   close_window: "您的回答已保存。您現在可以關閉此視窗。",
   background_intro: "聽力部分已完成。謝謝！<br><br>接下來我們想了解您的背景資訊。共有最多10個問題，其中約有4到5個為必答（依您的背景而定），其餘為選答。",
   family_definition: "（父母、監護人、配偶、伴侶、子女）",
+  intro_title: "歡迎參加本研究",
+  intro_audio: "這是一個聽力實驗。請在安靜的環境中參加。您可以使用耳機、耳塞或喇叭收聽音訊。",
+  intro_age: "您必須年滿18歲才能參加本研究。",
+  intro_time: "本研究大約需要10分鐘完成。",
+  intro_ready: "準備開始",
   },
   ko: {
   consent: consentText_ko,
@@ -536,10 +578,15 @@ const translations = {
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>(선택 사항)</span>",
   select_all_apply: "해당하는 항목을 모두 선택하세요：",
-  multi_select_hint: "(Ctrl 키를 누른 채로 여러 개를 선택할 수 있습니다)",
+  multi_select_hint: "(Windows에서는 Ctrl 키를 누른 채 클릭하고, Mac에서는 Command 키를 누른 채 클릭하세요.)",
   close_window: "응답이 저장되었습니다. 이제 이 창을 닫으셔도 됩니다.",
   background_intro: "듣기 부분이 완료되었습니다. 감사합니다!<br><br>이제 귀하의 배경에 대해 몇 가지 질문을 드리겠습니다. 총 최대 10개의 문항이 있으며, 약 4~5개는 필수(개인 배경에 따라 다름)이고 나머지는 선택 항목입니다.",
   family_definition: "(부모, 보호자, 배우자, 파트너, 자녀)",
+  intro_title: "연구에 오신 것을 환영합니다",
+  intro_audio: "이것은 청취 실험입니다. 조용한 환경에서 참여해 주세요. 헤드폰, 이어폰 또는 스피커로 음성을 들을 수 있습니다.",
+  intro_age: "본 연구에는 만 18세 이상만 참여할 수 있습니다.",
+  intro_time: "연구는 약 10분 정도 소요됩니다.",
+  intro_ready: "시작하기",
   }
 };
 
@@ -642,7 +689,7 @@ const consentTrial = {
 const preloadTrial = {
   type: jsPsychPreload,
   audio: audioFiles.map(a => a.audio),
-  video: ['assets/video/dummy_instructions.mp4']
+  video: ['assets/video/dummy_instructions.webm']
 };
 
 const instructionTextTrial = {
@@ -1533,22 +1580,23 @@ const thankYouTrial = {
 // Build and run timeline
 const timeline = [];
 timeline.push(languageSelector);
+timeline.push(introductionTrial);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-// timeline.push(instructionVideoTrial);
+timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
-// timeline.push({
-//   timeline: [
-//     play_audio,
-//     accentQuestionTrial,
-//     {
-//       timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
-//     }
-//   ],
-//   timeline_variables: audioFiles,
-//   randomize_order: true
-// });
+timeline.push({
+  timeline: [
+    play_audio,
+    accentQuestionTrial,
+    {
+      timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
+    }
+  ],
+  timeline_variables: audioFiles,
+  randomize_order: true
+});
 timeline.push(backgroundIntroTrial);
 timeline.push(basicBlock);
 timeline.push(nativeBlock);
