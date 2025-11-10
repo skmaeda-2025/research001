@@ -48,12 +48,6 @@ video {
 }
 
 /* Form elements */
-/* select, input[type="text"], textarea {
-  font-size: 16px;
-  padding: 12px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-} */
 select, input[type="text"], textarea {
   font-size: 16px;
   padding: 12px;
@@ -65,24 +59,12 @@ select, input[type="text"], textarea {
   display: block;
 }
 
-/* select {
-  min-height: 48px;
-  width: 100%;
-}
-
-input[type="text"] {
-  min-height: 48px;
-  width: 100%;
-}
-
-textarea {
-  width: 100%;
-  min-height: 60px;
-  resize: vertical;
-} */
-
 select {
   min-height: 48px;
+}
+
+select[multiple] {
+  max-width: 700px;  /* A bit wider for better visibility */
 }
 
 input[type="text"] {
@@ -157,33 +139,6 @@ button, .jspsych-btn {
   min-height: 30px;
   background: #f9f9f9;
   border-radius: 4px;
-}
-
-select {
-  width: 100%;
-  max-width: 600px;  /* Limits width on large screens */
-  font-size: 16px;
-  padding: 12px;
-  min-height: 48px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-select[multiple] {
-  max-width: 700px;  /* A bit wider for better visibility */
-}
-
-select {
-  min-height: 48px;
-}
-
-input[type="text"] {
-  min-height: 48px;
-}
-
-textarea {
-  min-height: 100px;
-  resize: vertical;
 }
 
 /* Make labels block-level so dropdowns don't stick to text */
