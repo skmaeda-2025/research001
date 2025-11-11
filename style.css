@@ -47,24 +47,16 @@ video {
   height: auto;
 }
 
-/* Form elements */
+/* Form elements - base styling only, inline styles will handle width/centering */
 select, input[type="text"], textarea {
   font-size: 16px;
   padding: 12px;
   border-radius: 6px;
   border: 1px solid #ccc;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  display: block;
 }
 
 select {
   min-height: 48px;
-}
-
-select[multiple] {
-  max-width: 700px;  /* A bit wider for better visibility */
 }
 
 input[type="text"] {
@@ -95,7 +87,6 @@ button, .jspsych-btn {
 }
 
 .impression-container textarea {
-  width: 100%;
   font-size: 16px;
   padding: 12px;
   margin-top: 10px;
@@ -141,28 +132,9 @@ button, .jspsych-btn {
   border-radius: 4px;
 }
 
-/* Make labels block-level so dropdowns don't stick to text */
+/* Make labels block-level and centered */
 label {
   display: block;
-  width: 100%;
+  text-align: center;
   margin-bottom: 8px;
-}
-
-/* Ensure form elements don't inherit label width */
-label select,
-label input[type="text"],
-label textarea {
-  display: block;
-  width: 100%;
-  max-width: 600px;
-  margin: 8px auto 0 auto;
-}
-
-/* For elements not in labels, center them too */
-form > select,
-form > input[type="text"],
-form > textarea {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
 }
