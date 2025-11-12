@@ -671,12 +671,17 @@ function makeImpressionTrial() {
 
 const languageSelector = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `<p>
-    実験に興味を持っていただきありがとうございます。表示言語を選択してください。<br/>
-    感谢您对本实验的兴趣。请选择显示语言。<br/>
-    感謝您對本實驗的興趣。請選擇顯示語言。<br/>
-    실험에 관심을 가져주셔서 감사합니다. 표시 언어를 선택해 주세요.<br/>
-    Thank you for your interest in this experiment. Please select your display language.</p>`,
+  stimulus: `
+    <div style="max-width: 100%; padding: 20px; box-sizing: border-box;">
+      <p style="word-wrap: break-word; overflow-wrap: break-word;">
+        実験に興味を持っていただきありがとうございます。表示言語を選択してください。<br/>
+        感谢您对本实验的兴趣。请选择显示语言。<br/>
+        感謝您對本實驗的興趣。請選擇顯示語言。<br/>
+        실험에 관심을 가져주셔서 감사합니다. 표시 언어를 선택해 주세요.<br/>
+        Thank you for your interest in this experiment. Please select your display language.
+      </p>
+    </div>
+  `,
   choices: ["日本語", "简体中文", "繁體中文", "한국어", "English"],
   on_finish: function(data) {
     const choice = data.response;
@@ -717,54 +722,6 @@ const instructionTextTrial = {
   }
 };
 
-// const instructionVideoTrial = {
-//   type: jsPsychHtmlButtonResponse,
-//   stimulus: function() {
-//     return `
-//       <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-//         <h3>${translations[lang].instruction_video_title || "Instruction Video"}</h3>
-//         <p>${translations[lang].adjust_volume || "Please watch the video and adjust your audio volume."}</p>
-
-//         <video id="instruction-video" controls style="width: 100%; max-width: 700px; margin: 20px auto;">
-//           <source src="assets/video/new_instruction_video_v2.mp4" type="video/mp4">
-//           Your browser does not support the video tag.
-//         </video>
-
-//         <p id="video-warning" style="margin-top: 20px; color: #d9534f; font-size: 14px; display: none;">
-//           ${translations[lang].video_required || "Please play the video before continuing."}
-//         </p>
-//       </div>
-//     `;
-//   },
-//   choices: function() {
-//     return [translations[lang].continue_button];
-//   },
-//   on_load: function() {
-//     const video = document.getElementById('instruction-video');
-//     const continueBtn = document.querySelector('.jspsych-btn');
-//     const warning = document.getElementById('video-warning');
-
-//     // Disable button initially
-//     if (continueBtn) {
-//       continueBtn.disabled = true;
-//       continueBtn.style.opacity = '0.5';
-//       continueBtn.style.cursor = 'not-allowed';
-//     }
-
-//     let hasPlayed = false;
-
-//     // Enable button once video has been played
-//     video.addEventListener('play', function() {
-//       if (!hasPlayed) {
-//         hasPlayed = true;
-//         if (continueBtn) {
-//           continueBtn.disabled = false;
-//           continueBtn.style.opacity = '1';
-//           continueBtn.style.cursor = 'pointer';
-//           warning.style.display = 'none';
-//         }
-//       }
-//     });
 
 const instructionVideoTrial = {
   type: jsPsychHtmlButtonResponse,
@@ -843,21 +800,20 @@ const instructionVideoTrial = {
   }
 };
 
-// Pre-test instruction
 const preTestMessage = {
-type: jsPsychHtmlButtonResponse,
-stimulus: function () {
-return `
-      <div style="text-align: left; max-width: 700px; margin: 0 auto;">
-        <p>You are about to begin the actual test. There are 10 audio clips in total. Please listen carefully and answer honestly.</p>
-        <p>これから本番のテストが始まります。音声は全部で10個あります。音声は一度だけ流れます。よく聞いて、正直に答えてください。</p>
-        <p>您即将开始正式测试。共有10个音频片段。请认真聆听并如实作答。</p>
-        <p>您即將開始正式測試。共有10個音訊片段。請仔細聆聽並誠實作答。</p>
-        <p>이제 본 테스트가 시작됩니다. 총 10개의 오디오가 재생됩니다. 주의 깊게 듣고 솔직하게 응답해 주세요.</p>
+  type: jsPsychHtmlButtonResponse,
+  stimulus: function () {
+    return `
+      <div style="text-align: left; max-width: 100%; padding: 20px; box-sizing: border-box;">
+        <p style="word-wrap: break-word; overflow-wrap: break-word;">You are about to begin the actual test. There are 10 audio clips in total. Please listen carefully and answer honestly.</p>
+        <p style="word-wrap: break-word; overflow-wrap: break-word;">これから本番のテストが始まります。音声は全部で10個あります。音声は一度だけ流れます。よく聞いて、正直に答えてください。</p>
+        <p style="word-wrap: break-word; overflow-wrap: break-word;">您即将开始正式测试。共有10个音频片段。请认真聆听并如实作答。</p>
+        <p style="word-wrap: break-word; overflow-wrap: break-word;">您即將開始正式測試。共有10個音訊片段。請仔細聆聽並誠實作答。</p>
+        <p style="word-wrap: break-word; overflow-wrap: break-word;">이제 본 테스트가 시작됩니다. 총 10개의 오디오가 재생됩니다. 주의 깊게 듣고 솔직하게 응답해 주세요.</p>
       </div>
     `;
   },
-choices: function () { return ["Start Test"] }
+  choices: function () { return ["Start Test"] }
 };
 
 const play_audio = {
@@ -1016,95 +972,6 @@ const l2LanguageTrial = {
   data: { question: 'l2_languages' }
 };
 
-// const l2LanguageSelectTrial = {
-//   type: jsPsychSurveyHtmlForm,
-//   preamble: function () {
-//     let showSelected = "";
-
-//     try {
-//       const allData = jsPsych.data.get().values();
-//       const recent = [...allData].reverse().find(d => d.response?.l2_languages);
-
-//       if (recent) {
-//         const codes = recent.response.l2_languages;
-//         const codeArray = Array.isArray(codes) ? codes : [codes];
-//         const labels = codeArray.map(code => languageOptions.find(l => l.code === code)?.label).filter(Boolean);
-
-//         if (labels.length) {
-//           showSelected = `<p><strong>Previously selected: ${labels.join(', ')}</strong></p>`;
-//         }
-//       }
-//     } catch (e) {
-//       console.warn("L2 language lookup failed:", e);
-//     }
-
-//     return `${showSelected}<p>${translations[lang].languageOtherSelectQ} ${translations[lang].optional}</p>`;
-//   },
-
-//   html: function() {
-//     const options = languageOptions
-//       .map(l => `<option value="${l.code}">${l.label}</option>`)
-//       .join('');
-
-//     return `
-//       <label>${translations[lang].select_all_apply}<br>
-//       <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-//       <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
-//         ${options}
-//       </select>
-//       <div id="selected-l2-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
-//       </div>
-//       <br>
-//       <label id="l2_other_label">
-//         ${translations[lang].specify_other}<br>
-//         <input type="text" name="l2_languages_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
-//       </label>
-//       <p id="error-l2" style="color:red; display:none;">${translations[lang].specify_other}</p>
-//     `;
-//   },
-//   button_label: function() { return translations[lang].continue_button; },
-
-//   on_load: function() {
-//     const select = document.getElementById('l2_languages');
-//     const displayDiv = document.getElementById('selected-l2-languages');
-//     const otherLabel = document.getElementById('l2_other_label');
-//     const otherInput = document.querySelector('input[name="l2_languages_other"]');
-//     const errorMsg = document.getElementById('error-l2');
-
-//     function updateSelectedDisplay() {
-//       const selected = Array.from(select.selectedOptions);
-//       if (selected.length > 0) {
-//         const names = selected.map(opt => opt.text).join(', ');
-//         displayDiv.textContent = names;
-//       } else {
-//         displayDiv.textContent = '';
-//       }
-//     }
-
-//     // Update display on all selection events
-//     select.addEventListener('change', updateSelectedDisplay);
-//     select.addEventListener('click', updateSelectedDisplay);
-//     select.addEventListener('mousedown', () => setTimeout(updateSelectedDisplay, 0));
-//     select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
-//     select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
-//     select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
-
-//     // Validation on submit
-//     const form = select.closest('form');
-//     if (form) {
-//       form.addEventListener('submit', function(event) {
-//         const selected = Array.from(select.selectedOptions).map(o => o.value);
-//         if (selected.includes('OTHER') && otherInput && !otherInput.value.trim()) {
-//           event.preventDefault();
-//           if (errorMsg) errorMsg.style.display = 'block';
-//         } else {
-//           if (errorMsg) errorMsg.style.display = 'none';
-//         }
-//       });
-//     }
-//   },
-//   data: { question: 'l2_languages' }
-// };
 
 const l2LanguageSelectTrial = {
   type: jsPsychSurveyHtmlForm,
@@ -1253,79 +1120,6 @@ button_label: function() { return translations[lang].continue_button; },
   data: { question: 'current_country' }
 };
 
-
-// --- Countries Lived Trial ---
-// const countriesLivedTrial = {
-//   type: jsPsychSurveyHtmlForm,
-//   preamble: function() { return `<p>${translations[lang].countriesLivedQ} ${translations[lang].optional}</p>`; },
-//   html: function() {
-//     return `
-//       <label>${translations[lang].select_all_apply}<br>
-//       <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-//       <select name="countries_lived" id="countries_lived" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
-//         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
-//       </select>
-//       <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
-//       </div>
-//       <br>
-//       <label>
-//         ${translations[lang].specify_other}<br>
-//         <input type="text" name="countries_lived_other" id="countries_lived_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
-//       </label>
-//       <p id="error-countries" style="color:red; display:none;">${translations[lang].specify_other}</p>
-//     `;
-//   },
-// button_label: function() { return translations[lang].continue_button; },
-//   on_load: function() {
-//     const select = document.getElementById("countries_lived");
-//     const displayDiv = document.getElementById("selected-countries");
-
-//     function updateSelectedDisplay() {
-//       const selected = Array.from(select.selectedOptions);
-//       if (selected.length > 0) {
-//         const names = selected.map(opt => opt.text).join(', ');
-//         displayDiv.textContent = names;
-//       } else {
-//         displayDiv.textContent = '';
-//       }
-//     }
-
-//     // Catch all possible selection events
-//     select.addEventListener('change', updateSelectedDisplay);
-//     select.addEventListener('click', updateSelectedDisplay);
-//     select.addEventListener('mousedown', function() {
-//       setTimeout(updateSelectedDisplay, 0);
-//     });
-//     select.addEventListener('mouseup', function() {
-//       setTimeout(updateSelectedDisplay, 0);
-//     });
-//     select.addEventListener('keydown', function() {
-//       setTimeout(updateSelectedDisplay, 0);
-//     });
-//     select.addEventListener('keyup', function() {
-//       setTimeout(updateSelectedDisplay, 0);
-//     });
-
-//     // Validation on submit
-//     const form = select.closest('form');
-//     if (form) {
-//       form.addEventListener('submit', function(event) {
-//         const other = document.getElementById("countries_lived_other");
-//         const error = document.getElementById("error-countries");
-
-//         const selected = Array.from(select.selectedOptions).map(o => o.value);
-//         if (selected.includes("OTHER") && !other.value.trim()) {
-//           event.preventDefault();
-//           error.style.display = "block";
-//         } else {
-//           error.style.display = "none";
-//         }
-//       });
-//     }
-//   },
-//   data: { question: 'countries_lived' }
-// };
-
 const countriesLivedTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function() { return `<p>${translations[lang].countriesLivedQ} ${translations[lang].optional}</p>`; },
@@ -1396,77 +1190,6 @@ const countriesLivedTrial = {
   data: { question: 'countries_lived' }
 };
 
-// const familyLanguageTrial = {
-//   type: jsPsychSurveyHtmlForm,
-//   preamble: function() {
-//     return `
-//       <p>${translations[lang].familyLanguageQ} ${translations[lang].optional}</p>
-//     `;
-//   },
-//   html: function() {
-//     const options = languageOptions
-//       .map(l => `<option value="${l.code}">${l.label}</option>`)
-//       .join('');
-
-//     return `
-//       <label>${translations[lang].select_all_apply}<br>
-//       <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-//       <select name="family_language" id="family_language" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
-//         ${options}
-//       </select>
-//       <div id="selected-family-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
-//       </div>
-//       <br>
-//       <label id="family_language_other_label">
-//         ${translations[lang].specify_other}<br>
-//         <input type="text" name="family_language_other" id="family_language_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
-//       </label>
-//       <p id="error-family-language" style="color:red; display:none;">${translations[lang].specify_other}</p>
-//     `;
-//   },
-//   button_label: function() { return translations[lang].continue_button; },
-//   // ... rest of the code stays the same
-//   on_load: function() {
-//     const select = document.getElementById('family_language');
-//     const displayDiv = document.getElementById('selected-family-languages');
-//     const otherLabel = document.getElementById('family_language_other_label');
-//     const otherInput = document.getElementById('family_language_other');
-//     const errorMsg = document.getElementById('error-family-language');
-
-//     function updateSelectedDisplay() {
-//       const selected = Array.from(select.selectedOptions);
-//       if (selected.length > 0) {
-//         const names = selected.map(opt => opt.text).join(', ');
-//         displayDiv.textContent = names;
-//       } else {
-//         displayDiv.textContent = '';
-//       }
-//     }
-
-//     // Update display on all selection events
-//     select.addEventListener('change', updateSelectedDisplay);
-//     select.addEventListener('click', updateSelectedDisplay);
-//     select.addEventListener('mousedown', () => setTimeout(updateSelectedDisplay, 0));
-//     select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
-//     select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
-//     select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
-
-//     // Validation on submit
-//     const form = select.closest('form');
-//     if (form) {
-//       form.addEventListener('submit', function(event) {
-//         const selected = Array.from(select.selectedOptions).map(o => o.value);
-//         if (selected.includes('OTHER') && otherInput && !otherInput.value.trim()) {
-//           event.preventDefault();
-//           if (errorMsg) errorMsg.style.display = 'block';
-//         } else {
-//           if (errorMsg) errorMsg.style.display = 'none';
-//         }
-//       });
-//     }
-//   },
-//   data: { question: 'family_language' }
-// };
 
 const familyLanguageTrial = {
   type: jsPsychSurveyHtmlForm,
@@ -1652,8 +1375,8 @@ const backgroundIntroTrial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: function() {
     return `
-      <div style="text-align: left; max-width: 700px; margin: 0 auto;">
-        <p>${translations[lang].background_intro}</p>
+      <div style="text-align: left; max-width: 100%; padding: 20px; box-sizing: border-box;">
+        <p style="word-wrap: break-word; overflow-wrap: break-word;">${translations[lang].background_intro}</p>
       </div>
     `;
   },
