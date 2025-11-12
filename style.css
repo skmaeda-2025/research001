@@ -138,3 +138,19 @@ label {
   text-align: center;
   margin-bottom: 8px;
 }
+
+/* Prevent horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.jspsych-content-wrapper {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.jspsych-content {
+  max-width: 100%;
+  padding: 10px;
+}
