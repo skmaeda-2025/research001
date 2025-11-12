@@ -698,7 +698,7 @@ const consentTrial = {
 const preloadTrial = {
   type: jsPsychPreload,
   audio: audioFiles.map(a => a.audio),
-  video: ['assets/video/dummy_instructions.mp4']
+  video: ['assets/video/new_instruction_video.mp4']
 };
 
 const instructionTextTrial = {
@@ -726,7 +726,7 @@ const instructionVideoTrial = {
         <p>${translations[lang].adjust_volume || "Please watch the video and adjust your audio volume."}</p>
 
         <video id="instruction-video" controls style="width: 100%; max-width: 700px; margin: 20px auto;">
-          <source src="assets/video/dummy_instructions.mp4" type="video/mp4">
+          <source src="assets/video/new_instruction_video.mp4" type="video/mp4">
           Your browser does not support the video tag.
         </video>
 
