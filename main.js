@@ -698,7 +698,7 @@ const consentTrial = {
 const preloadTrial = {
   type: jsPsychPreload,
   audio: audioFiles.map(a => a.audio),
-  video: ['assets/video/new_instruction_video.mp4']
+  video: ['assets/video/new_instruction_video_v2.mp4']
 };
 
 const instructionTextTrial = {
@@ -717,16 +717,75 @@ const instructionTextTrial = {
   }
 };
 
+// const instructionVideoTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() {
+//     return `
+//       <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+//         <h3>${translations[lang].instruction_video_title || "Instruction Video"}</h3>
+//         <p>${translations[lang].adjust_volume || "Please watch the video and adjust your audio volume."}</p>
+
+//         <video id="instruction-video" controls style="width: 100%; max-width: 700px; margin: 20px auto;">
+//           <source src="assets/video/new_instruction_video_v2.mp4" type="video/mp4">
+//           Your browser does not support the video tag.
+//         </video>
+
+//         <p id="video-warning" style="margin-top: 20px; color: #d9534f; font-size: 14px; display: none;">
+//           ${translations[lang].video_required || "Please play the video before continuing."}
+//         </p>
+//       </div>
+//     `;
+//   },
+//   choices: function() {
+//     return [translations[lang].continue_button];
+//   },
+//   on_load: function() {
+//     const video = document.getElementById('instruction-video');
+//     const continueBtn = document.querySelector('.jspsych-btn');
+//     const warning = document.getElementById('video-warning');
+
+//     // Disable button initially
+//     if (continueBtn) {
+//       continueBtn.disabled = true;
+//       continueBtn.style.opacity = '0.5';
+//       continueBtn.style.cursor = 'not-allowed';
+//     }
+
+//     let hasPlayed = false;
+
+//     // Enable button once video has been played
+//     video.addEventListener('play', function() {
+//       if (!hasPlayed) {
+//         hasPlayed = true;
+//         if (continueBtn) {
+//           continueBtn.disabled = false;
+//           continueBtn.style.opacity = '1';
+//           continueBtn.style.cursor = 'pointer';
+//           warning.style.display = 'none';
+//         }
+//       }
+//     });
+
 const instructionVideoTrial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: function() {
+    // Determine subtitle file based on language
+    const subtitleFile = {
+      'en': 'assets/video/updated_subtitles_en.vtt',
+      'ja': '', // No subtitles for Japanese (original)
+      'sc': 'assets/video/updated_subtitles_sc.vtt',
+      'tc': 'assets/video/updated_subtitles_tc.vtt',
+      'ko': 'assets/video/updated_subtitles_ko.vtt'
+    }[lang] || '';
+
     return `
       <div style="max-width: 800px; margin: 0 auto; text-align: center;">
         <h3>${translations[lang].instruction_video_title || "Instruction Video"}</h3>
         <p>${translations[lang].adjust_volume || "Please watch the video and adjust your audio volume."}</p>
 
-        <video id="instruction-video" controls style="width: 100%; max-width: 700px; margin: 20px auto;">
-          <source src="assets/video/new_instruction_video.mp4" type="video/mp4">
+        <video id="instruction-video" controls crossorigin="anonymous" style="width: 100%; max-width: 700px; margin: 20px auto;">
+          <source src="assets/video/new_instruction_video_v2.mp4" type="video/mp4">
+          ${subtitleFile ? `<track src="${subtitleFile}" kind="subtitles" srclang="${lang}" label="${lang.toUpperCase()}" default>` : ''}
           Your browser does not support the video tag.
         </video>
 
@@ -740,42 +799,47 @@ const instructionVideoTrial = {
     return [translations[lang].continue_button];
   },
   on_load: function() {
-    const video = document.getElementById('instruction-video');
-    const continueBtn = document.querySelector('.jspsych-btn');
-    const warning = document.getElementById('video-warning');
+    // Wait for button to be created by jsPsych
+    setTimeout(function() {
+      const video = document.getElementById('instruction-video');
+      const continueBtn = document.querySelector('.jspsych-btn');
+      const warning = document.getElementById('video-warning');
 
-    // Disable button initially
-    if (continueBtn) {
-      continueBtn.disabled = true;
-      continueBtn.style.opacity = '0.5';
-      continueBtn.style.cursor = 'not-allowed';
-    }
-
-    let hasPlayed = false;
-
-    // Enable button once video has been played
-    video.addEventListener('play', function() {
-      if (!hasPlayed) {
-        hasPlayed = true;
-        if (continueBtn) {
-          continueBtn.disabled = false;
-          continueBtn.style.opacity = '1';
-          continueBtn.style.cursor = 'pointer';
-          warning.style.display = 'none';
-        }
+      // Disable button initially
+      if (continueBtn) {
+        continueBtn.disabled = true;
+        continueBtn.style.opacity = '0.5';
+        continueBtn.style.cursor = 'not-allowed';
       }
-    });
 
-    // Show warning if they try to continue without playing
-    if (continueBtn) {
-      continueBtn.addEventListener('click', function(e) {
-        if (!hasPlayed) {
-          e.preventDefault();
-          e.stopPropagation();
-          warning.style.display = 'block';
-        }
-      });
-    }
+      let hasPlayed = false;
+
+      // Enable button once video has been played
+      if (video) {
+        video.addEventListener('play', function() {
+          if (!hasPlayed) {
+            hasPlayed = true;
+            if (continueBtn) {
+              continueBtn.disabled = false;
+              continueBtn.style.opacity = '1';
+              continueBtn.style.cursor = 'pointer';
+              if (warning) warning.style.display = 'none';
+            }
+          }
+        });
+      }
+
+      // Show warning if they try to continue without playing
+      if (continueBtn) {
+        continueBtn.addEventListener('click', function(e) {
+          if (!hasPlayed) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (warning) warning.style.display = 'block';
+          }
+        });
+      }
+    }, 100); // Wait 100ms for jsPsych to create the button
   }
 };
 
