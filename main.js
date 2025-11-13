@@ -1732,7 +1732,7 @@ jsPsych.data.addProperties({ participant_id: participantID });
 
 // Periodic auto-save setup for mobile reliability
 let trialsSinceLastSave = 0;
-const SAVE_INTERVAL = 1; 
+const SAVE_INTERVAL = 1;
 
 // Function to save progress
 function saveProgress(isComplete = false) {
@@ -2313,7 +2313,7 @@ const consentTrial = {
 const preloadTrial = {
   type: jsPsychPreload,
   audio: audioFiles.map(a => a.audio),
-  video: ['assets/video/dummy_instructions.mp4']
+  video: ['assets/video/new_instruction_video.mp4']
 };
 
 const instructionTextTrial = {
@@ -2334,7 +2334,7 @@ const instructionTextTrial = {
 
 const instructionVideoTrial = {
   type: jsPsychVideoButtonResponse,
-  stimulus: ['assets/video/dummy_instructions.mp4'],
+  stimulus: ['assets/video/new_instruction_video.mp4'],
   prompt: "",
   choices: [translations[lang].video_continue],
   response_allowed_while_playing: false,
@@ -3044,11 +3044,11 @@ timeline.push(introductionTrial);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-// timeline.push(instructionVideoTrial);
+timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
 timeline.push({
   timeline: [
-    audioFixation,  // Add this line
+    audioFixation,  
     play_audio,
     accentQuestionTrial,
     {
