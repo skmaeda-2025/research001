@@ -1732,7 +1732,7 @@ jsPsych.data.addProperties({ participant_id: participantID });
 
 // Periodic auto-save setup for mobile reliability
 let trialsSinceLastSave = 0;
-const SAVE_INTERVAL = 3; // Save every 3 trials
+const SAVE_INTERVAL = 1; 
 
 // Function to save progress
 function saveProgress(isComplete = false) {
