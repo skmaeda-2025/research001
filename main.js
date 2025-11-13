@@ -161,7 +161,7 @@ const participantID = crypto.randomUUID();
 // Tag all data with participant ID
 jsPsych.data.addProperties({ participant_id: participantID });
 
-/ Add auto-save when user closes/refreshes page
+// Add auto-save when user closes/refreshes page
 window.addEventListener('beforeunload', function(e) {
   // Attempt to save data before page closes
   const allData = jsPsych.data.get().values();
