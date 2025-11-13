@@ -183,34 +183,58 @@ jsPsych.data.addProperties({ participant_id: participantID });
 // });
 
 // Replace your current beforeunload with this test version
+// window.addEventListener('beforeunload', function(e) {
+//   alert('Beforeunload triggered!'); // You should see this alert when closing
+
+//   const allData = jsPsych.data.get().values();
+//   console.log('Total trials:', allData.length);
+
+//   // Force save regardless of trial count for testing
+//   const dataToSave = {
+//     participant_id: participantID,
+//     data: jsPsych.data.get().json(),
+//     complete: false,
+//     interrupted: true,
+//     timestamp: new Date().toISOString(),
+//     trial_count: allData.length
+//   };
+
+//   const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
+//   const result = navigator.sendBeacon(
+//     "https://research001-4ba740c5cac1.herokuapp.com/submit",
+//     blob
+//   );
+
+//   console.log('Beacon sent:', result);
+
+//   // Optional: show a confirmation message (will delay closing)
+//   e.preventDefault();
+//   e.returnValue = '';
+//   return '';
+// });
+
+// Auto-save when user closes/refreshes page
 window.addEventListener('beforeunload', function(e) {
-  alert('Beforeunload triggered!'); // You should see this alert when closing
-
   const allData = jsPsych.data.get().values();
-  console.log('Total trials:', allData.length);
 
-  // Force save regardless of trial count for testing
-  const dataToSave = {
-    participant_id: participantID,
-    data: jsPsych.data.get().json(),
-    complete: false,
-    interrupted: true,
-    timestamp: new Date().toISOString(),
-    trial_count: allData.length
-  };
+  // Only save if there's actual experiment data (more than just initial trials)
+  if (allData.length > 3) {
+    const dataToSave = {
+      participant_id: participantID,
+      data: jsPsych.data.get().json(),
+      complete: false,
+      interrupted: true,
+      timestamp: new Date().toISOString()
+    };
 
-  const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
-  const result = navigator.sendBeacon(
-    "https://research001-4ba740c5cac1.herokuapp.com/submit",
-    blob
-  );
-
-  console.log('Beacon sent:', result);
-
-  // Optional: show a confirmation message (will delay closing)
-  e.preventDefault();
-  e.returnValue = '';
-  return '';
+    // Use fetch with keepalive for reliable sending
+    fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(dataToSave),
+      keepalive: true
+    }).catch(err => console.error('Save failed:', err));
+  }
 });
 
 let lang = 'en';       // will be set based on language selection
