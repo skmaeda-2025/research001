@@ -163,10 +163,7 @@ jsPsych.data.addProperties({ participant_id: participantID });
 
 // Add auto-save when user closes/refreshes page
 window.addEventListener('beforeunload', function(e) {
-  // Attempt to save data before page closes
   const allData = jsPsych.data.get().values();
-
-  // Only save if there's actual experiment data (more than just initial trials)
   if (allData.length > 3) {  // Adjust this number based on your setup
     const dataToSave = {
       participant_id: participantID,
