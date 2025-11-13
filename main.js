@@ -1,3 +1,1572 @@
+// const countryOptions = [
+//   { code: "AF", label: "Afghanistan" },
+//   { code: "AL", label: "Albania" },
+//   { code: "AR", label: "Argentina" },
+//   { code: "AU", label: "Australia" },
+//   { code: "AT", label: "Austria" },
+//   { code: "BD", label: "Bangladesh" },
+//   { code: "BE", label: "Belgium" },
+//   { code: "BR", label: "Brazil" },
+//   { code: "CA", label: "Canada" },
+//   { code: "CL", label: "Chile" },
+//   { code: "CN", label: "China" },
+//   { code: "CO", label: "Colombia" },
+//   { code: "CZ", label: "Czech Republic" },
+//   { code: "DK", label: "Denmark" },
+//   { code: "EG", label: "Egypt" },
+//   { code: "FI", label: "Finland" },
+//   { code: "FR", label: "France" },
+//   { code: "DE", label: "Germany" },
+//   { code: "GR", label: "Greece" },
+//   { code: "HK", label: "Hong Kong" },
+//   { code: "HU", label: "Hungary" },
+//   { code: "IN", label: "India" },
+//   { code: "ID", label: "Indonesia" },
+//   { code: "IR", label: "Iran" },
+//   { code: "IE", label: "Ireland" },
+//   { code: "IL", label: "Israel" },
+//   { code: "IT", label: "Italy" },
+//   { code: "JP", label: "Japan" },
+//   { code: "KR", label: "South Korea" },
+//   { code: "MY", label: "Malaysia" },
+//   { code: "MX", label: "Mexico" },
+//   { code: "NL", label: "Netherlands" },
+//   { code: "NZ", label: "New Zealand" },
+//   { code: "NG", label: "Nigeria" },
+//   { code: "NO", label: "Norway" },
+//   { code: "PK", label: "Pakistan" },
+//   { code: "PE", label: "Peru" },
+//   { code: "PH", label: "Philippines" },
+//   { code: "PL", label: "Poland" },
+//   { code: "PT", label: "Portugal" },
+//   { code: "RO", label: "Romania" },
+//   { code: "RU", label: "Russia" },
+//   { code: "SA", label: "Saudi Arabia" },
+//   { code: "SG", label: "Singapore" },
+//   { code: "ZA", label: "South Africa" },
+//   { code: "ES", label: "Spain" },
+//   { code: "SE", label: "Sweden" },
+//   { code: "CH", label: "Switzerland" },
+//   { code: "TW", label: "Taiwan" },
+//   { code: "TH", label: "Thailand" },
+//   { code: "TR", label: "Turkey" },
+//   { code: "UA", label: "Ukraine" },
+//   { code: "AE", label: "United Arab Emirates" },
+//   { code: "GB", label: "United Kingdom" },
+//   { code: "US", label: "United States" },
+//   { code: "VN", label: "Vietnam" },
+//   { code: "OTHER", label: "Other" }
+// ];
+
+// const languageOptions = [
+//   { code: "AF", label: "Afrikaans" },
+//   { code: "AR", label: "Arabic" },
+//   { code: "BN", label: "Bengali" },
+//   { code: "BG", label: "Bulgarian" },
+//   { code: "ZH", label: "Chinese" },
+//   { code: "HR", label: "Croatian" },
+//   { code: "CS", label: "Czech" },
+//   { code: "DA", label: "Danish" },
+//   { code: "NL", label: "Dutch" },
+//   { code: "EN", label: "English" },
+//   { code: "ET", label: "Estonian" },
+//   { code: "FI", label: "Finnish" },
+//   { code: "FR", label: "French" },
+//   { code: "DE", label: "German" },
+//   { code: "EL", label: "Greek" },
+//   { code: "HE", label: "Hebrew" },
+//   { code: "HI", label: "Hindi" },
+//   { code: "HU", label: "Hungarian" },
+//   { code: "ID", label: "Indonesian" },
+//   { code: "IT", label: "Italian" },
+//   { code: "JA", label: "Japanese" },
+//   { code: "KM", label: "Khmer" },
+//   { code: "KO", label: "Korean" },
+//   { code: "LO", label: "Lao" },
+//   { code: "LV", label: "Latvian" },
+//   { code: "LT", label: "Lithuanian" },
+//   { code: "MS", label: "Malay" },
+//   { code: "MN", label: "Mongolian" },
+//   { code: "NE", label: "Nepali" },
+//   { code: "NB", label: "Norwegian" },
+//   { code: "PA", label: "Punjabi" },
+//   { code: "FA", label: "Persian (Farsi)" },
+//   { code: "PL", label: "Polish" },
+//   { code: "PT", label: "Portuguese" },
+//   { code: "RO", label: "Romanian" },
+//   { code: "RU", label: "Russian" },
+//   { code: "SK", label: "Slovak" },
+//   { code: "SL", label: "Slovenian" },
+//   { code: "SI", label: "Sinhala" },
+//   { code: "ES", label: "Spanish" },
+//   { code: "SW", label: "Swahili" },
+//   { code: "SV", label: "Swedish" },
+//   { code: "TL", label: "Tagalog" },
+//   { code: "TH", label: "Thai" },
+//   { code: "TR", label: "Turkish" },
+//   { code: "UK", label: "Ukrainian" },
+//   { code: "UR", label: "Urdu" },
+//   { code: "VI", label: "Vietnamese" },
+//   { code: "OTHER", label: "Other" }
+// ];
+
+// function makeLanguageDropdown(questionText, responseName) {
+//   const options = languageOptions
+//     .map(l => `<option value="${l.code}">${l.label}</option>`)
+//     .join('');
+
+//   return {
+//     type: jsPsychSurveyHtmlForm,
+//     preamble: `<p>${questionText}</p>`,
+//     html: `
+//       <label>
+//         <select name="${responseName}" id="${responseName}" style="display: block !important; padding: .5em !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;">
+//           <option value="" disabled selected>Select your language</option>
+//           ${options}
+//         </select>
+//       </label>
+//       <br><br>
+//       <label id="${responseName}_label">
+//         Please specify (if "Other"):<br>
+//         <input type="text" name="${responseName}_other" id="${responseName}_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;" />
+//       </label>
+//       <p id="error-${responseName}" style="color:red; display:none;">Please specify your language if you selected "Other".</p>
+
+//       <script>
+//         document.addEventListener('submit', function(event) {
+//           const select = document.getElementById("${responseName}");
+//           const otherInput = document.getElementById("${responseName}_other");
+//           const errorMsg = document.getElementById("error-${responseName}");
+
+//           if (select.value === "OTHER" && !otherInput.value.trim()) {
+//             event.preventDefault();
+//             errorMsg.style.display = "block";
+//           } else {
+//             errorMsg.style.display = "none";
+//           }
+//         });
+//       </script>
+//     `,
+//     button_label: "Continue",
+//     data: { question: responseName }
+//   };
+// }
+
+// // const jsPsych = initJsPsych({});
+// const jsPsych = initJsPsych({
+// });
+
+// // const participantID = generateUUID();
+// const participantID = crypto.randomUUID();
+// // Tag all data with participant ID
+// jsPsych.data.addProperties({ participant_id: participantID });
+
+// // // Add auto-save when user closes/refreshes page
+// // window.addEventListener('beforeunload', function(e) {
+// //   const allData = jsPsych.data.get().values();
+// //   if (allData.length > 3) {  // Adjust this number based on your setup
+// //     const dataToSave = {
+// //       participant_id: participantID,
+// //       data: jsPsych.data.get().json(),
+// //       complete: false,
+// //       interrupted: true,
+// //       timestamp: new Date().toISOString()
+// //     };
+
+// //     // Use sendBeacon for reliable sending even when page is closing
+// //     const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
+// //     navigator.sendBeacon(
+// //       "https://research001-4ba740c5cac1.herokuapp.com/submit",
+// //       blob
+// //     );
+// //   }
+// // });
+
+// // Replace your current beforeunload with this test version
+// // window.addEventListener('beforeunload', function(e) {
+// //   alert('Beforeunload triggered!'); // You should see this alert when closing
+
+// //   const allData = jsPsych.data.get().values();
+// //   console.log('Total trials:', allData.length);
+
+// //   // Force save regardless of trial count for testing
+// //   const dataToSave = {
+// //     participant_id: participantID,
+// //     data: jsPsych.data.get().json(),
+// //     complete: false,
+// //     interrupted: true,
+// //     timestamp: new Date().toISOString(),
+// //     trial_count: allData.length
+// //   };
+
+// //   const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
+// //   const result = navigator.sendBeacon(
+// //     "https://research001-4ba740c5cac1.herokuapp.com/submit",
+// //     blob
+// //   );
+
+// //   console.log('Beacon sent:', result);
+
+// //   // Optional: show a confirmation message (will delay closing)
+// //   e.preventDefault();
+// //   e.returnValue = '';
+// //   return '';
+// // });
+
+// // Auto-save when user closes/refreshes page
+// window.addEventListener('beforeunload', function(e) {
+//   const allData = jsPsych.data.get().values();
+
+//   // Only save if there's actual experiment data (more than just initial trials)
+//   if (allData.length > 3) {
+//     const dataToSave = {
+//       participant_id: participantID,
+//       data: jsPsych.data.get().json(),
+//       complete: false,
+//       interrupted: true,
+//       timestamp: new Date().toISOString()
+//     };
+
+//     // Use fetch with keepalive for reliable sending
+//     fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: JSON.stringify(dataToSave),
+//       keepalive: true
+//     }).catch(err => console.error('Save failed:', err));
+//   }
+// });
+
+// let lang = 'en';       // will be set based on language selection
+// let isNative = false;
+
+// //sample audios are mp3 files and real ones will be wav files.
+// const audioFiles = [
+//   { id: "trial01", audio: "assets/audio/alpha1.wav" },
+//   { id: "trial02", audio: "assets/audio/beta2.wav" },
+//   { id: "trial03", audio: "assets/audio/gamma3.wav" },
+//   { id: "trial04", audio: "assets/audio/delta4.wav" },
+//   { id: "trial05", audio: "assets/audio/epsilon5.wav" },
+//   { id: "trial06", audio: "assets/audio/zeta6.wav" },
+//   { id: "trial07", audio: "assets/audio/eta7.wav" },
+//   { id: "trial08", audio: "assets/audio/theta8.wav" },
+//   { id: "trial09", audio: "assets/audio/iota9.wav" },
+//   { id: "trial10", audio: "assets/audio/kappa10.wav" },
+// ];
+
+// const introductionTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() {
+//     return `
+//       <div style="max-width: 700px; margin: 0 auto; text-align: center; padding: 40px 20px;">
+//         <h2 style="margin-bottom: 30px; color: #333;">${translations[lang].intro_title}</h2>
+
+//         <div style="text-align: left; background: #f9f9f9; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+//           <p style="margin-bottom: 15px;">
+//             🎧 ${translations[lang].intro_audio}
+//           </p>
+//           <p style="margin-bottom: 15px;">
+//             ✓ ${translations[lang].intro_age}
+//           </p>
+//           <p style="margin-bottom: 0;">
+//             ⏱️ ${translations[lang].intro_time}
+//           </p>
+//         </div>
+//       </div>
+//     `;
+//   },
+//   choices: function() { return [translations[lang].intro_ready]; }
+// };
+
+// // Multi-language content
+// const consentText_en = `<div class="consent-container">
+// <h2>Informed Consent</h2>
+// <p>This research is a study about language and speech perception. In this study, you will listen to recordings of Japanese speech and answer questions about them. The study will take approximately 10 minutes to complete.</p>
+// <p>Your participation is voluntary. You may decline to answer any question or withdraw from the study at any time without penalty. Your responses will be recorded anonymously and kept confidential. There are no known risks or direct benefits to you from participating in this study.</p>
+// <p>By clicking "I Agree" below, you indicate that you have read and understood the above information and voluntarily agree to participate in this study.</p>
+// </div>`;
+
+// const consentText_ja = `<div class="consent-container">
+// <h2>インフォームド・コンセント</h2>
+// <p>本研究は言語と音声知覚に関する研究です。本研究では、日本語の音声録音を聞いて、それに関する質問に答えていただきます。所要時間は約10分です。</p>
+// <p>本研究への参加は自由です。実験はいつでも途中で中止することができます。回答は匿名で記録され、機密は厳守されます。本研究への参加による既知のリスクや直接的な利益はありません。</p>
+// <p>上記の内容を読み理解した上で、本研究への参加に同意しますか？ 下の「同意する」をクリックすると、研究への参加に同意したことになります。</p>
+// </div>`;
+
+// const consentText_sc = `<div class="consent-container">
+// <h2>知情同意</h2>
+// <p>本研究是一项关于语言和语音感知的研究。在本研究中，您将听一些日语语音的录音并回答相关问题。整个研究约需10分钟完成。</p>
+// <p>您的参与完全是自愿的。在研究的任何阶段，您可以随时退出而无需提供原因。您的回答将被匿名记录并严格保密。参与本研究没有已知的风险或直接利益。</p>
+// <p>请您在阅读并理解以上信息后，再决定是否同意参加本研究。如果您同意参加，请点击下方的“同意”。点击“同意”即表示您自愿同意参加本研究。</p>
+// </div>`;
+
+// const consentText_tc = `<div class="consent-container">
+// <h2>知情同意書</h2>
+// <p>本研究是一項關於語言和語音感知的研究。在本研究中，您將聆聽一些日語語音的錄音並回答相關問題。整個研究約需10分鐘完成。</p>
+// <p>您的參與完全是自願的。在研究的任何階段，您可以隨時退出而無需提供原因。您的回答將以匿名方式記錄並嚴格保密。參與本研究沒有已知的風險或直接利益。</p>
+// <p>請您在閱讀並理解以上資訊後，再決定是否同意參與本研究。如果您同意參加，請點擊下方的「同意」。點擊「同意」即表示您自願同意參與本研究。</p>
+// </div>`;
+
+// const consentText_ko = `<div class="consent-container">
+// <h2>연구 참여 동의서</h2>
+// <p>본 연구는 언어와 음성 지각에 관한 연구입니다. 본 연구에서 참가자는 일본어 음성 녹음을 듣고 관련 질문에 답하게 됩니다. 연구 진행에는 약 10분이 소요됩니다.</p>
+// <p>연구 참여는 전적으로 자발적입니다. 연구 도중 언제든지 자유롭게 참여를 중단할 수 있습니다. 응답 내용은 익명으로 기록되며 비밀이 보장됩니다. 본 연구 참여로 인한 알려진 위험이나 직접적인 이익은 없습니다.</p>
+// <p>위의 내용을 읽고 이해하셨다면 본 연구에 참여하는 것에 동의하시겠습니까? 동의하신다면 아래의 "동의함" 버튼을 눌러주세요. "동의함" 버튼을 누르시면 연구 참여에 동의한 것으로 간주됩니다.</p>
+// </div>`;
+
+// function makeProgressMessage(index, total) {
+//   return {
+//     type: jsPsychHtmlKeyboardResponse,
+//     stimulus: `<p>Audio ${index} of ${total}</p>`,
+//     choices: "NO_KEYS",
+//     trial_duration: 500  // brief pause (ms) before playing audio
+//   };
+// }
+
+// const translations = {
+//   en: {
+//     consent: consentText_en,
+//     consent_accept: "I Agree",
+//     video_prompt: "Please watch the following instruction video.",
+//     video_continue: "Continue",
+//     accent_question: "Did you hear a foreign accent in the Japanese speech?",
+//     yes: "Yes",
+//     no: "No",
+//     adjectives_prompt: "Select up to 3 words that describe your impression:",
+//     adjectives: [
+//       "energetic / full of energy",
+//       "active / lively",
+//       "responsible / dependable",
+//       "diligent / hardworking",
+//       "intellectual / intelligent",
+//       "reflective / thoughtful",
+//       "warm / friendly",
+//       "kind-hearted / compassionate",
+//       "rational / logical",
+//       "calm / relaxed"
+//     ],
+//     optional_comment: "Any additional comment about the speaker? (Optional)",
+//     genderQ: "What is your gender?",
+//     gender_options: ["Male", "Female", "Other", "Prefer not to say"],
+//     ageGroupQ: "What is your age group?",
+//     age_group_options: ["18–24", "25–34", "35–44", "45–54", "55–64", "65+", "Prefer not to say"],
+//     currentCountryQ: "What country do you currently live in?",
+//     countriesLivedQ: "Which countries have you lived in for more than 3 months?",
+//     motherTongueQ: "What is your first language?",
+//     familyLanguageQ: "What languages are spoken by your family (parents, guardians, spouse, partner, children)?",
+//     languageOtherQ: "Do you use any other language(s) besides your first language and Japanese?",
+//     languageOther_options: ["Yes", "No"],
+//     languageOtherSelectQ: "If yes, which language(s)?",
+//     languageOtherFreqQ: "How often do you use those other language(s)?",
+//     languageFreq_options: [
+//       "Almost every day",
+//       "2–3 times per week",
+//       "Once per week",
+//       "2–3 times per month",
+//       "Once per month",
+//       "Every few months",
+//       "Rarely or never"
+//     ],
+//     usageQ: "How often do you use Japanese?",
+//     proficiencyQ: "How would you describe your Japanese proficiency?",
+//     proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "Basic", "Conversational", "Fluent"],
+//     musicQ: "Do you have any musical training or experience?",
+//     music_options: ["No", "Yes (1-5 years)", "Yes (more than 5 years)"],
+//     skip: "Skip",
+//     final_thanks: `Thank you for your participation!<br>
+//     <p>If you have any questions, feel free to <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">contact me</a>.</p>`,
+//     finish: "Continue",
+//     continue_button: "Continue",
+//     specify_other: "Please specify if \"Other\":",
+//     mandatory: "<span style='color:red;'>*</span>",
+//     optional: "<span style='color:gray;'>(Optional)</span>",
+//     select_all_apply: "Select all that apply:",
+//     multi_select_hint: '<i class="fa-brands fa-windows"></i> Hold down the Ctrl key and click items to select multiple <br><i class="fa-brands fa-apple"></i> Hold down the Command key and click items to select multiple.',
+//     close_window: "You may now close this window. Your responses have been saved.",
+//     background_intro: "The listening part is complete. Thank you!<br><br>Now we would like to ask about your background. There are up to 10 questions in total — about 4 or 5 are mandatory (depending on your background), and the rest are optional.",
+//     intro_title: "Welcome to the Study",
+//     intro_audio: "This is a Japanese audio listening experiment. Please participate in a quiet environment. You may listen to the audio using headphones, earphones, or speakers.",
+//     intro_age: "You must be 18 years or older to participate in this study.",
+//     intro_time: "The study will take approximately 10 minutes to complete.",
+//     intro_ready: "Ready to Begin",
+//     impression_error: "⚠️ Please select 1–3 adjectives.",
+//     instruction_video_title: "Instruction Video",
+//     adjust_volume: "Please watch the video and adjust the audio volume for the experiment.",
+//     video_required: "Please play the video before continuing.",
+//   },
+//   ja: {
+//   consent: consentText_ja,
+//   consent_accept: "同意する",
+//   video_prompt: "次のページで、実験の回答方法の説明動画をご覧ください。",
+//   video_continue: "次へ",
+//   accent_question: "この日本語の音声に外国語訛りを感じましたか？",
+//   yes: "はい",
+//   no: "いいえ",
+//   adjectives_prompt: "音声または話者に感じた印象を表す言葉を3つまで選んでください：",
+//   adjectives: [
+//     "精力的",
+//     "活発",
+//     "責任感のある",
+//     "勤勉",
+//     "知性的",
+//     "思慮深い",
+//     "暖かい",
+//     "親切",
+//     "理性的",
+//     "リラックス"
+//   ],
+//   optional_comment: "音声に関するコメントがあれば自由にご記入ください（任意）",
+//   genderQ: "性別を教えてください。",
+//   gender_options: ["男性", "女性", "その他", "回答しない"],
+//   ageGroupQ: "あなたの年代を選んでください。",
+//   age_group_options: ["18〜24歳", "25〜34歳", "35〜44歳", "45〜54歳", "55〜64歳", "65歳以上", "回答しない"],
+//   currentCountryQ: "現在住んでいる国を教えてください。",
+//   countriesLivedQ: "これまでに3か月以上住んだことのある国を選んでください。",
+//   motherTongueQ: "第一言語（最も得意な言語）を教えてください。",
+//   familyLanguageQ: "ご家族（両親、保護者、配偶者、パートナー、子ども）が使用している言語を教えてください。",
+//   languageOtherQ: "日本語、または母語以外に使用できる言語はありますか？",
+//   languageOther_options: ["はい", "いいえ"],
+//   languageOtherSelectQ: "日本語、母語以外に使える言語を選んでください。",
+//   languageFreq_options: [
+//     "ほぼ毎日",
+//     "週に2〜3回",
+//     "週に1回",
+//     "月に2〜3回",
+//     "月に1回",
+//     "2〜3か月に1回",
+//     "ほとんど使わない"
+//   ],
+//   usageQ: "あなたは日本語をどのくらいの頻度で使用しますか？",
+//   proficiencyQ: "あなたの日本語の習熟度を教えてください。",
+//   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
+//   musicQ: "学校の授業以外で、音楽を習ったり、音楽活動をした経験はありますか？",
+//   music_options: ["いいえ", "はい（1〜5年）", "はい（5年以上）"],
+//   skip: "スキップ",
+//   final_thanks: `ご参加いただき、ありがとうございました。<br>
+//   <p>ご質問がある場合は<a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">こちら</a>からご連絡ください。</p>`,
+//   finish: "次へ",
+//   continue_button: "次へ",
+//   specify_other: "「Other」を選択した場合は具体的に記入してください。",
+//   mandatory: "<span style='color:red;'>*</span>",
+//   optional: "<span style='color:gray;'>（任意）</span>",
+//   select_all_apply: "該当するものをすべて選んでください：",
+//   multi_select_hint: '<i class="fa-brands fa-windows"></i> Ctrlキーを押したまま項目をクリックをして複数選択 <br><i class="fa-brands fa-apple"></i> Commandキーを押したまま項目をクリックして複数選択',
+//   close_window: "回答は保存されました。このウィンドウを閉じてください。",
+//   background_intro: "音声の聞き取りは終了しました。ありがとうございました。<br>次に、あなたの背景についてお伺いします。<br><br>質問は最大で10問あり、4〜5問は必須（ご自身の背景によって異なります）、残りは任意です。",
+//   intro_title: "実験へようこそ",
+//   intro_audio: "これは日本語の音声聞き取り実験です。静かな環境でご参加ください。ヘッドフォン・イヤホンまたはスピーカーで音声をお聞きいただけます。",
+//   intro_age: "本研究には18歳以上の方のみご参加いただけます。",
+//   intro_time: "所要時間は約10分です。",
+//   intro_ready: "開始する",
+//   impression_error: "⚠️ 1～3個の形容詞を選んでください。",
+//   instruction_video_title: "説明ビデオ",
+//   adjust_volume: "ビデオを視聴して、実験で聞く音声の音量を調整してください。",
+//   video_required: "続行する前にビデオを再生してください。",
+//   },
+//   sc: {
+//   consent: consentText_sc,
+//   consent_accept: "同意",
+//   video_prompt: "请观看下一页中的说明视频。",
+//   video_continue: "继续",
+//   accent_question: "你在这段日语语音中听到外国口音了吗？",
+//   yes: "是",
+//   no: "否",
+//   adjectives_prompt: "请选择最多三个词来描述您的印象：",
+//   adjectives: [
+//     "精力充沛 / 充满活力",
+//     "活跃 / 生气勃勃",
+//     "有责任心 / 值得信赖",
+//     "勤奋 / 努力工作",
+//     "有智慧 / 有才智",
+//     "深思熟虑 / 善于思考",
+//     "温暖 / 友好",
+//     "亲切 / 富有同情心",
+//     "理性 / 讲道理",
+//     "冷静 / 放松"
+//   ],
+//   optional_comment: "您对说话者有其他印象吗？请填写（可选）",
+//   genderQ: "您的性别是？",
+//   gender_options: ["男", "女", "其他", "不愿透露"],
+//   ageGroupQ: "请选择您的年龄段。",
+//   age_group_options: ["18–24岁", "25–34岁", "35–44岁", "45–54岁", "55–64岁", "65岁以上", "不愿透露"],
+//   currentCountryQ: "您目前居住在哪个国家？",
+//   countriesLivedQ: "您曾在哪些国家居住超过3个月？",
+//   motherTongueQ: "您的第一语言是什么？",
+//   familyLanguageQ: "您家人（父母、监护人、配偶、伴侣、子女）使用的语言有哪些？",
+//   languageOtherQ: "除了母语和日语，您还会使用其他语言吗？",
+//   languageOther_options: ["是", "否"],
+//   languageOtherSelectQ: "如果是，请选择那些语言。",
+//   languageOtherFreqQ: "您使用这些语言的频率是？",
+//   languageFreq_options: [
+//     "几乎每天",
+//     "每周2–3次",
+//     "每周1次",
+//     "每月2–3次",
+//     "每月1次",
+//     "每几个月1次",
+//     "几乎不使用"
+//   ],
+//   usageQ: "您使用日语的频率是多少？",
+//   proficiencyQ: "您如何评价自己的日语水平？",
+//   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "基础", "会话", "流利"],
+//   musicQ: "您是否接受过音乐训练或有相关经验？",
+//   music_options: ["没有", "有（1–5年）", "有（超过5年）"],
+//   skip: "跳过",
+//   final_thanks: `感谢您的参与！<br>
+//   如有任何疑问，请<a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">填写联系表单</a>。`,
+//   finish: "继续",
+//   continue_button: "继续",
+//   specify_other: "如果选择\"Other\"，请具体说明",
+//   mandatory: "<span style='color:red;'>*</span>",
+//   optional: "<span style='color:gray;'>（可选）</span>",
+//   select_all_apply: "选择所有适用项：",
+//   multi_select_hint: '<i class="fa-brands fa-windows"></i> 按住 Ctrl 键 并点击项目以进行多选。<br><i class="fa-brands fa-apple"></i> 按住 Command 键 并点击项目以进行多选。',
+//   close_window: "您的回答已保存。您现在可以关闭此窗口。",
+//   background_intro: "听力部分已完成。谢谢！<br><br>接下来我们想了解您的背景信息。共有最多10个问题，其中大约4到5个为必答（根据您的背景而定），其余为选答。",
+//   intro_title: "欢迎参加本研究",
+//   intro_audio: "这是一个日语语音听辨实验。请在安静的环境中参加。您可以使用耳机、耳塞或音箱收听音频。",
+//   intro_age: "您必须年满18岁才能参加本研究。",
+//   intro_time: "本研究大约需要10分钟完成。",
+//   intro_ready: "准备开始",
+//   impression_error: "⚠️ 请选择1到3个形容词。",
+//   instruction_video_title: "说明视频",
+//   adjust_volume: "请观看视频，并调整实验中播放音频的音量。",
+//   video_required: "请先播放视频再继续。",
+//   },
+//   tc: {
+//   consent: consentText_tc,
+//   consent_accept: "同意",
+//   video_prompt: "請觀看下一頁的說明影片。",
+//   video_continue: "繼續",
+//   accent_question: "您在這段日語語音中聽到外國口音了嗎？",
+//   yes: "是",
+//   no: "否",
+//   adjectives_prompt: "請選擇最多三個詞來描述您的印象：",
+//   adjectives: [
+//     "精力充沛 / 充滿活力",
+//     "活躍 / 生氣勃勃",
+//     "有責任心 / 值得信賴",
+//     "勤奮 / 努力工作",
+//     "有智慧 / 有才智",
+//     "深思熟慮 / 善於思考",
+//     "溫暖 / 友好",
+//     "親切 / 富有同情心",
+//     "理性 / 講道理",
+//     "冷靜 / 放鬆"
+//   ],
+//   optional_comment: "若您對說話者有其他印象，請填寫（選填）",
+//   genderQ: "您的性別是？",
+//   gender_options: ["男", "女", "其他", "不願透露"],
+//   ageGroupQ: "請選擇您的年齡範圍。",
+//   age_group_options: ["18–24歲", "25–34歲", "35–44歲", "45–54歲", "55–64歲", "65歲以上", "不願透露"],
+//   currentCountryQ: "您目前居住在哪個國家？",
+//   countriesLivedQ: "您曾在哪些國家居住超過3個月？",
+//   motherTongueQ: "您的第一語言是什麼？",
+//   familyLanguageQ: "您家人父母、監護人、配偶、伴侶、子女）使用哪些語言？",
+//   languageOtherQ: "除了日語與母語，您是否會使用其他語言？",
+//   languageOther_options: ["是", "否"],
+//   languageOtherSelectQ: "如果是，請選擇那些語言。",
+//   languageOtherFreqQ: "您使用這些語言的頻率為何？",
+//   languageFreq_options: [
+//     "幾乎每天",
+//     "每週2–3次",
+//     "每週1次",
+//     "每月2–3次",
+//     "每月1次",
+//     "每幾個月1次",
+//     "幾乎不使用"
+//   ],
+//   usageQ: "您使用日語的頻率是多少？",
+//   proficiencyQ: "您會如何評價自己的日語程度？",
+//   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
+//   musicQ: "您是否有音樂訓練或經驗？",
+//   music_options: ["沒有", "有（1–5年）", "有（超過5年）"],
+//   skip: "跳過",
+//   final_thanks: `感謝您的參與！<br>
+//   若有任何問題，歡迎<a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">填寫聯絡表單</a>。`
+//   ,
+//   finish: "繼續",
+//   continue_button: "繼續",
+//   specify_other: "如果選擇「Other」，請具體說明",
+//   mandatory: "<span style='color:red;'>*</span>",
+//   optional: "<span style='color:gray;'>（選填）</span>",
+//   select_all_apply: "選擇所有適用項：",
+//   multi_select_hint: '<i class="fa-brands fa-windows"></i> 按住 Ctrl 鍵 並點擊項目以進行多重選擇。<br><i class="fa-brands fa-apple"></i> 按住 Command 鍵 並點擊項目以進行多重選擇。',
+//   close_window: "您的回答已保存。您現在可以關閉此視窗。",
+//   background_intro: "聽力部分已完成。謝謝！<br><br>接下來我們想了解您的背景資訊。共有最多10個問題，其中約有4到5個為必答（依您的背景而定），其餘為選答。",
+//   intro_title: "歡迎參加本研究",
+//   intro_audio: "這是一個日語語音聽辨實驗。請在安靜的環境中參加。您可以使用耳機、耳塞或喇叭收聽音訊。",
+//   intro_age: "您必須年滿18歲才能參加本研究。",
+//   intro_time: "本研究大約需要10分鐘完成。",
+//   intro_ready: "準備開始",
+//   impression_error: "⚠️ 請選擇1到3個形容詞。",
+//   instruction_video_title: "說明影片",
+//   adjust_volume: "請觀看影片，並調整實驗中播放音訊的音量。",
+//   video_required: "請先播放影片再繼續。",
+//   },
+//   ko: {
+//   consent: consentText_ko,
+//   consent_accept: "동의함",
+//   video_prompt: "다음 페이지에서 안내 영상을 시청하세요.",
+//   video_continue: "계속",
+//   accent_question: "이 일본어 음성에서 외국인 억양을 들으셨습니까?",
+//   yes: "예",
+//   no: "아니오",
+//   adjectives_prompt: "인상을 표현하는 단어를 최대 3개 선택하세요:",
+//   adjectives: [
+//     "에너지가 넘치는 / 활력이 있는",
+//     "활발한 / 생기 있는",
+//     "책임감 있는 / 믿음직한",
+//     "근면한 / 성실한",
+//     "지적인 / 똑똑한",
+//     "사려 깊은 / 신중한",
+//     "따뜻한 / 다정한",
+//     "친절한 / 인정 많은",
+//     "이성적인 / 논리적인",
+//     "침착한 / 느긋한"
+//   ],
+//   optional_comment: "화자에 대한 추가 의견이 있다면 작성해 주세요 (선택 사항)",
+//   genderQ: "성별을 알려주세요.",
+//   gender_options: ["남성", "여성", "기타", "응답하지 않음"],
+//   ageGroupQ: "연령대를 선택해 주세요.",
+//   age_group_options: ["18–24세", "25–34세", "35–44세", "45–54세", "55–64세", "65세 이상", "응답하지 않음"],
+//   currentCountryQ: "현재 거주하고 있는 국가는 어디입니까?",
+//   countriesLivedQ: "3개월 이상 거주한 국가를 모두 선택해 주세요.",
+//   motherTongueQ: "당신의 모국어는 무엇입니까?",
+//   familyLanguageQ: "가족들(부모, 보호자, 배우자, 파트너, 자녀)이 사용하는 언어는 무엇입니까?",
+//   languageOtherQ: "모국어와 일본어 외에 사용할 수 있는 언어가 있습니까?",
+//   languageOther_options: ["예", "아니오"],
+//   languageOtherSelectQ: "있다면 그 언어들을 선택해 주세요.",
+//   languageOtherFreqQ: "그 언어들을 얼마나 자주 사용합니까?",
+//   languageFreq_options: [
+//     "거의 매일",
+//     "주 2–3회",
+//     "주 1회",
+//     "월 2–3회",
+//     "월 1회",
+//     "2–3개월에 1회",
+//     "거의 사용하지 않음"
+//   ],
+//   usageQ: "일본어를 얼마나 자주 사용하십니까?",
+//   proficiencyQ: "일본어 실력을 어떻게 평가하시겠습니까?",
+//   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "초급", "중급", "고급"],
+//   musicQ: "음악 훈련이나 경험이 있으십니까?",
+//   music_options: ["없음", "있음 (1–5년)", "있음 (5년 이상)"],
+//   skip: "건너뛰기",
+//   final_thanks: `참여해 주셔서 감사합니다!<br>
+//   질문이 있으시면 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">문의 양식을 작성해 주세요.</a>.`,
+//   finish: "계속",
+//   continue_button: "계속",
+//   specify_other: "\"Other\"를 선택한 경우 구체적으로 입력해 주세요.",
+//   mandatory: "<span style='color:red;'>*</span>",
+//   optional: "<span style='color:gray;'>(선택 사항)</span>",
+//   select_all_apply: "해당하는 항목을 모두 선택하세요：",
+//   multi_select_hint: '<i class="fa-brands fa-windows"></i> Ctrl 키를 누른 상태에서 항목을 클릭하여 여러 개를 선택하세요.<br><i class="fa-brands fa-apple"></i> Command 키를 누른 상태에서 항목을 클릭하여 여러 개를 선택하세요.',
+//   close_window: "응답이 저장되었습니다. 이제 이 창을 닫으셔도 됩니다.",
+//   background_intro: "듣기 부분이 완료되었습니다. 감사합니다!<br><br>이제 귀하의 배경에 대해 몇 가지 질문을 드리겠습니다. 총 최대 10개의 문항이 있으며, 약 4~5개는 필수(개인 배경에 따라 다름)이고 나머지는 선택 항목입니다.",
+//   intro_title: "연구에 오신 것을 환영합니다",
+//   intro_audio: "이것은 일본어 음성 청취 실험입니다. 조용한 환경에서 참여해 주세요. 헤드폰, 이어폰 또는 스피커로 음성을 들을 수 있습니다.",
+//   intro_age: "본 연구에는 만 18세 이상만 참여할 수 있습니다.",
+//   intro_time: "연구는 약 10분 정도 소요됩니다.",
+//   intro_ready: "시작하기",
+//   impression_error: "⚠️ 형용사를 1~3개 선택해 주세요.",
+//   instruction_video_title: "안내 영상",
+//   adjust_volume: "비디오를 시청하면서 실험에서 들을 음성의 볼륨을 조절해 주세요.",
+//   video_required: "계속하기 전에 영상을 재생해 주세요."
+//   }
+// };
+
+// function makeImpressionTrial() {
+//   let shuffled = [];
+
+//   return {
+//     type: jsPsychHtmlButtonResponse,
+//     stimulus: () => {
+//       const adjectiveList = translations[lang].adjectives || translations.en.adjectives;
+//       shuffled = jsPsych.randomization.shuffle([...adjectiveList]);
+
+//       const checkboxes = shuffled.map(adj => `
+//         <label style="display:inline-block; width:48%; margin-bottom:.5em;">
+//           <input type="checkbox" name="impressions" value="${adj}"> ${adj}
+//         </label>
+//       `).join('');
+
+//       return `
+//         <div class="impression-container">
+//           <p><strong>${translations[lang].adjectives_prompt}</strong></p>
+//           ${checkboxes}
+//           <br><br>
+//           <label>${translations[lang].optional_comment || "Optional comment:"}</label><br>
+//           <textarea id="impression_comment" rows="1" cols="50" placeholder="..." style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding: 12px !important;"></textarea>
+//           <p id="error-msg" class="impression-error" style="display:none;">${translations[lang].impression_error}</p>
+//           <div class="impression-button-row">
+//             <button id="continue-btn" class="impression-continue-btn" disabled>${translations[lang].finish || "Next"}</button>
+//           </div>
+//         </div>
+//       `;
+//     },
+//     choices: [],  // disables jsPsych's default button
+//     on_load: () => {
+//       const continueBtn = document.getElementById("continue-btn");
+//       const checkboxes = document.querySelectorAll("input[name='impressions']");
+//       const errorMsg = document.getElementById("error-msg");
+
+//       function validate() {
+//         const checked = Array.from(checkboxes).filter(cb => cb.checked);
+//         if (checked.length >= 1 && checked.length <= 3) {
+//           continueBtn.disabled = false;
+//           errorMsg.style.display = "none";
+//         } else {
+//           continueBtn.disabled = true;
+//           errorMsg.style.display = "block";
+//         }
+//       }
+
+//       checkboxes.forEach(cb => cb.addEventListener("change", validate));
+//       validate(); // initial validation
+
+//       continueBtn.addEventListener("click", () => {
+//         const selected = Array.from(document.querySelectorAll("input[name='impressions']:checked")).map(cb => cb.value);
+//         const comment = document.getElementById("impression_comment")?.value || "";
+//         const stim_id = jsPsych.timelineVariable("id");
+
+//         jsPsych.finishTrial({
+//           impressions: selected,
+//           impression_comment: comment,
+//           adjective_order: shuffled,
+//           stim_id,
+//           phase: "per_audio"
+//         });
+//       });
+//     },
+//     data: {
+//       phase: "impression",
+//       stim_id: () => jsPsych.timelineVariable("id")
+//     }
+//   };
+// }
+
+// const languageSelector = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: `
+//     <div style="max-width: 100%; padding: 20px; box-sizing: border-box;">
+//       <p style="word-wrap: break-word; overflow-wrap: break-word;">
+//         実験に興味を持っていただきありがとうございます。表示言語を選択してください。<br/>
+//         感谢您对本实验的兴趣。请选择显示语言。<br/>
+//         感謝您對本實驗的興趣。請選擇顯示語言。<br/>
+//         실험에 관심을 가져주셔서 감사합니다. 표시 언어를 선택해 주세요.<br/>
+//         Thank you for your interest in this experiment. Please select your display language.
+//       </p>
+//     </div>
+//   `,
+//   choices: ["日本語", "简体中文", "繁體中文", "한국어", "English"],
+//   on_finish: function(data) {
+//     const choice = data.response;
+//     if (choice === 0) lang = 'ja';
+//     if (choice === 1) lang = 'sc';
+//     if (choice === 2) lang = 'tc';
+//     if (choice === 3) lang = 'ko';
+//     if (choice === 4) lang = 'en';
+//   }
+// };
+
+// const consentTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() { return translations[lang].consent; },
+//   choices: function() { return [ translations[lang].consent_accept ]; }
+// };
+
+// // Preload all media (audio/video) after consent
+// const preloadTrial = {
+//   type: jsPsychPreload,
+//   audio: audioFiles.map(a => a.audio),
+//   video: ['assets/video/new_instruction_video_v2.mp4']
+// };
+
+// const instructionTextTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function () {
+//     return `
+//       <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+//         <p>
+//           ${translations[lang].video_prompt}
+//         </p>
+//       </div>
+//     `;
+//   },
+//   choices: function () {
+//     return [translations[lang].video_continue];
+//   }
+// };
+
+
+// const instructionVideoTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() {
+//     // Determine subtitle file based on language
+//     const subtitleFile = {
+//       'en': 'assets/video/updated_subtitles_en.vtt',
+//       'ja': '', // No subtitles for Japanese (original)
+//       'sc': 'assets/video/updated_subtitles_sc.vtt',
+//       'tc': 'assets/video/updated_subtitles_tc.vtt',
+//       'ko': 'assets/video/updated_subtitles_ko.vtt'
+//     }[lang] || '';
+
+//     return `
+//       <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+//         <h3>${translations[lang].instruction_video_title || "Instruction Video"}</h3>
+//         <p>${translations[lang].adjust_volume || "Please watch the video and adjust your audio volume."}</p>
+
+//         <video id="instruction-video" controls crossorigin="anonymous" style="width: 100%; max-width: 700px; margin: 20px auto;">
+//           <source src="assets/video/new_instruction_video_v2.mp4" type="video/mp4">
+//           ${subtitleFile ? `<track src="${subtitleFile}" kind="subtitles" srclang="${lang}" label="${lang.toUpperCase()}" default>` : ''}
+//           Your browser does not support the video tag.
+//         </video>
+
+//         <p id="video-warning" style="margin-top: 20px; color: #d9534f; font-size: 14px; display: none;">
+//           ${translations[lang].video_required || "Please play the video before continuing."}
+//         </p>
+//       </div>
+//     `;
+//   },
+//   choices: function() {
+//     return [translations[lang].continue_button];
+//   },
+//   on_load: function() {
+//     // Wait for button to be created by jsPsych
+//     setTimeout(function() {
+//       const video = document.getElementById('instruction-video');
+//       const continueBtn = document.querySelector('.jspsych-btn');
+//       const warning = document.getElementById('video-warning');
+
+//       // Disable button initially
+//       if (continueBtn) {
+//         continueBtn.disabled = true;
+//         continueBtn.style.opacity = '0.5';
+//         continueBtn.style.cursor = 'not-allowed';
+//       }
+
+//       let hasPlayed = false;
+
+//       // Enable button once video has been played
+//       if (video) {
+//         video.addEventListener('play', function() {
+//           if (!hasPlayed) {
+//             hasPlayed = true;
+//             if (continueBtn) {
+//               continueBtn.disabled = false;
+//               continueBtn.style.opacity = '1';
+//               continueBtn.style.cursor = 'pointer';
+//               if (warning) warning.style.display = 'none';
+//             }
+//           }
+//         });
+//       }
+
+//       // Show warning if they try to continue without playing
+//       if (continueBtn) {
+//         continueBtn.addEventListener('click', function(e) {
+//           if (!hasPlayed) {
+//             e.preventDefault();
+//             e.stopPropagation();
+//             if (warning) warning.style.display = 'block';
+//           }
+//         });
+//       }
+//     }, 100); // Wait 100ms for jsPsych to create the button
+//   }
+// };
+
+// const preTestMessage = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function () {
+//     return `
+//       <div style="text-align: left; max-width: 100%; padding: 20px; box-sizing: border-box;">
+//         <p style="word-wrap: break-word; overflow-wrap: break-word;">You are about to begin the actual test. There are 10 audio clips in total. Please listen carefully and answer honestly.</p>
+//         <p style="word-wrap: break-word; overflow-wrap: break-word;">これから本番のテストが始まります。音声は全部で10個あります。音声は一度だけ流れます。よく聞いて、正直に答えてください。</p>
+//         <p style="word-wrap: break-word; overflow-wrap: break-word;">您即将开始正式测试。共有10个音频片段。请认真聆听并如实作答。</p>
+//         <p style="word-wrap: break-word; overflow-wrap: break-word;">您即將開始正式測試。共有10個音訊片段。請仔細聆聽並誠實作答。</p>
+//         <p style="word-wrap: break-word; overflow-wrap: break-word;">이제 본 테스트가 시작됩니다. 총 10개의 오디오가 재생됩니다. 주의 깊게 듣고 솔직하게 응답해 주세요.</p>
+//       </div>
+//     `;
+//   },
+//   choices: function () { return ["Start Test"] }
+// };
+
+// const play_audio = {
+//   type: jsPsychAudioKeyboardResponse,
+//   stimulus: () => jsPsych.timelineVariable("audio"),
+//   prompt: () => {
+//     const current = jsPsych.data.get().filter({ phase: "stimulus" }).count() + 1;
+//     const total = audioFiles.length;
+
+//     return `
+//       <div style="text-align: center; margin-top: 1em;">
+//         🔊 <strong>
+//         ${
+//           {
+//             en: "Playing audio…",
+//             ja: "再生中…",
+//             sc: "播放中…",
+//             tc: "播放中…",
+//             ko: "재생 중…"
+//           }[lang] || "Playing audio…"
+//         }
+//         </strong><br>
+//         ${current} / ${total}
+//       </div>
+//     `;
+//   },
+//   choices: "NO_KEYS",
+//   trial_ends_after_audio: true,
+//   data: {
+//     phase: "stimulus",
+//     stim_id: jsPsych.timelineVariable("id")
+//   }
+// };
+
+// const audioFixation = {
+//   type: jsPsychHtmlKeyboardResponse,
+//   stimulus: '<div style="font-size: 40px;">+</div>', // Shows a fixation cross
+//   choices: "NO_KEYS",
+//   trial_duration: 1500 // 1.5 seconds
+// };
+
+// const accentQuestionTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: () => `<p>${translations[lang].accent_question}</p>`,
+//   choices: [translations[lang].yes, translations[lang].no],
+//   data: {
+//     phase: "accent_judgment",
+//     stim_id: jsPsych.timelineVariable("id")
+//   }
+// };
+
+// // Background questionnaire
+// const nativeQuestionTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: () => `<p>${translations[lang].nativeQ}</p>`,
+//   choices: () => [translations[lang].yes, translations[lang].no],
+//   data: { question: "is_native" }
+// };
+
+// const motherTongueTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function () {
+//     let display = "";
+
+//     try {
+//       const data = jsPsych.data.get().values(); // get all trial data
+//       const recent = [...data].reverse().find(d => d.response && d.response.mother_tongue);
+
+//       if (recent) {
+//         const selectedCode = recent.response.mother_tongue;
+//         const labelObj = languageOptions.find(l => l.code === selectedCode);
+//         if (labelObj) {
+//           display = `<p><strong>Previously selected: ${labelObj.label}</strong></p>`;
+//         }
+//       }
+//     } catch (e) {
+//       console.warn("Could not retrieve previous language data:", e);
+//     }
+
+//     return `${display}<p>${translations[lang].motherTongueQ} ${translations[lang].mandatory}</p>`;
+//   },
+//   html: function() {
+//     return `
+//       <label>
+//         <select name="mother_tongue" id="mother_tongue" required style="display: block !important; padding: .5em; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;">
+//           <option value="" disabled selected>Select your language</option>
+//           ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
+//         </select>
+//       </label>
+//       <br><br>
+//       <label id="mother_tongue_label">
+//         ${translations[lang].specify_other}<br>
+//         <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+//       </label>
+//       <p id="error-mother_tongue" style="color:red; display:none;">${translations[lang].specify_other}</p>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   // button_label: "Continue",
+//   data: { question: 'mother_tongue' }
+// };
+
+// const l2LanguageTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function () {
+//     let showSelected = "";
+
+//     try {
+//       const allData = jsPsych.data.get().values();
+//       const recent = [...allData].reverse().find(d => d.response?.l2_languages);
+
+//       if (recent) {
+//         const codes = recent.response.l2_languages;
+//         const codeArray = Array.isArray(codes) ? codes : [codes];
+//         const labels = codeArray.map(code => languageOptions.find(l => l.code === code)?.label).filter(Boolean);
+
+//         if (labels.length) {
+//           showSelected = `<p><strong>Previously selected: ${labels.join(', ')}</strong></p>`;
+//         }
+//       }
+//     } catch (e) {
+//       console.warn("L2 language lookup failed:", e);
+//     }
+
+//     return `${showSelected}<p>${translations[lang].languageOtherSelectQ}</p>`;
+//   },
+
+//   html: function () {
+//     const options = languageOptions
+//       .map(l => `<option value="${l.code}">${l.label}</option>`)
+//       .join('');
+//     return `
+//       <label>Select all that apply:</label><br>
+//       <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+//         ${options}
+//       </select>
+//       <br><br>
+//       <label id="l2_other_label">
+//         Please specify other language(s):<br>
+//         <input type="text" name="l2_languages_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;" />
+//       </label>
+//       <script>
+//         document.addEventListener('DOMContentLoaded', function() {
+//           const select = document.getElementById('l2_languages');
+//           const otherLabel = document.getElementById('l2_other_label');
+//           if (select && otherLabel) {
+//             select.addEventListener('change', () => {
+//               const values = Array.from(select.selectedOptions).map(opt => opt.value);
+//               otherLabel.style.display = values.includes('OTHER') ? 'block' : 'none';
+//             });
+//           }
+//         });
+//       </script>
+//     `;
+//   },
+//   data: { question: 'l2_languages' }
+// };
+
+
+// const l2LanguageSelectTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function () {
+//     let showSelected = "";
+//     try {
+//       const allData = jsPsych.data.get().values();
+//       const recent = [...allData].reverse().find(d => d.response?.l2_languages);
+//       if (recent) {
+//         const codes = recent.response.l2_languages;
+//         const codeArray = Array.isArray(codes) ? codes : [codes];
+//         const labels = codeArray.map(code => languageOptions.find(l => l.code === code)?.label).filter(Boolean);
+//         if (labels.length) {
+//           showSelected = `<p><strong>Previously selected: ${labels.join(', ')}</strong></p>`;
+//         }
+//       }
+//     } catch (e) {
+//       console.warn("L2 language lookup failed:", e);
+//     }
+//     return `${showSelected}<p>${translations[lang].languageOtherSelectQ} ${translations[lang].optional}</p>`;
+//   },
+//   html: function() {
+//     const options = languageOptions
+//       .map(l => `<option value="${l.code}">${l.label}</option>`)
+//       .join('');
+//     return `
+//       <label>${translations[lang].select_all_apply}<br>
+//       <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
+//       <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+//         ${options}
+//       </select>
+//       <br>
+//       <label style="font-weight: bold; margin-top: 10px; display: block; text-align: left;">${translations[lang].selected_languages_label || "Your selection:"}</label>
+//       <div id="selected-l2-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
+//         ${translations[lang].no_selection || "None selected"}
+//       </div>
+//       <br>
+//       <label id="l2_other_label">
+//         ${translations[lang].specify_other}<br>
+//         <input type="text" name="l2_languages_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+//       </label>
+//       <p id="error-l2" style="color:red; display:none;">${translations[lang].specify_other}</p>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   on_load: function() {
+//     const select = document.getElementById('l2_languages');
+//     const displayDiv = document.getElementById('selected-l2-languages');
+//     const otherLabel = document.getElementById('l2_other_label');
+//     const otherInput = document.querySelector('input[name="l2_languages_other"]');
+//     const errorMsg = document.getElementById('error-l2');
+//     function updateSelectedDisplay() {
+//       const selected = Array.from(select.selectedOptions);
+//       if (selected.length > 0) {
+//         const names = selected.map(opt => opt.text).join(', ');
+//         displayDiv.textContent = names;
+//       } else {
+//         displayDiv.textContent = translations[lang].no_selection || "None selected";
+//       }
+//     }
+//     // Update display on all selection events
+//     select.addEventListener('change', updateSelectedDisplay);
+//     select.addEventListener('click', updateSelectedDisplay);
+//     select.addEventListener('mousedown', () => setTimeout(updateSelectedDisplay, 0));
+//     select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
+//     select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
+//     select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
+//     // Validation on submit
+//     const form = select.closest('form');
+//     if (form) {
+//       form.addEventListener('submit', function(event) {
+//         const selected = Array.from(select.selectedOptions).map(o => o.value);
+//         if (selected.includes('OTHER') && otherInput && !otherInput.value.trim()) {
+//           event.preventDefault();
+//           if (errorMsg) errorMsg.style.display = 'block';
+//         } else {
+//           if (errorMsg) errorMsg.style.display = 'none';
+//         }
+//       });
+//     }
+//   },
+//   data: { question: 'l2_languages' }
+// };
+
+// const genderTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `<p>${translations[lang].genderQ} ${translations[lang].mandatory}</p>`;
+//   },
+//   html: function() {
+//     const options = translations[lang].gender_options
+//       .map((option, i) => `<option value="${i}">${option}</option>`)
+//       .join('');
+//     return `
+//       <select name="gender" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size: 16px !important; padding: 12px !important;">
+//         <option value="" disabled selected>Select...</option>
+//         ${options}
+//       </select>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   data: { question: 'gender' }
+// };
+
+// const ageTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `<p>${translations[lang].ageGroupQ} ${translations[lang].mandatory}</p>`;
+//   },
+//   html: function() {
+//     const options = translations[lang].age_group_options
+//       .map((option, i) => `<option value="${i}">${option}</option>`)
+//       .join('');
+//     return `
+//       <select name="age_group" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+//         <option value="" disabled selected>Select...</option>
+//         ${options}
+//       </select>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   data: { question: "age_group" }
+// };
+
+// // --- Current Country Trial ---
+// const currentCountryTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() { return `<p>${translations[lang].currentCountryQ} ${translations[lang].optional}</p>`; },
+//   html: function() {
+//     return `
+//       <label>
+//         <select name="current_country" id="current_country" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+//           <option value="" disabled selected>Select a country</option>
+//           ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+//         </select>
+//       </label>
+//       <br><br>
+//       <label>
+//         ${translations[lang].specify_other}<br>
+//         <input type="text" name="current_country_other" id="current_country_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+//       </label>
+//       <p id="error-country" style="color:red; display:none;">${translations[lang].specify_other}</p>
+//     `;
+//   },
+// button_label: function() { return translations[lang].continue_button; },
+//   data: { question: 'current_country' }
+// };
+
+// const countriesLivedTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() { return `<p>${translations[lang].countriesLivedQ} ${translations[lang].optional}</p>`; },
+//   html: function() {
+//     return `
+//       <label>${translations[lang].select_all_apply}<br>
+//       <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
+//       <select name="countries_lived" id="countries_lived" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+//         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
+//       </select>
+//       <br>
+//       <label style="font-weight: bold; margin-top: 10px; display: block; text-align: left;">${translations[lang].selected_countries_label || "Your selection:"}</label>
+//       <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
+//         ${translations[lang].no_selection || "None selected"}
+//       </div>
+//       <br>
+//       <label>
+//         ${translations[lang].specify_other}<br>
+//         <input type="text" name="countries_lived_other" id="countries_lived_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+//       </label>
+//       <p id="error-countries" style="color:red; display:none;">${translations[lang].specify_other}</p>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   on_load: function() {
+//     const select = document.getElementById("countries_lived");
+//     const displayDiv = document.getElementById("selected-countries");
+//     function updateSelectedDisplay() {
+//       const selected = Array.from(select.selectedOptions);
+//       if (selected.length > 0) {
+//         const names = selected.map(opt => opt.text).join(', ');
+//         displayDiv.textContent = names;
+//       } else {
+//         displayDiv.textContent = translations[lang].no_selection || "Non selected";
+//       }
+//     }
+//     // Catch all possible selection events
+//     select.addEventListener('change', updateSelectedDisplay);
+//     select.addEventListener('click', updateSelectedDisplay);
+//     select.addEventListener('mousedown', function() {
+//       setTimeout(updateSelectedDisplay, 0);
+//     });
+//     select.addEventListener('mouseup', function() {
+//       setTimeout(updateSelectedDisplay, 0);
+//     });
+//     select.addEventListener('keydown', function() {
+//       setTimeout(updateSelectedDisplay, 0);
+//     });
+//     select.addEventListener('keyup', function() {
+//       setTimeout(updateSelectedDisplay, 0);
+//     });
+//     // Validation on submit
+//     const form = select.closest('form');
+//     if (form) {
+//       form.addEventListener('submit', function(event) {
+//         const other = document.getElementById("countries_lived_other");
+//         const error = document.getElementById("error-countries");
+//         const selected = Array.from(select.selectedOptions).map(o => o.value);
+//         if (selected.includes("OTHER") && !other.value.trim()) {
+//           event.preventDefault();
+//           error.style.display = "block";
+//         } else {
+//           error.style.display = "none";
+//         }
+//       });
+//     }
+//   },
+//   data: { question: 'countries_lived' }
+// };
+
+
+// const familyLanguageTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `
+//       <p>${translations[lang].familyLanguageQ} ${translations[lang].optional}</p>
+//     `;
+//   },
+//   html: function() {
+//     const options = languageOptions
+//       .map(l => `<option value="${l.code}">${l.label}</option>`)
+//       .join('');
+//     return `
+//       <label>${translations[lang].select_all_apply}<br>
+//       <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
+//       <select name="family_language" id="family_language" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+//         ${options}
+//       </select>
+//       <br>
+//       <label style="font-weight: bold; margin-top: 10px; display: block; text-align: left;">${translations[lang].selected_languages_label || "Your selection:"}</label>
+//       <div id="selected-family-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
+//         ${translations[lang].no_selection || "None selected"}
+//       </div>
+//       <br>
+//       <label id="family_language_other_label">
+//         ${translations[lang].specify_other}<br>
+//         <input type="text" name="family_language_other" id="family_language_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+//       </label>
+//       <p id="error-family-language" style="color:red; display:none;">${translations[lang].specify_other}</p>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   on_load: function() {
+//     const select = document.getElementById('family_language');
+//     const displayDiv = document.getElementById('selected-family-languages');
+//     const otherLabel = document.getElementById('family_language_other_label');
+//     const otherInput = document.getElementById('family_language_other');
+//     const errorMsg = document.getElementById('error-family-language');
+//     function updateSelectedDisplay() {
+//       const selected = Array.from(select.selectedOptions);
+//       if (selected.length > 0) {
+//         const names = selected.map(opt => opt.text).join(', ');
+//         displayDiv.textContent = names;
+//       } else {
+//         displayDiv.textContent = translations[lang].no_selection || "None selected";
+//       }
+//     }
+//     // Update display on all selection events
+//     select.addEventListener('change', updateSelectedDisplay);
+//     select.addEventListener('click', updateSelectedDisplay);
+//     select.addEventListener('mousedown', () => setTimeout(updateSelectedDisplay, 0));
+//     select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
+//     select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
+//     select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
+//     // Validation on submit
+//     const form = select.closest('form');
+//     if (form) {
+//       form.addEventListener('submit', function(event) {
+//         const selected = Array.from(select.selectedOptions).map(o => o.value);
+//         if (selected.includes('OTHER') && otherInput && !otherInput.value.trim()) {
+//           event.preventDefault();
+//           if (errorMsg) errorMsg.style.display = 'block';
+//         } else {
+//           if (errorMsg) errorMsg.style.display = 'none';
+//         }
+//       });
+//     }
+//   },
+//   data: { question: 'family_language' }
+// };
+
+// const l2LanguageYesNoTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `<p>${translations[lang].languageOtherQ} ${translations[lang].mandatory}</p>`;
+//   },
+//   html: function() {
+//     const options = translations[lang].languageOther_options
+//       .map((option, i) => `<option value="${i}">${option}</option>`)
+//       .join('');
+//     return `
+//       <select name="l2_yesno" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size: 16px !important; padding: 12px !important;">
+//         <option value="" disabled selected>Select...</option>
+//         ${options}
+//       </select>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   data: { question: 'l2_yesno' },
+//   on_finish: function(data) {
+//     // Check if "Yes" was selected (index 0 is Yes in most languages)
+//     data.l2 = (data.response.l2_yesno === "0");
+//   }
+// };
+
+// const usageTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `
+//       <div style="position: relative;">
+//         <p>${translations[lang].usageQ} ${translations[lang].optional}</p>
+//       </div>
+//     `;
+//   },
+//   html: function() {
+//     const options = translations[lang].languageFreq_options
+//       .map((option, i) => `<option value="${i}">${option}</option>`)
+//       .join('');
+//     return `
+//       <select name="japanese_usage" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size: 16px !important; padding: 12px !important;">
+//         <option value="" disabled selected>Select...</option>
+//         ${options}
+//       </select>
+//     `;
+//   },
+//   button_label: function() {
+//     return [translations[lang].continue_button];
+//   },
+//   data: { question: 'japanese_usage' },
+//   on_finish: function(data) {
+//     // If skip button was clicked (button index 1), mark as skipped
+//     if (data.button_pressed === 1) {
+//       data.skipped = true;
+//       data.response = { japanese_usage: null };
+//     }
+//   }
+// };
+
+// const proficiencyTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `<p>${translations[lang].proficiencyQ} ${translations[lang].mandatory}</p>`;
+//   },
+//   html: function() {
+//     const options = translations[lang].proficiency_options
+//       .map((option, i) => `<option value="${i}">${option}</option>`)
+//       .join('');
+//     return `
+//       <select name="japanese_proficiency" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size: 16px !important; padding: 12px !important;">
+//         <option value="" disabled selected>Select...</option>
+//         ${options}
+//       </select>
+//     `;
+//   },
+//   button_label: function() { return translations[lang].continue_button; },
+//   data: { question: 'japanese_proficiency' }
+// };
+
+// const musicTrial = {
+//   type: jsPsychSurveyHtmlForm,
+//   preamble: function() {
+//     return `
+//       <div style="position: relative;">
+//         <p>${translations[lang].musicQ} ${translations[lang].optional}</p>
+//       </div>
+//     `;
+//   },
+//   html: function() {
+//     const options = translations[lang].music_options
+//       .map((option, i) => `<option value="${i}">${option}</option>`)
+//       .join('');
+//     return `
+//       <select name="musical_experience" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+//         <option value="" disabled selected>Select...</option>
+//         ${options}
+//       </select>
+//     `;
+//   },
+//   button_label: function() {
+//     return [translations[lang].continue_button];
+//   },
+//   data: { question: 'musical_experience' },
+//   on_finish: function(data) {
+//     // If skip button was clicked (button index 1), mark as skipped
+//     if (data.button_pressed === 1) {
+//       data.skipped = true;
+//       data.response = { musical_experience: null };
+//     }
+//   }
+// };
+
+// const backgroundIntroTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() {
+//     return `
+//       <div style="text-align: left; max-width: 100%; padding: 20px; box-sizing: border-box;">
+//         <p style="word-wrap: break-word; overflow-wrap: break-word;">${translations[lang].background_intro}</p>
+//       </div>
+//     `;
+//   },
+//   choices: function() { return [translations[lang].continue_button]; }
+// };
+
+// const basicBlock = {
+//   timeline: [
+//     genderTrial,
+//     ageTrial,
+//     currentCountryTrial,
+//     countriesLivedTrial,
+//     {
+//       ...motherTongueTrial,
+//       on_finish: function(data) {
+//         // Check if mother tongue is Japanese
+//         if (data.response && data.response.mother_tongue === 'JA') {
+//           isNative = true;
+//         } else {
+//           isNative = false;
+//         }
+//       }
+//     },
+//     familyLanguageTrial,
+//   ]
+// }
+
+// const nativeBlock = {
+//   timeline: [
+//   ],
+//   conditional_function: () => isNative
+// };
+
+// const nonNativeBlock = {
+//   timeline: [
+//     proficiencyTrial,
+//   ],
+//   conditional_function: () => !isNative
+// };
+
+// const afterNativeQuestionTrial = {
+//   timeline: [
+//     usageTrial,
+//     l2LanguageYesNoTrial,
+//     {
+//       timeline: [l2LanguageSelectTrial],
+//       conditional_function: function() {
+//         const data = jsPsych.data.get().last(1).values()[0];
+//         return data.l2 === true;
+//       }
+//     },
+//     musicTrial
+//   ]
+// }
+
+// const thankYouTrial = {
+//   type: jsPsychHtmlKeyboardResponse,
+//   stimulus: function () {
+//     return `
+//       <div style="text-align: left; max-width: 700px; margin: 0 auto;">
+//         <p>${translations[lang].final_thanks}</p>
+//         <p>${translations[lang].close_window}</p>
+//       </div>
+//     `;
+//   },
+//   choices: "NO_KEYS",
+//   // trial_duration: 5000,
+//   on_start: function () {
+//     fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: jsPsych.data.get().json()
+//     }).then(res => {
+//       if (!res.ok) throw new Error("Failed to submit");
+//     }).catch(err => {
+//       alert("⚠️ Submission failed. Saving backup locally.");
+//       jsPsych.data.get().localSave("csv", "backup.csv");
+//       console.error(err);
+//     });
+//   }
+// };
+
+// // Build and run timeline
+// const timeline = [];
+// timeline.push(languageSelector);
+// timeline.push(introductionTrial);
+// timeline.push(consentTrial);
+// timeline.push(preloadTrial);
+// timeline.push(instructionTextTrial);
+// timeline.push(instructionVideoTrial);
+// timeline.push(preTestMessage);
+// timeline.push({
+//   timeline: [
+//     audioFixation,
+//     play_audio,
+//     accentQuestionTrial,
+//     {
+//       timeline: [makeImpressionTrial()]
+//     }
+//   ],
+//   timeline_variables: audioFiles,
+//   randomize_order: true
+// });
+// timeline.push(backgroundIntroTrial);
+// timeline.push(basicBlock);
+// timeline.push(nativeBlock);
+// timeline.push(nonNativeBlock);
+// timeline.push(afterNativeQuestionTrial);
+// timeline.push(thankYouTrial);
+
+// jsPsych.run(timeline);
+
+
 const countryOptions = [
   { code: "AF", label: "Afghanistan" },
   { code: "AL", label: "Albania" },
@@ -120,7 +1689,7 @@ function makeLanguageDropdown(questionText, responseName) {
     preamble: `<p>${questionText}</p>`,
     html: `
       <label>
-        <select name="${responseName}" id="${responseName}" style="display: block !important; padding: .5em !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;">
+        <select name="${responseName}" id="${responseName}" style="display: block !important; padding:.5em; width: 100% !important; max-width: 600px !important; margin: 0 auto !important;">
           <option value="" disabled selected>Select your language</option>
           ${options}
         </select>
@@ -128,7 +1697,7 @@ function makeLanguageDropdown(questionText, responseName) {
       <br><br>
       <label id="${responseName}_label">
         Please specify (if "Other"):<br>
-        <input type="text" name="${responseName}_other" id="${responseName}_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;" />
+        <input type="text" name="${responseName}_other" id="${responseName}_other" style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;" />
       </label>
       <p id="error-${responseName}" style="color:red; display:none;">Please specify your language if you selected "Other".</p>
 
@@ -161,81 +1730,55 @@ const participantID = crypto.randomUUID();
 // Tag all data with participant ID
 jsPsych.data.addProperties({ participant_id: participantID });
 
-// // Add auto-save when user closes/refreshes page
-// window.addEventListener('beforeunload', function(e) {
-//   const allData = jsPsych.data.get().values();
-//   if (allData.length > 3) {  // Adjust this number based on your setup
-//     const dataToSave = {
-//       participant_id: participantID,
-//       data: jsPsych.data.get().json(),
-//       complete: false,
-//       interrupted: true,
-//       timestamp: new Date().toISOString()
-//     };
+// Periodic auto-save setup for mobile reliability
+let trialsSinceLastSave = 0;
+const SAVE_INTERVAL = 3; // Save every 3 trials
 
-//     // Use sendBeacon for reliable sending even when page is closing
-//     const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
-//     navigator.sendBeacon(
-//       "https://research001-4ba740c5cac1.herokuapp.com/submit",
-//       blob
-//     );
-//   }
-// });
+// Function to save progress
+function saveProgress(isComplete = false) {
+  const dataToSave = {
+    participant_id: participantID,
+    data: jsPsych.data.get().json(),
+    complete: isComplete,
+    timestamp: new Date().toISOString()
+  };
 
-// Replace your current beforeunload with this test version
-// window.addEventListener('beforeunload', function(e) {
-//   alert('Beforeunload triggered!'); // You should see this alert when closing
+  fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(dataToSave),
+    keepalive: true
+  }).then(res => {
+    if (res.ok) {
+      console.log(`✅ Progress saved (complete: ${isComplete})`);
+    }
+  }).catch(err => {
+    console.error('Auto-save failed:', err);
+  });
+}
 
-//   const allData = jsPsych.data.get().values();
-//   console.log('Total trials:', allData.length);
-
-//   // Force save regardless of trial count for testing
-//   const dataToSave = {
-//     participant_id: participantID,
-//     data: jsPsych.data.get().json(),
-//     complete: false,
-//     interrupted: true,
-//     timestamp: new Date().toISOString(),
-//     trial_count: allData.length
-//   };
-
-//   const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
-//   const result = navigator.sendBeacon(
-//     "https://research001-4ba740c5cac1.herokuapp.com/submit",
-//     blob
-//   );
-
-//   console.log('Beacon sent:', result);
-
-//   // Optional: show a confirmation message (will delay closing)
-//   e.preventDefault();
-//   e.returnValue = '';
-//   return '';
-// });
-
-// Auto-save when user closes/refreshes page
-window.addEventListener('beforeunload', function(e) {
+// Multiple events for better mobile coverage
+function handlePageExit() {
   const allData = jsPsych.data.get().values();
 
-  // Only save if there's actual experiment data (more than just initial trials)
   if (allData.length > 3) {
-    const dataToSave = {
-      participant_id: participantID,
-      data: jsPsych.data.get().json(),
-      complete: false,
-      interrupted: true,
-      timestamp: new Date().toISOString()
-    };
+    saveProgress(false);
+  }
+}
 
-    // Use fetch with keepalive for reliable sending
-    fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(dataToSave),
-      keepalive: true
-    }).catch(err => console.error('Save failed:', err));
+// Desktop browsers
+window.addEventListener('beforeunload', handlePageExit);
+
+// iOS Safari and mobile browsers (more reliable than beforeunload)
+window.addEventListener('pagehide', handlePageExit);
+
+// When tab becomes hidden (switching apps on mobile)
+document.addEventListener('visibilitychange', function() {
+  if (document.visibilityState === 'hidden') {
+    handlePageExit();
   }
 });
+
 
 let lang = 'en';       // will be set based on language selection
 let isNative = false;
@@ -243,15 +1786,15 @@ let isNative = false;
 //sample audios are mp3 files and real ones will be wav files.
 const audioFiles = [
   { id: "trial01", audio: "assets/audio/alpha1.wav" },
-  { id: "trial02", audio: "assets/audio/beta2.wav" },
-  { id: "trial03", audio: "assets/audio/gamma3.wav" },
-  { id: "trial04", audio: "assets/audio/delta4.wav" },
-  { id: "trial05", audio: "assets/audio/epsilon5.wav" },
-  { id: "trial06", audio: "assets/audio/zeta6.wav" },
-  { id: "trial07", audio: "assets/audio/eta7.wav" },
-  { id: "trial08", audio: "assets/audio/theta8.wav" },
-  { id: "trial09", audio: "assets/audio/iota9.wav" },
-  { id: "trial10", audio: "assets/audio/kappa10.wav" },
+  // { id: "trial02", audio: "assets/audio/beta2.wav" },
+  // { id: "trial03", audio: "assets/audio/gamma3.wav" },
+  // { id: "trial04", audio: "assets/audio/delta4.wav" },
+  // { id: "trial05", audio: "assets/audio/epsilon5.wav" },
+  // { id: "trial06", audio: "assets/audio/zeta6.wav" },
+  // { id: "trial07", audio: "assets/audio/eta7.wav" },
+  // { id: "trial08", audio: "assets/audio/theta8.wav" },
+  // { id: "trial09", audio: "assets/audio/iota9.wav" },
+  // { id: "trial10", audio: "assets/audio/kappa10.wav" },
 ];
 
 const introductionTrial = {
@@ -334,18 +1877,18 @@ const translations = {
     no: "No",
     adjectives_prompt: "Select up to 3 words that describe your impression:",
     adjectives: [
-      "energetic / full of energy",
-      "active / lively",
-      "responsible / dependable",
-      "diligent / hardworking",
-      "intellectual / intelligent",
-      "reflective / thoughtful",
+      "outgoing / extroverted",
+      "energetic / vigorous",
       "warm / friendly",
-      "kind-hearted / compassionate",
-      "rational / logical",
-      "calm / relaxed"
+      "kind / kind-hearted",
+      "responsible",
+      "conscientious / principled",
+      "calm", "stable / steady",
+      "intellectual / intelligent",
+      "thoughtful / reflective"
     ],
     optional_comment: "Any additional comment about the speaker? (Optional)",
+    nativeQ: "Are you a native speaker of Japanese?",
     genderQ: "What is your gender?",
     gender_options: ["Male", "Female", "Other", "Prefer not to say"],
     ageGroupQ: "What is your age group?",
@@ -384,15 +1927,13 @@ const translations = {
     multi_select_hint: '<i class="fa-brands fa-windows"></i> Hold down the Ctrl key and click items to select multiple <br><i class="fa-brands fa-apple"></i> Hold down the Command key and click items to select multiple.',
     close_window: "You may now close this window. Your responses have been saved.",
     background_intro: "The listening part is complete. Thank you!<br><br>Now we would like to ask about your background. There are up to 10 questions in total — about 4 or 5 are mandatory (depending on your background), and the rest are optional.",
+    // family_definition: "(Parents, guardians, spouse, partner, children)",
     intro_title: "Welcome to the Study",
     intro_audio: "This is a Japanese audio listening experiment. Please participate in a quiet environment. You may listen to the audio using headphones, earphones, or speakers.",
     intro_age: "You must be 18 years or older to participate in this study.",
     intro_time: "The study will take approximately 10 minutes to complete.",
     intro_ready: "Ready to Begin",
     impression_error: "⚠️ Please select 1–3 adjectives.",
-    instruction_video_title: "Instruction Video",
-    adjust_volume: "Please watch the video and adjust the audio volume for the experiment.",
-    video_required: "Please play the video before continuing.",
   },
   ja: {
   consent: consentText_ja,
@@ -404,18 +1945,19 @@ const translations = {
   no: "いいえ",
   adjectives_prompt: "音声または話者に感じた印象を表す言葉を3つまで選んでください：",
   adjectives: [
-    "精力的",
-    "活発",
-    "責任感のある",
-    "勤勉",
-    "知性的",
-    "思慮深い",
+    // "外交的",
+    // "精力的",
     "暖かい",
     "親切",
-    "理性的",
-    "リラックス"
+    "責任感のある",
+    // "良心的",
+    "平静",
+    "安定した",
+    "知性的",
+    "思慮深い"
   ],
-  optional_comment: "音声に関するコメントがあれば自由にご記入ください（任意）",
+  optional_comment: "音声、または話者に関するコメントがあれば自由にご記入ください（任意）",
+  nativeQ: "あなたは日本語が第一言語ですか？",
   genderQ: "性別を教えてください。",
   gender_options: ["男性", "女性", "その他", "回答しない"],
   ageGroupQ: "あなたの年代を選んでください。",
@@ -426,7 +1968,8 @@ const translations = {
   familyLanguageQ: "ご家族（両親、保護者、配偶者、パートナー、子ども）が使用している言語を教えてください。",
   languageOtherQ: "日本語、または母語以外に使用できる言語はありますか？",
   languageOther_options: ["はい", "いいえ"],
-  languageOtherSelectQ: "日本語、母語以外に使える言語を選んでください。",
+  languageOtherSelectQ: "「はい」と答えた場合、それらの言語を選んでください。",
+  languageOtherFreqQ: "それらの言語をどのくらいの頻度で使用しますか？",
   languageFreq_options: [
     "ほぼ毎日",
     "週に2〜3回",
@@ -436,7 +1979,7 @@ const translations = {
     "2〜3か月に1回",
     "ほとんど使わない"
   ],
-  usageQ: "あなたは日本語をどのくらいの頻度で使用しますか？",
+  usageQ: "日本語をどのくらいの頻度で使用しますか？",
   proficiencyQ: "あなたの日本語の習熟度を教えてください。",
   proficiency_options: ["JLPT N5", "JLPT N4", "JLPT N3", "JLPT N2", "JLPT N1", "初級", "中級", "上級"],
   musicQ: "学校の授業以外で、音楽を習ったり、音楽活動をした経験はありますか？",
@@ -446,22 +1989,20 @@ const translations = {
   <p>ご質問がある場合は<a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">こちら</a>からご連絡ください。</p>`,
   finish: "次へ",
   continue_button: "次へ",
-  specify_other: "「Other」を選択した場合は具体的に記入してください。",
+  specify_other: "「Other」を選択した場合は具体的に記入してください。：",
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（任意）</span>",
   select_all_apply: "該当するものをすべて選んでください：",
   multi_select_hint: '<i class="fa-brands fa-windows"></i> Ctrlキーを押したまま項目をクリックをして複数選択 <br><i class="fa-brands fa-apple"></i> Commandキーを押したまま項目をクリックして複数選択',
   close_window: "回答は保存されました。このウィンドウを閉じてください。",
   background_intro: "音声の聞き取りは終了しました。ありがとうございました。<br>次に、あなたの背景についてお伺いします。<br><br>質問は最大で10問あり、4〜5問は必須（ご自身の背景によって異なります）、残りは任意です。",
+  // family_definition: "（両親、保護者、配偶者、パートナー、子ども）",
   intro_title: "実験へようこそ",
-  intro_audio: "これは日本語の音声聞き取り実験です。静かな環境でご参加ください。ヘッドフォン・イヤホンまたはスピーカーで音声をお聞きいただけます。",
+  intro_audio: "これは音声聞き取り実験です。静かな環境でご参加ください。ヘッドフォン・イヤホンまたはスピーカーで音声をお聞きいただけます。",
   intro_age: "本研究には18歳以上の方のみご参加いただけます。",
   intro_time: "所要時間は約10分です。",
   intro_ready: "開始する",
-  impression_error: "⚠️ 1～3個の形容詞を選んでください。",
-  instruction_video_title: "説明ビデオ",
-  adjust_volume: "ビデオを視聴して、実験で聞く音声の音量を調整してください。",
-  video_required: "続行する前にビデオを再生してください。",
+  impression_error: "⚠️ 1～3個の形容詞を選んでください。"
   },
   sc: {
   consent: consentText_sc,
@@ -473,18 +2014,19 @@ const translations = {
   no: "否",
   adjectives_prompt: "请选择最多三个词来描述您的印象：",
   adjectives: [
-    "精力充沛 / 充满活力",
-    "活跃 / 生气勃勃",
-    "有责任心 / 值得信赖",
-    "勤奋 / 努力工作",
-    "有智慧 / 有才智",
-    "深思熟虑 / 善于思考",
-    "温暖 / 友好",
-    "亲切 / 富有同情心",
-    "理性 / 讲道理",
-    "冷静 / 放松"
+    "外向的",
+    "精力充沛的／有活力的",
+    "温暖的／暖和的",
+    "亲切的",
+    "负责任的／有责任感的",
+    "有原则的",
+    "平静的",
+    "稳定的",
+    "知性的／有智慧的",
+    "深思熟虑的／思慮深的"
   ],
   optional_comment: "您对说话者有其他印象吗？请填写（可选）",
+  nativeQ: "您的母语是日语吗？",
   genderQ: "您的性别是？",
   gender_options: ["男", "女", "其他", "不愿透露"],
   ageGroupQ: "请选择您的年龄段。",
@@ -513,25 +2055,23 @@ const translations = {
   music_options: ["没有", "有（1–5年）", "有（超过5年）"],
   skip: "跳过",
   final_thanks: `感谢您的参与！<br>
-  如有任何疑问，请<a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">填写联系表单</a>。`,
+  如有任何疑问，请<a href="https://yourformlink">填写联系表单</a>。`,
   finish: "继续",
   continue_button: "继续",
-  specify_other: "如果选择\"Other\"，请具体说明",
+  specify_other: "如果选择\"Other\"，请具体说明：",
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（可选）</span>",
   select_all_apply: "选择所有适用项：",
   multi_select_hint: '<i class="fa-brands fa-windows"></i> 按住 Ctrl 键 并点击项目以进行多选。<br><i class="fa-brands fa-apple"></i> 按住 Command 键 并点击项目以进行多选。',
   close_window: "您的回答已保存。您现在可以关闭此窗口。",
   background_intro: "听力部分已完成。谢谢！<br><br>接下来我们想了解您的背景信息。共有最多10个问题，其中大约4到5个为必答（根据您的背景而定），其余为选答。",
+  // family_definition: "（父母、监护人、配偶、伴侣、子女）",
   intro_title: "欢迎参加本研究",
   intro_audio: "这是一个日语语音听辨实验。请在安静的环境中参加。您可以使用耳机、耳塞或音箱收听音频。",
   intro_age: "您必须年满18岁才能参加本研究。",
   intro_time: "本研究大约需要10分钟完成。",
   intro_ready: "准备开始",
-  impression_error: "⚠️ 请选择1到3个形容词。",
-  instruction_video_title: "说明视频",
-  adjust_volume: "请观看视频，并调整实验中播放音频的音量。",
-  video_required: "请先播放视频再继续。",
+  impression_error: "⚠️ 请选择1到3个形容词。"
   },
   tc: {
   consent: consentText_tc,
@@ -543,18 +2083,19 @@ const translations = {
   no: "否",
   adjectives_prompt: "請選擇最多三個詞來描述您的印象：",
   adjectives: [
-    "精力充沛 / 充滿活力",
-    "活躍 / 生氣勃勃",
-    "有責任心 / 值得信賴",
-    "勤奮 / 努力工作",
-    "有智慧 / 有才智",
-    "深思熟慮 / 善於思考",
-    "溫暖 / 友好",
-    "親切 / 富有同情心",
-    "理性 / 講道理",
-    "冷靜 / 放鬆"
+    "外向的",
+    "精力充沛的／有活力的",
+    "溫暖的／暖和的 ",
+    "親切的",
+    "負責任的／有責任感的",
+    "有原則的",
+    "平靜的",
+    "穩定的",
+    "知性的／有智慧的",
+    "深思熟慮的／思慮深的",
   ],
   optional_comment: "若您對說話者有其他印象，請填寫（選填）",
+  nativeQ: "您的母語是日語嗎？",
   genderQ: "您的性別是？",
   gender_options: ["男", "女", "其他", "不願透露"],
   ageGroupQ: "請選擇您的年齡範圍。",
@@ -583,26 +2124,24 @@ const translations = {
   music_options: ["沒有", "有（1–5年）", "有（超過5年）"],
   skip: "跳過",
   final_thanks: `感謝您的參與！<br>
-  若有任何問題，歡迎<a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">填寫聯絡表單</a>。`
+  若有任何問題，歡迎<a href="https://yourformlink">填寫聯絡表單</a>。`
   ,
   finish: "繼續",
   continue_button: "繼續",
-  specify_other: "如果選擇「Other」，請具體說明",
+  specify_other: "如果選擇「Other」，請具體說明：",
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>（選填）</span>",
   select_all_apply: "選擇所有適用項：",
   multi_select_hint: '<i class="fa-brands fa-windows"></i> 按住 Ctrl 鍵 並點擊項目以進行多重選擇。<br><i class="fa-brands fa-apple"></i> 按住 Command 鍵 並點擊項目以進行多重選擇。',
   close_window: "您的回答已保存。您現在可以關閉此視窗。",
   background_intro: "聽力部分已完成。謝謝！<br><br>接下來我們想了解您的背景資訊。共有最多10個問題，其中約有4到5個為必答（依您的背景而定），其餘為選答。",
+  // family_definition: "（父母、監護人、配偶、伴侶、子女）",
   intro_title: "歡迎參加本研究",
   intro_audio: "這是一個日語語音聽辨實驗。請在安靜的環境中參加。您可以使用耳機、耳塞或喇叭收聽音訊。",
   intro_age: "您必須年滿18歲才能參加本研究。",
   intro_time: "本研究大約需要10分鐘完成。",
   intro_ready: "準備開始",
-  impression_error: "⚠️ 請選擇1到3個形容詞。",
-  instruction_video_title: "說明影片",
-  adjust_volume: "請觀看影片，並調整實驗中播放音訊的音量。",
-  video_required: "請先播放影片再繼續。",
+  impression_error: "⚠️ 請選擇1到3個形容詞。"
   },
   ko: {
   consent: consentText_ko,
@@ -614,18 +2153,19 @@ const translations = {
   no: "아니오",
   adjectives_prompt: "인상을 표현하는 단어를 최대 3개 선택하세요:",
   adjectives: [
-    "에너지가 넘치는 / 활력이 있는",
-    "활발한 / 생기 있는",
-    "책임감 있는 / 믿음직한",
-    "근면한 / 성실한",
-    "지적인 / 똑똑한",
-    "사려 깊은 / 신중한",
-    "따뜻한 / 다정한",
-    "친절한 / 인정 많은",
-    "이성적인 / 논리적인",
-    "침착한 / 느긋한"
+    "외향적인",
+    "활기찬／에너제틱한",
+    "따뜻한",
+    "친절한",
+    "책임감 있는",
+    "양심적인",
+    "침착한",
+    "안정된",
+    "지적인／지성적인",
+    "사려 깊은"
   ],
   optional_comment: "화자에 대한 추가 의견이 있다면 작성해 주세요 (선택 사항)",
+  nativeQ: "일본어가 모국어입니까?",
   genderQ: "성별을 알려주세요.",
   gender_options: ["남성", "여성", "기타", "응답하지 않음"],
   ageGroupQ: "연령대를 선택해 주세요.",
@@ -654,25 +2194,23 @@ const translations = {
   music_options: ["없음", "있음 (1–5년)", "있음 (5년 이상)"],
   skip: "건너뛰기",
   final_thanks: `참여해 주셔서 감사합니다!<br>
-  질문이 있으시면 <a href="https://docs.google.com/forms/d/e/1FAIpQLSdPzO6kPJLgIgRAtJTgr0_ODooniX22U7DPebTwhiL0zIr1xA/viewform?usp=publish-editor">문의 양식을 작성해 주세요.</a>.`,
+  질문이 있으시면 <a href="https://yourformlink">문의 양식을 작성해 주세요</a>.`,
   finish: "계속",
   continue_button: "계속",
-  specify_other: "\"Other\"를 선택한 경우 구체적으로 입력해 주세요.",
+  specify_other: "\"Other\"를 선택한 경우 구체적으로 입력해 주세요：",
   mandatory: "<span style='color:red;'>*</span>",
   optional: "<span style='color:gray;'>(선택 사항)</span>",
   select_all_apply: "해당하는 항목을 모두 선택하세요：",
   multi_select_hint: '<i class="fa-brands fa-windows"></i> Ctrl 키를 누른 상태에서 항목을 클릭하여 여러 개를 선택하세요.<br><i class="fa-brands fa-apple"></i> Command 키를 누른 상태에서 항목을 클릭하여 여러 개를 선택하세요.',
   close_window: "응답이 저장되었습니다. 이제 이 창을 닫으셔도 됩니다.",
   background_intro: "듣기 부분이 완료되었습니다. 감사합니다!<br><br>이제 귀하의 배경에 대해 몇 가지 질문을 드리겠습니다. 총 최대 10개의 문항이 있으며, 약 4~5개는 필수(개인 배경에 따라 다름)이고 나머지는 선택 항목입니다.",
+  // family_definition: "(부모, 보호자, 배우자, 파트너, 자녀)",
   intro_title: "연구에 오신 것을 환영합니다",
   intro_audio: "이것은 일본어 음성 청취 실험입니다. 조용한 환경에서 참여해 주세요. 헤드폰, 이어폰 또는 스피커로 음성을 들을 수 있습니다.",
   intro_age: "본 연구에는 만 18세 이상만 참여할 수 있습니다.",
   intro_time: "연구는 약 10분 정도 소요됩니다.",
   intro_ready: "시작하기",
-  impression_error: "⚠️ 형용사를 1~3개 선택해 주세요.",
-  instruction_video_title: "안내 영상",
-  adjust_volume: "비디오를 시청하면서 실험에서 들을 음성의 볼륨을 조절해 주세요.",
-  video_required: "계속하기 전에 영상을 재생해 주세요."
+  impression_error: "⚠️ 형용사를 1~3개 선택해 주세요."
   }
 };
 
@@ -697,7 +2235,7 @@ function makeImpressionTrial() {
           ${checkboxes}
           <br><br>
           <label>${translations[lang].optional_comment || "Optional comment:"}</label><br>
-          <textarea id="impression_comment" rows="1" cols="50" placeholder="..." style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding: 12px !important;"></textarea>
+          <textarea id="impression_comment" rows="2" cols="50" placeholder="..." style="display: block; width: 100%; max-width: 600px; margin: 0 auto; padding: 12px;"></textarea>
           <p id="error-msg" class="impression-error" style="display:none;">${translations[lang].impression_error}</p>
           <div class="impression-button-row">
             <button id="continue-btn" class="impression-continue-btn" disabled>${translations[lang].finish || "Next"}</button>
@@ -748,17 +2286,12 @@ function makeImpressionTrial() {
 
 const languageSelector = {
   type: jsPsychHtmlButtonResponse,
-  stimulus: `
-    <div style="max-width: 100%; padding: 20px; box-sizing: border-box;">
-      <p style="word-wrap: break-word; overflow-wrap: break-word;">
-        実験に興味を持っていただきありがとうございます。表示言語を選択してください。<br/>
-        感谢您对本实验的兴趣。请选择显示语言。<br/>
-        感謝您對本實驗的興趣。請選擇顯示語言。<br/>
-        실험에 관심을 가져주셔서 감사합니다. 표시 언어를 선택해 주세요.<br/>
-        Thank you for your interest in this experiment. Please select your display language.
-      </p>
-    </div>
-  `,
+  stimulus: `<p>
+    実験に興味を持っていただきありがとうございます。表示言語を選択してください。<br/>
+    感谢您对本实验的兴趣。请选择显示语言。<br/>
+    感謝您對本實驗的興趣。請選擇顯示語言。<br/>
+    실험에 관심을 가져주셔서 감사합니다. 표시 언어를 선택해 주세요.<br/>
+    Thank you for your interest in this experiment. Please select your display language.</p>`,
   choices: ["日本語", "简体中文", "繁體中文", "한국어", "English"],
   on_finish: function(data) {
     const choice = data.response;
@@ -780,14 +2313,14 @@ const consentTrial = {
 const preloadTrial = {
   type: jsPsychPreload,
   audio: audioFiles.map(a => a.audio),
-  video: ['assets/video/new_instruction_video_v2.mp4']
+  video: ['assets/video/dummy_instructions.mp4']
 };
 
 const instructionTextTrial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: function () {
     return `
-      <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 800px; margin: 0 auto;">
         <p>
           ${translations[lang].video_prompt}
         </p>
@@ -799,98 +2332,31 @@ const instructionTextTrial = {
   }
 };
 
-
 const instructionVideoTrial = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function() {
-    // Determine subtitle file based on language
-    const subtitleFile = {
-      'en': 'assets/video/updated_subtitles_en.vtt',
-      'ja': '', // No subtitles for Japanese (original)
-      'sc': 'assets/video/updated_subtitles_sc.vtt',
-      'tc': 'assets/video/updated_subtitles_tc.vtt',
-      'ko': 'assets/video/updated_subtitles_ko.vtt'
-    }[lang] || '';
-
-    return `
-      <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-        <h3>${translations[lang].instruction_video_title || "Instruction Video"}</h3>
-        <p>${translations[lang].adjust_volume || "Please watch the video and adjust your audio volume."}</p>
-
-        <video id="instruction-video" controls crossorigin="anonymous" style="width: 100%; max-width: 700px; margin: 20px auto;">
-          <source src="assets/video/new_instruction_video_v2.mp4" type="video/mp4">
-          ${subtitleFile ? `<track src="${subtitleFile}" kind="subtitles" srclang="${lang}" label="${lang.toUpperCase()}" default>` : ''}
-          Your browser does not support the video tag.
-        </video>
-
-        <p id="video-warning" style="margin-top: 20px; color: #d9534f; font-size: 14px; display: none;">
-          ${translations[lang].video_required || "Please play the video before continuing."}
-        </p>
-      </div>
-    `;
-  },
-  choices: function() {
-    return [translations[lang].continue_button];
-  },
-  on_load: function() {
-    // Wait for button to be created by jsPsych
-    setTimeout(function() {
-      const video = document.getElementById('instruction-video');
-      const continueBtn = document.querySelector('.jspsych-btn');
-      const warning = document.getElementById('video-warning');
-
-      // Disable button initially
-      if (continueBtn) {
-        continueBtn.disabled = true;
-        continueBtn.style.opacity = '0.5';
-        continueBtn.style.cursor = 'not-allowed';
-      }
-
-      let hasPlayed = false;
-
-      // Enable button once video has been played
-      if (video) {
-        video.addEventListener('play', function() {
-          if (!hasPlayed) {
-            hasPlayed = true;
-            if (continueBtn) {
-              continueBtn.disabled = false;
-              continueBtn.style.opacity = '1';
-              continueBtn.style.cursor = 'pointer';
-              if (warning) warning.style.display = 'none';
-            }
-          }
-        });
-      }
-
-      // Show warning if they try to continue without playing
-      if (continueBtn) {
-        continueBtn.addEventListener('click', function(e) {
-          if (!hasPlayed) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (warning) warning.style.display = 'block';
-          }
-        });
-      }
-    }, 100); // Wait 100ms for jsPsych to create the button
-  }
+  type: jsPsychVideoButtonResponse,
+  stimulus: ['assets/video/dummy_instructions.mp4'],
+  prompt: "",
+  choices: [translations[lang].video_continue],
+  response_allowed_while_playing: false,
+  width: 800,
+  height: 450
 };
 
+// Pre-test instruction
 const preTestMessage = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: function () {
-    return `
-      <div style="text-align: left; max-width: 100%; padding: 20px; box-sizing: border-box;">
-        <p style="word-wrap: break-word; overflow-wrap: break-word;">You are about to begin the actual test. There are 10 audio clips in total. Please listen carefully and answer honestly.</p>
-        <p style="word-wrap: break-word; overflow-wrap: break-word;">これから本番のテストが始まります。音声は全部で10個あります。音声は一度だけ流れます。よく聞いて、正直に答えてください。</p>
-        <p style="word-wrap: break-word; overflow-wrap: break-word;">您即将开始正式测试。共有10个音频片段。请认真聆听并如实作答。</p>
-        <p style="word-wrap: break-word; overflow-wrap: break-word;">您即將開始正式測試。共有10個音訊片段。請仔細聆聽並誠實作答。</p>
-        <p style="word-wrap: break-word; overflow-wrap: break-word;">이제 본 테스트가 시작됩니다. 총 10개의 오디오가 재생됩니다. 주의 깊게 듣고 솔직하게 응답해 주세요.</p>
+type: jsPsychHtmlButtonResponse,
+stimulus: function () {
+return `
+      <div style="text-align: left; max-width: 700px; margin: 0 auto;">
+        <p>You are about to begin the actual test. There are 10 audio clips in total. Please listen carefully and answer honestly.</p>
+        <p>これから本番のテストが始まります。音声は全部で10個あります。音声は一度だけ流れます。よく聞いて、正直に答えてください。</p>
+        <p>您即将开始正式测试。共有10个音频片段。请认真聆听并如实作答。</p>
+        <p>您即將開始正式測試。共有10個音訊片段。請仔細聆聽並誠實作答。</p>
+        <p>이제 본 테스트가 시작됩니다. 총 10개의 오디오가 재생됩니다. 주의 깊게 듣고 솔직하게 응답해 주세요.</p>
       </div>
     `;
   },
-  choices: function () { return ["Start Test"] }
+choices: function () { return ["Start Test"] }
 };
 
 const play_audio = {
@@ -975,7 +2441,7 @@ const motherTongueTrial = {
   html: function() {
     return `
       <label>
-        <select name="mother_tongue" id="mother_tongue" required style="display: block !important; padding: .5em; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;">
+        <select name="mother_tongue" id="mother_tongue" required style="display: block; padding:.5em; width: 100%; max-width: 600px; margin: 0 auto;">
           <option value="" disabled selected>Select your language</option>
           ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
         </select>
@@ -983,7 +2449,7 @@ const motherTongueTrial = {
       <br><br>
       <label id="mother_tongue_label">
         ${translations[lang].specify_other}<br>
-        <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+        <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
       </label>
       <p id="error-mother_tongue" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
@@ -992,6 +2458,20 @@ const motherTongueTrial = {
   // button_label: "Continue",
   data: { question: 'mother_tongue' }
 };
+
+// function makeL2UsageTrial(languageCode) {
+//   const label = languageOptions.find(l => l.code === languageCode)?.label || languageCode;
+
+//   return {
+//     type: jsPsychHtmlButtonResponse,
+//     stimulus: () => `<p>How often do you use <strong>${label}</strong>?</p>`,
+//     choices: () => translations[lang].languageFreq_options,
+//     data: {
+//       question: 'l2_language_usage',
+//       language_code: languageCode
+//     }
+//   };
+// }
 
 const l2LanguageTrial = {
   type: jsPsychSurveyHtmlForm,
@@ -1024,13 +2504,13 @@ const l2LanguageTrial = {
       .join('');
     return `
       <label>Select all that apply:</label><br>
-      <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+      <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding:.5em !important;">
         ${options}
       </select>
       <br><br>
       <label id="l2_other_label">
         Please specify other language(s):<br>
-        <input type="text" name="l2_languages_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;" />
+        <input type="text" name="l2_languages_other" style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding:.5em !important;" />
       </label>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1049,18 +2529,20 @@ const l2LanguageTrial = {
   data: { question: 'l2_languages' }
 };
 
-
 const l2LanguageSelectTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function () {
     let showSelected = "";
+
     try {
       const allData = jsPsych.data.get().values();
       const recent = [...allData].reverse().find(d => d.response?.l2_languages);
+
       if (recent) {
         const codes = recent.response.l2_languages;
         const codeArray = Array.isArray(codes) ? codes : [codes];
         const labels = codeArray.map(code => languageOptions.find(l => l.code === code)?.label).filter(Boolean);
+
         if (labels.length) {
           showSelected = `<p><strong>Previously selected: ${labels.join(', ')}</strong></p>`;
         }
@@ -1068,47 +2550,50 @@ const l2LanguageSelectTrial = {
     } catch (e) {
       console.warn("L2 language lookup failed:", e);
     }
+
     return `${showSelected}<p>${translations[lang].languageOtherSelectQ} ${translations[lang].optional}</p>`;
   },
+
   html: function() {
     const options = languageOptions
       .map(l => `<option value="${l.code}">${l.label}</option>`)
       .join('');
+
     return `
       <label>${translations[lang].select_all_apply}<br>
       <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-      <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+      <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block; width: 100%; max-width: 700px; margin: 0 auto; padding:.5em;">
         ${options}
       </select>
-      <br>
-      <label style="font-weight: bold; margin-top: 10px; display: block; text-align: left;">${translations[lang].selected_languages_label || "Your selection:"}</label>
       <div id="selected-l2-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
-        ${translations[lang].no_selection || "None selected"}
       </div>
       <br>
       <label id="l2_other_label">
         ${translations[lang].specify_other}<br>
-        <input type="text" name="l2_languages_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+        <input type="text" name="l2_languages_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
       </label>
       <p id="error-l2" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
   },
   button_label: function() { return translations[lang].continue_button; },
+
   on_load: function() {
     const select = document.getElementById('l2_languages');
     const displayDiv = document.getElementById('selected-l2-languages');
     const otherLabel = document.getElementById('l2_other_label');
     const otherInput = document.querySelector('input[name="l2_languages_other"]');
     const errorMsg = document.getElementById('error-l2');
+
     function updateSelectedDisplay() {
       const selected = Array.from(select.selectedOptions);
       if (selected.length > 0) {
         const names = selected.map(opt => opt.text).join(', ');
         displayDiv.textContent = names;
       } else {
-        displayDiv.textContent = translations[lang].no_selection || "None selected";
+        displayDiv.textContent = '';
       }
     }
+
     // Update display on all selection events
     select.addEventListener('change', updateSelectedDisplay);
     select.addEventListener('click', updateSelectedDisplay);
@@ -1116,6 +2601,7 @@ const l2LanguageSelectTrial = {
     select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
     select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
     select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
+
     // Validation on submit
     const form = select.closest('form');
     if (form) {
@@ -1133,6 +2619,15 @@ const l2LanguageSelectTrial = {
   data: { question: 'l2_languages' }
 };
 
+// const genderTrial = {
+//   type: jsPsychHtmlButtonResponse,
+//     stimulus: function() {
+//       return `<p>${translations[lang].genderQ} ${translations[lang].mandatory}</p>`;
+//     },
+//   choices: function() { return translations[lang].gender_options; },
+//   data: { question: 'gender' }
+// };
+
 const genderTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function() {
@@ -1143,7 +2638,7 @@ const genderTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="gender" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size: 16px !important; padding: 12px !important;">
+      <select name="gender" required style="display: block; width: 100%; max-width: 600px; margin: 0 auto; font-size:16px; padding:12px;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -1152,6 +2647,7 @@ const genderTrial = {
   button_label: function() { return translations[lang].continue_button; },
   data: { question: 'gender' }
 };
+
 
 const ageTrial = {
   type: jsPsychSurveyHtmlForm,
@@ -1163,7 +2659,7 @@ const ageTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="age_group" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+      <select name="age_group" required style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -1180,7 +2676,7 @@ const currentCountryTrial = {
   html: function() {
     return `
       <label>
-        <select name="current_country" id="current_country" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+        <select name="current_country" id="current_country" style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; padding:.5em !important;">
           <option value="" disabled selected>Select a country</option>
           ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
         </select>
@@ -1188,7 +2684,7 @@ const currentCountryTrial = {
       <br><br>
       <label>
         ${translations[lang].specify_other}<br>
-        <input type="text" name="current_country_other" id="current_country_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+        <input type="text" name="current_country_other" id="current_country_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
       </label>
       <p id="error-country" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
@@ -1197,6 +2693,8 @@ button_label: function() { return translations[lang].continue_button; },
   data: { question: 'current_country' }
 };
 
+
+// --- Countries Lived Trial ---
 const countriesLivedTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function() { return `<p>${translations[lang].countriesLivedQ} ${translations[lang].optional}</p>`; },
@@ -1204,35 +2702,34 @@ const countriesLivedTrial = {
     return `
       <label>${translations[lang].select_all_apply}<br>
       <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-      <select name="countries_lived" id="countries_lived" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+      <select name="countries_lived" id="countries_lived" multiple size="6" style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding:.5em !important;">
         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
       </select>
-      <br>
-      <label style="font-weight: bold; margin-top: 10px; display: block; text-align: left;">${translations[lang].selected_countries_label || "Your selection:"}</label>
       <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
-        ${translations[lang].no_selection || "None selected"}
       </div>
       <br>
       <label>
         ${translations[lang].specify_other}<br>
-        <input type="text" name="countries_lived_other" id="countries_lived_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+        <input type="text" name="countries_lived_other" id="countries_lived_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
       </label>
       <p id="error-countries" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
   },
-  button_label: function() { return translations[lang].continue_button; },
+button_label: function() { return translations[lang].continue_button; },
   on_load: function() {
     const select = document.getElementById("countries_lived");
     const displayDiv = document.getElementById("selected-countries");
+
     function updateSelectedDisplay() {
       const selected = Array.from(select.selectedOptions);
       if (selected.length > 0) {
         const names = selected.map(opt => opt.text).join(', ');
         displayDiv.textContent = names;
       } else {
-        displayDiv.textContent = translations[lang].no_selection || "Non selected";
+        displayDiv.textContent = '';
       }
     }
+
     // Catch all possible selection events
     select.addEventListener('change', updateSelectedDisplay);
     select.addEventListener('click', updateSelectedDisplay);
@@ -1248,12 +2745,14 @@ const countriesLivedTrial = {
     select.addEventListener('keyup', function() {
       setTimeout(updateSelectedDisplay, 0);
     });
+
     // Validation on submit
     const form = select.closest('form');
     if (form) {
       form.addEventListener('submit', function(event) {
         const other = document.getElementById("countries_lived_other");
         const error = document.getElementById("error-countries");
+
         const selected = Array.from(select.selectedOptions).map(o => o.value);
         if (selected.includes("OTHER") && !other.value.trim()) {
           event.preventDefault();
@@ -1267,7 +2766,6 @@ const countriesLivedTrial = {
   data: { question: 'countries_lived' }
 };
 
-
 const familyLanguageTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function() {
@@ -1279,41 +2777,42 @@ const familyLanguageTrial = {
     const options = languageOptions
       .map(l => `<option value="${l.code}">${l.label}</option>`)
       .join('');
+
     return `
       <label>${translations[lang].select_all_apply}<br>
       <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-      <select name="family_language" id="family_language" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding: .5em !important;">
+      <select name="family_language" id="family_language" multiple size="6" style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding:.5em !important;">
         ${options}
       </select>
-      <br>
-      <label style="font-weight: bold; margin-top: 10px; display: block; text-align: left;">${translations[lang].selected_languages_label || "Your selection:"}</label>
       <div id="selected-family-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
-        ${translations[lang].no_selection || "None selected"}
       </div>
       <br>
       <label id="family_language_other_label">
         ${translations[lang].specify_other}<br>
-        <input type="text" name="family_language_other" id="family_language_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;" />
+        <input type="text" name="family_language_other" id="family_language_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
       </label>
       <p id="error-family-language" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
   },
   button_label: function() { return translations[lang].continue_button; },
+  // ... rest of the code stays the same
   on_load: function() {
     const select = document.getElementById('family_language');
     const displayDiv = document.getElementById('selected-family-languages');
     const otherLabel = document.getElementById('family_language_other_label');
     const otherInput = document.getElementById('family_language_other');
     const errorMsg = document.getElementById('error-family-language');
+
     function updateSelectedDisplay() {
       const selected = Array.from(select.selectedOptions);
       if (selected.length > 0) {
         const names = selected.map(opt => opt.text).join(', ');
         displayDiv.textContent = names;
       } else {
-        displayDiv.textContent = translations[lang].no_selection || "None selected";
+        displayDiv.textContent = '';
       }
     }
+
     // Update display on all selection events
     select.addEventListener('change', updateSelectedDisplay);
     select.addEventListener('click', updateSelectedDisplay);
@@ -1321,6 +2820,7 @@ const familyLanguageTrial = {
     select.addEventListener('mouseup', () => setTimeout(updateSelectedDisplay, 0));
     select.addEventListener('keydown', () => setTimeout(updateSelectedDisplay, 0));
     select.addEventListener('keyup', () => setTimeout(updateSelectedDisplay, 0));
+
     // Validation on submit
     const form = select.closest('form');
     if (form) {
@@ -1338,6 +2838,7 @@ const familyLanguageTrial = {
   data: { question: 'family_language' }
 };
 
+
 const l2LanguageYesNoTrial = {
   type: jsPsychSurveyHtmlForm,
   preamble: function() {
@@ -1348,7 +2849,7 @@ const l2LanguageYesNoTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="l2_yesno" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size: 16px !important; padding: 12px !important;">
+      <select name="l2_yesno" required style="display: block; width: 100%; max-width: 600px; margin: 0 auto; font-size:16px; padding:12px;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -1376,7 +2877,7 @@ const usageTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="japanese_usage" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size: 16px !important; padding: 12px !important;">
+      <select name="japanese_usage" style="display: style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -1405,7 +2906,7 @@ const proficiencyTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="japanese_proficiency" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size: 16px !important; padding: 12px !important;">
+      <select name="japanese_proficiency" required style="display: style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -1429,7 +2930,7 @@ const musicTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="musical_experience" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+      <select name="musical_experience" style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -1452,8 +2953,8 @@ const backgroundIntroTrial = {
   type: jsPsychHtmlButtonResponse,
   stimulus: function() {
     return `
-      <div style="text-align: left; max-width: 100%; padding: 20px; box-sizing: border-box;">
-        <p style="word-wrap: break-word; overflow-wrap: break-word;">${translations[lang].background_intro}</p>
+      <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+        <p>${translations[lang].background_intro}</p>
       </div>
     `;
   },
@@ -1513,7 +3014,7 @@ const thankYouTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function () {
     return `
-      <div style="text-align: left; max-width: 700px; margin: 0 auto;">
+      <div style="text-align: center; max-width: 600px; margin: 0 auto;">
         <p>${translations[lang].final_thanks}</p>
         <p>${translations[lang].close_window}</p>
       </div>
@@ -1543,19 +3044,29 @@ timeline.push(introductionTrial);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-timeline.push(instructionVideoTrial);
+// timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
 timeline.push({
   timeline: [
-    audioFixation,
+    audioFixation,  // Add this line
     play_audio,
     accentQuestionTrial,
     {
-      timeline: [makeImpressionTrial()]
+      timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
     }
   ],
   timeline_variables: audioFiles,
-  randomize_order: true
+  randomize_order: true,
+  on_timeline_finish: function() {
+    // Auto-save after each complete audio trial
+    trialsSinceLastSave++;
+
+    if (trialsSinceLastSave >= SAVE_INTERVAL) {
+      trialsSinceLastSave = 0;
+      saveProgress(false); // Save as incomplete
+      console.log('📦 Auto-saved progress after audio trial');
+    }
+  }
 });
 timeline.push(backgroundIntroTrial);
 timeline.push(basicBlock);
