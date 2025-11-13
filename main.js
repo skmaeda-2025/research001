@@ -161,6 +161,30 @@ const participantID = crypto.randomUUID();
 // Tag all data with participant ID
 jsPsych.data.addProperties({ participant_id: participantID });
 
+/ Add auto-save when user closes/refreshes page
+window.addEventListener('beforeunload', function(e) {
+  // Attempt to save data before page closes
+  const allData = jsPsych.data.get().values();
+
+  // Only save if there's actual experiment data (more than just initial trials)
+  if (allData.length > 3) {  // Adjust this number based on your setup
+    const dataToSave = {
+      participant_id: participantID,
+      data: jsPsych.data.get().json(),
+      complete: false,
+      interrupted: true,
+      timestamp: new Date().toISOString()
+    };
+
+    // Use sendBeacon for reliable sending even when page is closing
+    const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
+    navigator.sendBeacon(
+      "https://research001-4ba740c5cac1.herokuapp.com/submit",
+      blob
+    );
+  }
+});
+
 let lang = 'en';       // will be set based on language selection
 let isNative = false;
 
@@ -1471,7 +1495,7 @@ timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
 timeline.push({
   timeline: [
-    audioFixation,  
+    audioFixation,
     play_audio,
     accentQuestionTrial,
     {
