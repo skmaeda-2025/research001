@@ -1264,7 +1264,7 @@ const countriesLivedTrial = {
     return `
       <label>${translations[lang].select_all_apply}<br>
       <span style="font-size:0.9em; color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-      <select name="countries_lived" id="countries_lived" multiple size="6" style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding:.5em !important;">
+      <select name="countries_lived" id="countries_lived" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding:.5em !important;">
         ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
       </select>
       <div id="selected-countries" style="margin-top:10px; min-height:20px; font-size:0.9em; color:#333; font-weight:bold;">
@@ -1439,14 +1439,14 @@ const usageTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="japanese_usage" style="display: style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+      <select name="japanese_usage" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
     `;
   },
   button_label: function() {
-    return [translations[lang].continue_button];
+    return translations[lang].continue_button;
   },
   data: { question: 'japanese_usage' },
   on_finish: function(data) {
@@ -1468,7 +1468,7 @@ const proficiencyTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="japanese_proficiency" required style="display: style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+      <select name="japanese_proficiency" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -1679,28 +1679,28 @@ timeline.push(introductionTrial);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-timeline.push(instructionVideoTrial);
+// timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
-timeline.push({
-  timeline: [
-    audioFixation,
-    play_audio,
-    accentQuestionTrial,
-    {
-      timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
-    }
-  ],
-  timeline_variables: audioFiles,
-  randomize_order: true,
-  on_timeline_finish: function() {
-    trialsSinceLastSave++;
-    if (trialsSinceLastSave >= SAVE_INTERVAL) {
-      trialsSinceLastSave = 0;
-      saveProgress(false);
-      console.log('📦 Auto-saved progress after audio trial');
-    }
-  }
-});
+// timeline.push({
+//   timeline: [
+//     audioFixation,
+//     play_audio,
+//     accentQuestionTrial,
+//     {
+//       timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
+//     }
+//   ],
+//   timeline_variables: audioFiles,
+//   randomize_order: true,
+//   on_timeline_finish: function() {
+//     trialsSinceLastSave++;
+//     if (trialsSinceLastSave >= SAVE_INTERVAL) {
+//       trialsSinceLastSave = 0;
+//       saveProgress(false);
+//       console.log('📦 Auto-saved progress after audio trial');
+//     }
+//   }
+// });
 timeline.push(backgroundIntroTrial);
 timeline.push(basicBlock);
 timeline.push(nativeBlock);
