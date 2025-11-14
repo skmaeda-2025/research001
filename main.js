@@ -165,28 +165,6 @@ jsPsych.data.addProperties({ participant_id: participantID });
 let trialsSinceLastSave = 0;
 const SAVE_INTERVAL = 1;
 
-// Function to save progress
-// function saveProgress(isComplete = false) {
-//   const dataToSave = {
-//     participant_id: participantID,
-//     data: jsPsych.data.get().json(),
-//     complete: isComplete,
-//     timestamp: new Date().toISOString()
-//   };
-
-//   fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
-//     method: "POST",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify(dataToSave),
-//     keepalive: true
-//   }).then(res => {
-//     if (res.ok) {
-//       console.log(`✅ Progress saved (complete: ${isComplete})`);
-//     }
-//   }).catch(err => {
-//     console.error('Auto-save failed:', err);
-//   });
-// }
 function saveProgress(isComplete = false) {
   const dataToSave = {
     participant_id: participantID,
@@ -231,15 +209,6 @@ function saveProgress(isComplete = false) {
     return sent;
   });
 }
-
-// Multiple events for better mobile coverage
-// function handlePageExit() {
-//   const allData = jsPsych.data.get().values();
-
-//   if (allData.length > 3) {
-//     saveProgress(false);
-//   }
-// }
 
 function handlePageExit() {
   const allData = jsPsych.data.get().values();
@@ -1181,14 +1150,6 @@ const l2LanguageSelectTrial = {
   data: { question: 'l2_languages' }
 };
 
-// const genderTrial = {
-//   type: jsPsychHtmlButtonResponse,
-//     stimulus: function() {
-//       return `<p>${translations[lang].genderQ} ${translations[lang].mandatory}</p>`;
-//     },
-//   choices: function() { return translations[lang].gender_options; },
-//   data: { question: 'gender' }
-// };
 
 const genderTrial = {
   type: jsPsychSurveyHtmlForm,
@@ -1679,28 +1640,28 @@ timeline.push(introductionTrial);
 timeline.push(consentTrial);
 timeline.push(preloadTrial);
 timeline.push(instructionTextTrial);
-// timeline.push(instructionVideoTrial);
+timeline.push(instructionVideoTrial);
 timeline.push(preTestMessage);
-// timeline.push({
-//   timeline: [
-//     audioFixation,
-//     play_audio,
-//     accentQuestionTrial,
-//     {
-//       timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
-//     }
-//   ],
-//   timeline_variables: audioFiles,
-//   randomize_order: true,
-//   on_timeline_finish: function() {
-//     trialsSinceLastSave++;
-//     if (trialsSinceLastSave >= SAVE_INTERVAL) {
-//       trialsSinceLastSave = 0;
-//       saveProgress(false);
-//       console.log('📦 Auto-saved progress after audio trial');
-//     }
-//   }
-// });
+timeline.push({
+  timeline: [
+    audioFixation,
+    play_audio,
+    accentQuestionTrial,
+    {
+      timeline: [makeImpressionTrial(jsPsych.timelineVariable("id"))]
+    }
+  ],
+  timeline_variables: audioFiles,
+  randomize_order: true,
+  on_timeline_finish: function() {
+    trialsSinceLastSave++;
+    if (trialsSinceLastSave >= SAVE_INTERVAL) {
+      trialsSinceLastSave = 0;
+      saveProgress(false);
+      console.log('📦 Auto-saved progress after audio trial');
+    }
+  }
+});
 timeline.push(backgroundIntroTrial);
 timeline.push(basicBlock);
 timeline.push(nativeBlock);
