@@ -110,7 +110,7 @@
 //   { code: "OTHER", label: "Other" }
 // ];
 
-// function makeLanguageDropdown(questionText, responseName) {
+  // function makeLanguageDropdown(questionText, responseName) {
 //   const options = languageOptions
 //     .map(l => `<option value="${l.code}">${l.label}</option>`)
 //     .join('');
@@ -1928,7 +1928,6 @@ const translations = {
     multi_select_hint: '<i class="fa-brands fa-windows"></i> Hold down the Ctrl key and click items to select multiple <br><i class="fa-brands fa-apple"></i> Hold down the Command key and click items to select multiple.',
     close_window: "You may now close this window. Your responses have been saved.",
     background_intro: "The listening part is complete. Thank you!<br><br>Now we would like to ask about your background. There are up to 10 questions in total — about 4 or 5 are mandatory (depending on your background), and the rest are optional.",
-    // family_definition: "(Parents, guardians, spouse, partner, children)",
     intro_title: "Welcome to the Study",
     intro_audio: "This is a Japanese audio listening experiment. Please participate in a quiet environment. You may listen to the audio using headphones, earphones, or speakers.",
     intro_age: "You must be 18 years or older to participate in this study.",
@@ -1997,7 +1996,6 @@ const translations = {
   multi_select_hint: '<i class="fa-brands fa-windows"></i> Ctrlキーを押したまま項目をクリックをして複数選択 <br><i class="fa-brands fa-apple"></i> Commandキーを押したまま項目をクリックして複数選択',
   close_window: "回答は保存されました。このウィンドウを閉じてください。",
   background_intro: "音声の聞き取りは終了しました。ありがとうございました。<br>次に、あなたの背景についてお伺いします。<br><br>質問は最大で10問あり、4〜5問は必須（ご自身の背景によって異なります）、残りは任意です。",
-  // family_definition: "（両親、保護者、配偶者、パートナー、子ども）",
   intro_title: "実験へようこそ",
   intro_audio: "これは音声聞き取り実験です。静かな環境でご参加ください。ヘッドフォン・イヤホンまたはスピーカーで音声をお聞きいただけます。",
   intro_age: "本研究には18歳以上の方のみご参加いただけます。",
@@ -2066,7 +2064,6 @@ const translations = {
   multi_select_hint: '<i class="fa-brands fa-windows"></i> 按住 Ctrl 键 并点击项目以进行多选。<br><i class="fa-brands fa-apple"></i> 按住 Command 键 并点击项目以进行多选。',
   close_window: "您的回答已保存。您现在可以关闭此窗口。",
   background_intro: "听力部分已完成。谢谢！<br><br>接下来我们想了解您的背景信息。共有最多10个问题，其中大约4到5个为必答（根据您的背景而定），其余为选答。",
-  // family_definition: "（父母、监护人、配偶、伴侣、子女）",
   intro_title: "欢迎参加本研究",
   intro_audio: "这是一个日语语音听辨实验。请在安静的环境中参加。您可以使用耳机、耳塞或音箱收听音频。",
   intro_age: "您必须年满18岁才能参加本研究。",
@@ -2136,7 +2133,6 @@ const translations = {
   multi_select_hint: '<i class="fa-brands fa-windows"></i> 按住 Ctrl 鍵 並點擊項目以進行多重選擇。<br><i class="fa-brands fa-apple"></i> 按住 Command 鍵 並點擊項目以進行多重選擇。',
   close_window: "您的回答已保存。您現在可以關閉此視窗。",
   background_intro: "聽力部分已完成。謝謝！<br><br>接下來我們想了解您的背景資訊。共有最多10個問題，其中約有4到5個為必答（依您的背景而定），其餘為選答。",
-  // family_definition: "（父母、監護人、配偶、伴侶、子女）",
   intro_title: "歡迎參加本研究",
   intro_audio: "這是一個日語語音聽辨實驗。請在安靜的環境中參加。您可以使用耳機、耳塞或喇叭收聽音訊。",
   intro_age: "您必須年滿18歲才能參加本研究。",
@@ -2441,7 +2437,7 @@ const motherTongueTrial = {
   html: function() {
     return `
       <label>
-        <select name="mother_tongue" id="mother_tongue" required style="display: block; padding:.5em; width: 100%; max-width: 600px; margin: 0 auto;">
+        <select name="mother_tongue" id="mother_tongue" required style="display: block; padding:.5em; width: 100%; max-width: 200px; margin: 0 auto;">
           <option value="" disabled selected>Select your language</option>
           ${languageOptions.map(l => `<option value="${l.code}">${l.label}</option>`).join('')}
         </select>
@@ -2449,7 +2445,7 @@ const motherTongueTrial = {
       <br><br>
       <label id="mother_tongue_label">
         ${translations[lang].specify_other}<br>
-        <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
+        <input type="text" name="mother_tongue_other" id="mother_tongue_other" style="display: block; width: 100%; max-width: 200px; margin: 0 auto;" />
       </label>
       <p id="error-mother_tongue" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
@@ -2659,7 +2655,7 @@ const ageTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="age_group" required style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+      <select name="age_group" required style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -2781,7 +2777,7 @@ const familyLanguageTrial = {
     return `
       <label>${translations[lang].select_all_apply}<br>
       <span style="color:#666;">${translations[lang].multi_select_hint}</span></label><br>
-      <select name="family_language" id="family_language" multiple size="6" style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding:.5em !important;">
+      <select name="family_language" id="family_language" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding:.5em !important;">
         ${options}
       </select>
       <div id="selected-family-languages" style="margin-top:10px; min-height:20px; color:#333; font-weight:bold;">
@@ -2789,7 +2785,7 @@ const familyLanguageTrial = {
       <br>
       <label id="family_language_other_label">
         ${translations[lang].specify_other}<br>
-        <input type="text" name="family_language_other" id="family_language_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
+        <input type="text" name="family_language_other" id="family_language_other" style="display: block; width: 100%; max-width: 200px; margin: 0 auto;" />
       </label>
       <p id="error-family-language" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
@@ -2849,7 +2845,7 @@ const l2LanguageYesNoTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="l2_yesno" required style="display: block; width: 100%; max-width: 600px; margin: 0 auto; font-size:16px; padding:12px;">
+      <select name="l2_yesno" required style="display: block; width: 100%; max-width: 200px; margin: 0 auto; font-size:16px; padding:12px;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
