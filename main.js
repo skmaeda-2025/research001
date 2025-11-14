@@ -334,16 +334,16 @@
 //     no: "No",
 //     adjectives_prompt: "Select up to 3 words that describe your impression:",
 //     adjectives: [
-//       "energetic / full of energy",
-//       "active / lively",
-//       "responsible / dependable",
-//       "diligent / hardworking",
-//       "intellectual / intelligent",
-//       "reflective / thoughtful",
-//       "warm / friendly",
-//       "kind-hearted / compassionate",
-//       "rational / logical",
-//       "calm / relaxed"
+      // "energetic / full of energy",
+      // "active / lively",
+      // "responsible / dependable",
+      // "diligent / hardworking",
+      // "intellectual / intelligent",
+      // "reflective / thoughtful",
+      // "warm / friendly",
+      // "kind-hearted / compassionate",
+      // "rational / logical",
+      // "calm / relaxed"
 //     ],
 //     optional_comment: "Any additional comment about the speaker? (Optional)",
 //     genderQ: "What is your gender?",
@@ -404,16 +404,16 @@
 //   no: "いいえ",
 //   adjectives_prompt: "音声または話者に感じた印象を表す言葉を3つまで選んでください：",
 //   adjectives: [
-//     "精力的",
-//     "活発",
-//     "責任感のある",
-//     "勤勉",
-//     "知性的",
-//     "思慮深い",
-//     "暖かい",
-//     "親切",
-//     "理性的",
-//     "リラックス"
+    // "精力的",
+    // "活発",
+    // "責任感のある",
+    // "勤勉",
+    // "知性的",
+    // "思慮深い",
+    // "暖かい",
+    // "親切",
+    // "理性的",
+    // "リラックス"
 //   ],
 //   optional_comment: "音声に関するコメントがあれば自由にご記入ください（任意）",
 //   genderQ: "性別を教えてください。",
@@ -473,16 +473,16 @@
 //   no: "否",
 //   adjectives_prompt: "请选择最多三个词来描述您的印象：",
 //   adjectives: [
-//     "精力充沛 / 充满活力",
-//     "活跃 / 生气勃勃",
-//     "有责任心 / 值得信赖",
-//     "勤奋 / 努力工作",
-//     "有智慧 / 有才智",
-//     "深思熟虑 / 善于思考",
-//     "温暖 / 友好",
-//     "亲切 / 富有同情心",
-//     "理性 / 讲道理",
-//     "冷静 / 放松"
+    // "精力充沛 / 充满活力",
+    // "活跃 / 生气勃勃",
+    // "有责任心 / 值得信赖",
+    // "勤奋 / 努力工作",
+    // "有智慧 / 有才智",
+    // "深思熟虑 / 善于思考",
+    // "温暖 / 友好",
+    // "亲切 / 富有同情心",
+    // "理性 / 讲道理",
+    // "冷静 / 放松"
 //   ],
 //   optional_comment: "您对说话者有其他印象吗？请填写（可选）",
 //   genderQ: "您的性别是？",
@@ -614,16 +614,16 @@
 //   no: "아니오",
 //   adjectives_prompt: "인상을 표현하는 단어를 최대 3개 선택하세요:",
 //   adjectives: [
-//     "에너지가 넘치는 / 활력이 있는",
-//     "활발한 / 생기 있는",
-//     "책임감 있는 / 믿음직한",
-//     "근면한 / 성실한",
-//     "지적인 / 똑똑한",
-//     "사려 깊은 / 신중한",
-//     "따뜻한 / 다정한",
-//     "친절한 / 인정 많은",
-//     "이성적인 / 논리적인",
-//     "침착한 / 느긋한"
+    // "에너지가 넘치는 / 활력이 있는",
+    // "활발한 / 생기 있는",
+    // "책임감 있는 / 믿음직한",
+    // "근면한 / 성실한",
+    // "지적인 / 똑똑한",
+    // "사려 깊은 / 신중한",
+    // "따뜻한 / 다정한",
+    // "친절한 / 인정 많은",
+    // "이성적인 / 논리적인",
+    // "침착한 / 느긋한"
 //   ],
 //   optional_comment: "화자에 대한 추가 의견이 있다면 작성해 주세요 (선택 사항)",
 //   genderQ: "성별을 알려주세요.",
@@ -1689,7 +1689,7 @@ function makeLanguageDropdown(questionText, responseName) {
     preamble: `<p>${questionText}</p>`,
     html: `
       <label>
-        <select name="${responseName}" id="${responseName}" style="display: block !important; padding:.5em; width: 100% !important; max-width: 600px !important; margin: 0 auto !important;">
+        <select name="${responseName}" id="${responseName}" style="display: block !important; padding:.5em; width: 100% !important; max-width: 200px !important; margin: 0 auto !important;">
           <option value="" disabled selected>Select your language</option>
           ${options}
         </select>
@@ -1697,7 +1697,7 @@ function makeLanguageDropdown(questionText, responseName) {
       <br><br>
       <label id="${responseName}_label">
         Please specify (if "Other"):<br>
-        <input type="text" name="${responseName}_other" id="${responseName}_other" style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;" />
+        <input type="text" name="${responseName}_other" id="${responseName}_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;" />
       </label>
       <p id="error-${responseName}" style="color:red; display:none;">Please specify your language if you selected "Other".</p>
 
@@ -1877,15 +1877,16 @@ const translations = {
     no: "No",
     adjectives_prompt: "Select up to 3 words that describe your impression:",
     adjectives: [
-      "outgoing / extroverted",
-      "energetic / vigorous",
-      "warm / friendly",
-      "kind / kind-hearted",
-      "responsible",
-      "conscientious / principled",
-      "calm", "stable / steady",
+      "energetic / full of energy",
+      "active / lively",
+      "responsible / dependable",
+      "diligent / hardworking",
       "intellectual / intelligent",
-      "thoughtful / reflective"
+      "reflective / thoughtful",
+      "warm / friendly",
+      "kind-hearted / compassionate",
+      "rational / logical",
+      "calm / relaxed"
     ],
     optional_comment: "Any additional comment about the speaker? (Optional)",
     nativeQ: "Are you a native speaker of Japanese?",
@@ -1945,16 +1946,16 @@ const translations = {
   no: "いいえ",
   adjectives_prompt: "音声または話者に感じた印象を表す言葉を3つまで選んでください：",
   adjectives: [
-    // "外交的",
-    // "精力的",
+    "精力的",
+    "活発",
+    "責任感のある",
+    "勤勉",
+    "知性的",
+    "思慮深い",
     "暖かい",
     "親切",
-    "責任感のある",
-    // "良心的",
-    "平静",
-    "安定した",
-    "知性的",
-    "思慮深い"
+    "理性的",
+    "リラックス"
   ],
   optional_comment: "音声、または話者に関するコメントがあれば自由にご記入ください（任意）",
   nativeQ: "あなたは日本語が第一言語ですか？",
@@ -2014,16 +2015,16 @@ const translations = {
   no: "否",
   adjectives_prompt: "请选择最多三个词来描述您的印象：",
   adjectives: [
-    "外向的",
-    "精力充沛的／有活力的",
-    "温暖的／暖和的",
-    "亲切的",
-    "负责任的／有责任感的",
-    "有原则的",
-    "平静的",
-    "稳定的",
-    "知性的／有智慧的",
-    "深思熟虑的／思慮深的"
+    "精力充沛 / 充满活力",
+    "活跃 / 生气勃勃",
+    "有责任心 / 值得信赖",
+    "勤奋 / 努力工作",
+    "有智慧 / 有才智",
+    "深思熟虑 / 善于思考",
+    "温暖 / 友好",
+    "亲切 / 富有同情心",
+    "理性 / 讲道理",
+    "冷静 / 放松"
   ],
   optional_comment: "您对说话者有其他印象吗？请填写（可选）",
   nativeQ: "您的母语是日语吗？",
@@ -2083,16 +2084,16 @@ const translations = {
   no: "否",
   adjectives_prompt: "請選擇最多三個詞來描述您的印象：",
   adjectives: [
-    "外向的",
-    "精力充沛的／有活力的",
-    "溫暖的／暖和的 ",
-    "親切的",
-    "負責任的／有責任感的",
-    "有原則的",
-    "平靜的",
-    "穩定的",
-    "知性的／有智慧的",
-    "深思熟慮的／思慮深的",
+    "精力充沛 / 充滿活力",
+    "活躍 / 生氣勃勃",
+    "有責任心 / 值得信賴",
+    "勤奮 / 努力工作",
+    "有智慧 / 有才智",
+    "深思熟慮 / 善於思考",
+    "溫暖 / 友好",
+    "親切 / 富有同情心",
+    "理性 / 講道理",
+    "冷靜 / 放鬆"
   ],
   optional_comment: "若您對說話者有其他印象，請填寫（選填）",
   nativeQ: "您的母語是日語嗎？",
@@ -2153,16 +2154,16 @@ const translations = {
   no: "아니오",
   adjectives_prompt: "인상을 표현하는 단어를 최대 3개 선택하세요:",
   adjectives: [
-    "외향적인",
-    "활기찬／에너제틱한",
-    "따뜻한",
-    "친절한",
-    "책임감 있는",
-    "양심적인",
-    "침착한",
-    "안정된",
-    "지적인／지성적인",
-    "사려 깊은"
+    "에너지가 넘치는 / 활력이 있는",
+    "활발한 / 생기 있는",
+    "책임감 있는 / 믿음직한",
+    "근면한 / 성실한",
+    "지적인 / 똑똑한",
+    "사려 깊은 / 신중한",
+    "따뜻한 / 다정한",
+    "친절한 / 인정 많은",
+    "이성적인 / 논리적인",
+    "침착한 / 느긋한"
   ],
   optional_comment: "화자에 대한 추가 의견이 있다면 작성해 주세요 (선택 사항)",
   nativeQ: "일본어가 모국어입니까?",
@@ -2204,7 +2205,6 @@ const translations = {
   multi_select_hint: '<i class="fa-brands fa-windows"></i> Ctrl 키를 누른 상태에서 항목을 클릭하여 여러 개를 선택하세요.<br><i class="fa-brands fa-apple"></i> Command 키를 누른 상태에서 항목을 클릭하여 여러 개를 선택하세요.',
   close_window: "응답이 저장되었습니다. 이제 이 창을 닫으셔도 됩니다.",
   background_intro: "듣기 부분이 완료되었습니다. 감사합니다!<br><br>이제 귀하의 배경에 대해 몇 가지 질문을 드리겠습니다. 총 최대 10개의 문항이 있으며, 약 4~5개는 필수(개인 배경에 따라 다름)이고 나머지는 선택 항목입니다.",
-  // family_definition: "(부모, 보호자, 배우자, 파트너, 자녀)",
   intro_title: "연구에 오신 것을 환영합니다",
   intro_audio: "이것은 일본어 음성 청취 실험입니다. 조용한 환경에서 참여해 주세요. 헤드폰, 이어폰 또는 스피커로 음성을 들을 수 있습니다.",
   intro_age: "본 연구에는 만 18세 이상만 참여할 수 있습니다.",
@@ -2504,13 +2504,13 @@ const l2LanguageTrial = {
       .join('');
     return `
       <label>Select all that apply:</label><br>
-      <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding:.5em !important;">
+      <select name="l2_languages" id="l2_languages" multiple size="6" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding:.5em !important;">
         ${options}
       </select>
       <br><br>
       <label id="l2_other_label">
         Please specify other language(s):<br>
-        <input type="text" name="l2_languages_other" style="display: block !important; width: 100% !important; max-width: 700px !important; margin: 0 auto !important; padding:.5em !important;" />
+        <input type="text" name="l2_languages_other" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding:.5em !important;" />
       </label>
       <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -2676,7 +2676,7 @@ const currentCountryTrial = {
   html: function() {
     return `
       <label>
-        <select name="current_country" id="current_country" style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; padding:.5em !important;">
+        <select name="current_country" id="current_country" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; padding:.5em !important;">
           <option value="" disabled selected>Select a country</option>
           ${countryOptions.map(c => `<option value="${c.code}">${c.label}</option>`).join('')}
         </select>
@@ -2684,7 +2684,7 @@ const currentCountryTrial = {
       <br><br>
       <label>
         ${translations[lang].specify_other}<br>
-        <input type="text" name="current_country_other" id="current_country_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
+        <input type="text" name="current_country_other" id="current_country_other" style="display: block; width: 100%; max-width: 200px; margin: 0 auto;" />
       </label>
       <p id="error-country" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
@@ -2710,7 +2710,7 @@ const countriesLivedTrial = {
       <br>
       <label>
         ${translations[lang].specify_other}<br>
-        <input type="text" name="countries_lived_other" id="countries_lived_other" style="display: block; width: 100%; max-width: 600px; margin: 0 auto;" />
+        <input type="text" name="countries_lived_other" id="countries_lived_other" style="display: block; width: 100%; max-width: 200px; margin: 0 auto;" />
       </label>
       <p id="error-countries" style="color:red; display:none;">${translations[lang].specify_other}</p>
     `;
@@ -2877,7 +2877,7 @@ const usageTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="japanese_usage" style="display: style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+      <select name="japanese_usage" style="display: style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
@@ -2930,7 +2930,7 @@ const musicTrial = {
       .map((option, i) => `<option value="${i}">${option}</option>`)
       .join('');
     return `
-      <select name="musical_experience" style="display: block !important; width: 100% !important; max-width: 600px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
+      <select name="musical_experience" style="display: block !important; width: 100% !important; max-width: 200px !important; margin: 0 auto !important; font-size:16px !important; padding:12px !important;">
         <option value="" disabled selected>Select...</option>
         ${options}
       </select>
