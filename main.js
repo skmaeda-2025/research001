@@ -1735,6 +1735,27 @@ let trialsSinceLastSave = 0;
 const SAVE_INTERVAL = 1;
 
 // Function to save progress
+// function saveProgress(isComplete = false) {
+//   const dataToSave = {
+//     participant_id: participantID,
+//     data: jsPsych.data.get().json(),
+//     complete: isComplete,
+//     timestamp: new Date().toISOString()
+//   };
+
+//   fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+//     method: "POST",
+//     headers: { "Content-Type": "application/json" },
+//     body: JSON.stringify(dataToSave),
+//     keepalive: true
+//   }).then(res => {
+//     if (res.ok) {
+//       console.log(`✅ Progress saved (complete: ${isComplete})`);
+//     }
+//   }).catch(err => {
+//     console.error('Auto-save failed:', err);
+//   });
+// }
 function saveProgress(isComplete = false) {
   const dataToSave = {
     participant_id: participantID,
@@ -1743,26 +1764,85 @@ function saveProgress(isComplete = false) {
     timestamp: new Date().toISOString()
   };
 
-  fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+  console.log(`📤 Attempting to save (complete: ${isComplete}, trials: ${jsPsych.data.get().count()})`);
+
+  // Create blob for sendBeacon backup
+  const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
+
+  // Primary method: fetch with keepalive
+  return fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(dataToSave),
     keepalive: true
   }).then(res => {
     if (res.ok) {
-      console.log(`✅ Progress saved (complete: ${isComplete})`);
+      console.log(`✅ Save successful (complete: ${isComplete})`);
+      return true;
+    } else {
+      console.error(`❌ Save failed with status: ${res.status}`);
+      // Backup method: sendBeacon
+      const sent = navigator.sendBeacon(
+        "https://research001-4ba740c5cac1.herokuapp.com/submit",
+        blob
+      );
+      console.log(sent ? '⚠️ Beacon backup sent' : '❌ Beacon failed');
+      return sent;
     }
   }).catch(err => {
-    console.error('Auto-save failed:', err);
+    console.error('❌ Fetch error:', err);
+    // Backup method: sendBeacon
+    const sent = navigator.sendBeacon(
+      "https://research001-4ba740c5cac1.herokuapp.com/submit",
+      blob
+    );
+    console.log(sent ? '⚠️ Beacon backup sent' : '❌ Beacon failed');
+    return sent;
   });
 }
 
 // Multiple events for better mobile coverage
+// function handlePageExit() {
+//   const allData = jsPsych.data.get().values();
+
+//   if (allData.length > 3) {
+//     saveProgress(false);
+//   }
+// }
+
 function handlePageExit() {
   const allData = jsPsych.data.get().values();
 
   if (allData.length > 3) {
-    saveProgress(false);
+    const dataToSave = {
+      participant_id: participantID,
+      data: jsPsych.data.get().json(),
+      complete: false,
+      interrupted: true,
+      timestamp: new Date().toISOString()
+    };
+
+    // Use sendBeacon (most reliable for page unload)
+    const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
+    const sent = navigator.sendBeacon(
+      "https://research001-4ba740c5cac1.herokuapp.com/submit",
+      blob
+    );
+
+    console.log(sent ? '✅ Exit save sent' : '❌ Exit save failed');
+
+    // Also try synchronous XHR as last resort (works in some browsers during unload)
+    if (!sent) {
+      try {
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'https://research001-4ba740c5cac1.herokuapp.com/submit', false); // synchronous
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify(dataToSave));
+        console.log('⚠️ Used synchronous XHR as backup');
+      } catch (e) {
+        console.error('❌ All save methods failed:', e);
+      }
+    }
   }
 }
 
@@ -2329,13 +2409,80 @@ const instructionTextTrial = {
 };
 
 // const instructionVideoTrial = {
-//   type: jsPsychVideoButtonResponse,
-//   stimulus: ['assets/video/new_instruction_video.mp4'],
-//   prompt: "",
-//   choices: [translations[lang].video_continue],
-//   response_allowed_while_playing: false,
-//   width: 800,
-//   height: 450
+//   type: jsPsychHtmlButtonResponse,
+//   stimulus: function() {
+//     // Determine subtitle file based on language
+//     const subtitleFile = {
+//       'en': 'assets/video/updated_subtitles_en.vtt',
+//       'ja': '', // No subtitles for Japanese (original)
+//       'sc': 'assets/video/updated_subtitles_sc.vtt',
+//       'tc': 'assets/video/updated_subtitles_tc.vtt',
+//       'ko': 'assets/video/updated_subtitles_ko.vtt'
+//     }[lang] || '';
+
+//     return `
+//       <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+//         <h3>${translations[lang].instruction_video_title || "Instruction Video"}</h3>
+//         <p>${translations[lang].adjust_volume || "Please watch the video and adjust your audio volume."}</p>
+
+//         <video id="instruction-video" controls crossorigin="anonymous" style="width: 100%; max-width: 700px; margin: 20px auto;">
+//           <source src="assets/video/new_instruction_video_v2.mp4" type="video/mp4">
+//           ${subtitleFile ? `<track src="${subtitleFile}" kind="subtitles" srclang="${lang}" label="${lang.toUpperCase()}" default>` : ''}
+//           Your browser does not support the video tag.
+//         </video>
+
+//         <p id="video-warning" style="margin-top: 20px; color: #d9534f; font-size: 14px; display: none;">
+//           ${translations[lang].video_required || "Please play the video before continuing."}
+//         </p>
+//       </div>
+//     `;
+//   },
+//   choices: function() {
+//     return [translations[lang].continue_button];
+//   },
+//   on_load: function() {
+//     // Wait for button to be created by jsPsych
+//     setTimeout(function() {
+//       const video = document.getElementById('instruction-video');
+//       const continueBtn = document.querySelector('.jspsych-btn');
+//       const warning = document.getElementById('video-warning');
+
+//       // Disable button initially
+//       if (continueBtn) {
+//         continueBtn.disabled = true;
+//         continueBtn.style.opacity = '0.5';
+//         continueBtn.style.cursor = 'not-allowed';
+//       }
+
+//       let hasPlayed = false;
+
+//       // Enable button once video has been played
+//       if (video) {
+//         video.addEventListener('play', function() {
+//           if (!hasPlayed) {
+//             hasPlayed = true;
+//             if (continueBtn) {
+//               continueBtn.disabled = false;
+//               continueBtn.style.opacity = '1';
+//               continueBtn.style.cursor = 'pointer';
+//               if (warning) warning.style.display = 'none';
+//             }
+//           }
+//         });
+//       }
+
+//       // Show warning if they try to continue without playing
+//       if (continueBtn) {
+//         continueBtn.addEventListener('click', function(e) {
+//           if (!hasPlayed) {
+//             e.preventDefault();
+//             e.stopPropagation();
+//             if (warning) warning.style.display = 'block';
+//           }
+//         });
+//       }
+//     }, 100); // Wait 100ms for jsPsych to create the button
+//   }
 // };
 
 const instructionVideoTrial = {
@@ -2352,26 +2499,25 @@ const instructionVideoTrial = {
 
     return `
       <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-        <h3>${translations[lang].instruction_video_title || "Instruction Video"}</h3>
-        <p>${translations[lang].adjust_volume || "Please watch the video and adjust your audio volume."}</p>
+        <h3>Instruction Video</h3>
+        <p>Please watch the video and adjust your audio volume.</p>
 
-        <video id="instruction-video" controls crossorigin="anonymous" style="width: 100%; max-width: 700px; margin: 20px auto;">
-          <source src="assets/video/new_instruction_video_v2.mp4" type="video/mp4">
+        <video id="instruction-video" controls crossorigin="anonymous" style="width: 100%; max-width: 700px; margin: 20px auto; display: block;">
+          <source src="assets/video/new_instruction_video.mp4" type="video/mp4">
           ${subtitleFile ? `<track src="${subtitleFile}" kind="subtitles" srclang="${lang}" label="${lang.toUpperCase()}" default>` : ''}
           Your browser does not support the video tag.
         </video>
 
         <p id="video-warning" style="margin-top: 20px; color: #d9534f; font-size: 14px; display: none;">
-          ${translations[lang].video_required || "Please play the video before continuing."}
+          Please play the video before continuing.
         </p>
       </div>
     `;
   },
   choices: function() {
-    return [translations[lang].continue_button];
+    return [translations[lang].video_continue || translations[lang].continue_button];
   },
   on_load: function() {
-    // Wait for button to be created by jsPsych
     setTimeout(function() {
       const video = document.getElementById('instruction-video');
       const continueBtn = document.querySelector('.jspsych-btn');
@@ -2411,7 +2557,7 @@ const instructionVideoTrial = {
           }
         });
       }
-    }, 100); // Wait 100ms for jsPsych to create the button
+    }, 100);
   }
 };
 
@@ -3084,29 +3230,129 @@ const afterNativeQuestionTrial = {
   ]
 }
 
+// const thankYouTrial = {
+//   type: jsPsychHtmlKeyboardResponse,
+//   stimulus: function () {
+//     return `
+//       <div style="text-align: center; max-width: 600px; margin: 0 auto;">
+//         <p>${translations[lang].final_thanks}</p>
+//         <p>${translations[lang].close_window}</p>
+//       </div>
+//     `;
+//   },
+//   choices: "NO_KEYS",
+//   // trial_duration: 5000,
+//   on_start: function () {
+//     fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
+//       method: "POST",
+//       headers: { "Content-Type": "application/json" },
+//       body: jsPsych.data.get().json()
+//     }).then(res => {
+//       if (!res.ok) throw new Error("Failed to submit");
+//     }).catch(err => {
+//       alert("⚠️ Submission failed. Saving backup locally.");
+//       jsPsych.data.get().localSave("csv", "backup.csv");
+//       console.error(err);
+//     });
+//   }
+// };
+
 const thankYouTrial = {
   type: jsPsychHtmlKeyboardResponse,
   stimulus: function () {
     return `
       <div style="text-align: center; max-width: 600px; margin: 0 auto;">
-        <p>${translations[lang].final_thanks}</p>
-        <p>${translations[lang].close_window}</p>
+        <div id="save-status" style="font-size: 20px; margin-bottom: 20px; padding: 20px; background: #f0f0f0; border-radius: 8px;">
+          <div style="font-size: 40px; margin-bottom: 10px;">💾</div>
+          <div>Saving your data...</div>
+          <div style="font-size: 14px; color: #666; margin-top: 10px;">Please wait...</div>
+        </div>
+        <div id="thank-you-message" style="display: none;">
+          <p>${translations[lang].final_thanks}</p>
+          <p>${translations[lang].close_window}</p>
+        </div>
       </div>
     `;
   },
   choices: "NO_KEYS",
-  // trial_duration: 5000,
+  trial_duration: null, // Don't auto-end
   on_start: function () {
+    const dataToSave = {
+      participant_id: participantID,
+      data: jsPsych.data.get().json(),
+      complete: true,
+      timestamp: new Date().toISOString()
+    };
+
+    console.log('🎯 Final save starting...');
+    console.log('📊 Total trials:', jsPsych.data.get().count());
+
+    // Try primary method
     fetch("https://research001-4ba740c5cac1.herokuapp.com/submit", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: jsPsych.data.get().json()
-    }).then(res => {
-      if (!res.ok) throw new Error("Failed to submit");
-    }).catch(err => {
-      alert("⚠️ Submission failed. Saving backup locally.");
-      jsPsych.data.get().localSave("csv", "backup.csv");
-      console.error(err);
+      body: JSON.stringify(dataToSave),
+      keepalive: true
+    })
+    .then(res => {
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      return res.json();
+    })
+    .then(result => {
+      console.log('✅ FINAL SAVE SUCCESSFUL:', result);
+
+      const statusDiv = document.getElementById('save-status');
+      const thankYouMsg = document.getElementById('thank-you-message');
+
+      if (statusDiv) {
+        statusDiv.innerHTML = `
+          <div style="font-size: 40px; margin-bottom: 10px;">✅</div>
+          <div style="color: #28a745; font-weight: bold;">Data saved successfully!</div>
+          <div style="font-size: 14px; color: #666; margin-top: 10px;">Thank you for participating</div>
+        `;
+      }
+      if (thankYouMsg) thankYouMsg.style.display = 'block';
+
+      // Wait 2 seconds before allowing close
+      setTimeout(() => {
+        jsPsych.finishTrial();
+      }, 2000);
+    })
+    .catch(err => {
+      console.error('❌ Primary save failed:', err);
+
+      // Try sendBeacon backup
+      const blob = new Blob([JSON.stringify(dataToSave)], { type: 'application/json' });
+      const beaconSent = navigator.sendBeacon(
+        "https://research001-4ba740c5cac1.herokuapp.com/submit",
+        blob
+      );
+
+      const statusDiv = document.getElementById('save-status');
+      const thankYouMsg = document.getElementById('thank-you-message');
+
+      if (statusDiv) {
+        if (beaconSent) {
+          statusDiv.innerHTML = `
+            <div style="font-size: 40px; margin-bottom: 10px;">⚠️</div>
+            <div style="color: #ffc107; font-weight: bold;">Data saved via backup method</div>
+            <div style="font-size: 14px; color: #666; margin-top: 10px;">Your responses have been recorded</div>
+          `;
+        } else {
+          statusDiv.innerHTML = `
+            <div style="font-size: 40px; margin-bottom: 10px;">❌</div>
+            <div style="color: #dc3545; font-weight: bold;">Save failed - downloading backup</div>
+            <div style="font-size: 14px; color: #666; margin-top: 10px;">A backup file is being downloaded</div>
+          `;
+          // Download local backup as last resort
+          jsPsych.data.get().localSave("csv", `backup_${participantID}.csv`);
+        }
+      }
+      if (thankYouMsg) thankYouMsg.style.display = 'block';
+
+      setTimeout(() => {
+        jsPsych.finishTrial();
+      }, 3000);
     });
   }
 };
@@ -3132,12 +3378,10 @@ timeline.push({
   timeline_variables: audioFiles,
   randomize_order: true,
   on_timeline_finish: function() {
-    // Auto-save after each complete audio trial
     trialsSinceLastSave++;
-
     if (trialsSinceLastSave >= SAVE_INTERVAL) {
       trialsSinceLastSave = 0;
-      saveProgress(false); // Save as incomplete
+      saveProgress(false);
       console.log('📦 Auto-saved progress after audio trial');
     }
   }
